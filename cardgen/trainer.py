@@ -52,6 +52,68 @@ class TrainingOutput:
         return result[:-1]
 
 
+class _BatchLoader:
+    data_test: list[list[int]]
+    data_train: list[list[int]]
+
+    remaining_train: list[list[int]]
+
+    cycles_train: int = 0
+
+    def __init__(self, data_train: list[list[int]], data_test: list[list[int]]):
+        self.data_test = data_test
+        self.data_train = data_train
+        self.remaining_train = []
+
+    def gen_batch(
+        self,
+        batch_size: int,
+        block_size: int,
+        *,
+        use_test: bool = False,
+        even_distribution: bool = False,
+    ):
+        if use_test:
+            source_dataset = self.data_test
+        else:
+            source_dataset = self.data_train
+
+        if even_distribution:
+            assert use_test == False
+
+            def get_card() -> list[int]:
+                if len(self.remaining_train) == 0:
+                    self.remaining_train = source_dataset.copy()
+                    random.seed(12345 + self.cycles_train)
+                    random.shuffle(self.remaining_train)
+                    self.cycles_train += 1
+                return self.remaining_train.pop()
+
+        else:
+
+            def get_card() -> list[int]:
+                max_index = len(source_dataset)
+                index = random.randint(0, max_index - 1)
+                return source_dataset[index]
+
+        in_list: list[mx.array] = []
+        out_list: list[mx.array] = []
+        for _ in range(batch_size):
+            this_line: list[int] = []
+            while len(this_line) < (block_size + 1):
+                this_line.extend(get_card())
+            in_array = mx.array(this_line[:block_size])
+            in_list.append(in_array)
+            out_array = mx.array(this_line[1 : block_size + 1])
+            out_list.append(out_array)
+
+        inputs = mx.stack(in_list)
+        outputs = mx.stack(out_list)
+        assert inputs.shape == outputs.shape
+        assert inputs.shape == (batch_size, block_size)
+        return inputs, outputs
+
+
 def _load_data(tokenizer: CardTokenizer) -> tuple[list[list[int]], list[list[int]]]:
     data_train_txt = open("./data/train.txt", "r").read().splitlines()
     data_train = tokenizer.encode(data_train_txt)
@@ -59,54 +121,23 @@ def _load_data(tokenizer: CardTokenizer) -> tuple[list[list[int]], list[list[int
     data_test_txt = open("./data/test.txt", "r").read().splitlines()
     data_test = tokenizer.encode(data_test_txt)
 
-    random.seed(123456)
-    random.shuffle(data_train)
-    random.shuffle(data_test)
-
     return data_train, data_test
-
-
-def _make_batch(
-    batch_size: int, block_size: int, dataset: list[list[int]]
-) -> tuple[mx.array, mx.array]:
-    # Make sure each example has enough cards to fill the context
-    minimum_card_sz = min([len(x) for x in dataset])
-    cards_per_example = math.ceil(block_size / minimum_card_sz)
-    rand_count = cards_per_example * batch_size
-    rand_idx = mx.random.randint(0, len(dataset), (rand_count,))
-    in_elements: list[mx.array] = []
-    out_elements: list[mx.array] = []
-    next_element: list[int] = []
-    for i in rand_idx:
-        i = i.item()
-        next_element += dataset[i]
-        if len(next_element) > block_size:
-            # We have a full single element ready
-            in_array = mx.array(next_element[:block_size])
-            in_elements.append(in_array)
-            out_array = mx.array(next_element[1 : block_size + 1])
-            out_elements.append(out_array)
-            next_element = []
-        if len(in_elements) >= batch_size:
-            break
-    X = mx.stack(in_elements)
-    Y = mx.stack(out_elements)
-    assert X.shape == Y.shape
-    assert X.shape == (batch_size, block_size)
-    return X, Y
 
 
 def _measure_loss(
     model: CardModel,
     train_config: TrainingConfig,
     model_config: ModelConfig,
-    dataset: list[list[int]],
+    batch_loader: _BatchLoader,
+    use_test: bool,
 ) -> float:
     BATCH_SIZE = 32
     model.train(False)
     losses: list[float] = []
     for _ in range(train_config.eval_batch_count):
-        x, y = _make_batch(BATCH_SIZE, model_config.block_size, dataset)
+        x, y = batch_loader.gen_batch(
+            BATCH_SIZE, model_config.block_size, use_test=use_test
+        )
         this_loss = model.loss_fn(x, y)
         losses.append(this_loss.item())
     return sum(losses) / len(losses)
@@ -127,6 +158,7 @@ def train_card_model(
     tokenizer = CardTokenizer("./data/full.txt")
     model_config.vocab_size = tokenizer.get_vocab_size()
     data_train, data_test = _load_data(tokenizer)
+    batch_loader = _BatchLoader(data_train, data_test)
 
     result.longest_card = max([len(card) for card in data_train])
 
@@ -147,7 +179,9 @@ def train_card_model(
         batch_size = _get_batch_size(
             i, train_config.num_epochs, train_config.batch_sizes
         )
-        x, y = _make_batch(batch_size, model_config.block_size, data_train)
+        x, y = batch_loader.gen_batch(
+            batch_size, model_config.block_size, even_distribution=True
+        )
 
         loss, grads = loss_and_grad_fn(model, x, y)
         optimizer.update(model, grads)
@@ -156,9 +190,13 @@ def train_card_model(
 
         if (i + 1) % train_config.eval_interval == 0 and (i + 1) >= FIRST_EVAL:
             result.eval_points.append(i + 1)
-            loss_test = _measure_loss(model, train_config, model_config, data_test)
+            loss_test = _measure_loss(
+                model, train_config, model_config, batch_loader, True
+            )
             result.test_losses.append(loss_test)
-            loss_train = _measure_loss(model, train_config, model_config, data_train)
+            loss_train = _measure_loss(
+                model, train_config, model_config, batch_loader, False
+            )
             result.train_losses.append(loss_train)
 
     result.duration = datetime.now() - time_begin

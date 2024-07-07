@@ -1,70 +1,160 @@
 SELF = "~"
 FLAVOR_KEYWORD = "$flavor_keyword$"
 NAMED_CARD = "$named_card$"
+UNIQUE_COUNTER = "$unique_counter$"
 UNIQUE_TOKEN = "$unique_token$"
 
 SPECIAL_CASES = {}
-SPECIAL_CASES["anrakyr the traveller"] = [
-    ("lord of the pyrrhian legions", FLAVOR_KEYWORD)
+SPECIAL_CASES["angel's herald"] = [
+    ("empyrial archangel", NAMED_CARD),
 ]
-SPECIAL_CASES["aspiring champion"] = [("ruinous ascension", FLAVOR_KEYWORD)]
-SPECIAL_CASES["axelrod gunnarson"] = [("axelrod", SELF)]
-SPECIAL_CASES["broodlord"] = [("brood telepathy", FLAVOR_KEYWORD)]
-SPECIAL_CASES["butch deloria, tunnel snake"] = [("tunnel snakes rule!", FLAVOR_KEYWORD)]
-SPECIAL_CASES["clamavus"] = [("proclamator hailer", FLAVOR_KEYWORD)]
+SPECIAL_CASES["anrakyr the traveller"] = [
+    ("lord of the pyrrhian legions", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["arbiter of the ideal"] = [
+    ("manifestation", UNIQUE_COUNTER),
+]
+SPECIAL_CASES["aspiring champion"] = [
+    ("ruinous ascension", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["auditore ambush"] = [
+    ("ezio, blade of vengeance", NAMED_CARD),
+]
+SPECIAL_CASES["axelrod gunnarson"] = [
+    ("axelrod", SELF),
+]
+SPECIAL_CASES["broodlord"] = [
+    ("brood telepathy", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["blaring captain"] = [
+    ("blaring recruiter", NAMED_CARD),
+]
+SPECIAL_CASES["butch deloria, tunnel snake"] = [
+    ("tunnel snakes rule!", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["circle of the land druid"] = [
+    ("natural recovery", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["clamavus"] = [
+    ("proclamator hailer", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["clara oswald"] = [
+    ("impossible girl", FLAVOR_KEYWORD),
+]
 SPECIAL_CASES["drizzt do'urden"] = [
     ("drizzt", SELF),
     ("guenhwyvar", UNIQUE_TOKEN),
 ]
-SPECIAL_CASES["durnan of the yawning portal"] = [("durnan", SELF)]
-SPECIAL_CASES["freyalise, skyshroud partisan"] = [("regal force", NAMED_CARD)]
+SPECIAL_CASES["durnan of the yawning portal"] = [
+    ("durnan", SELF),
+]
+SPECIAL_CASES["freyalise, skyshroud partisan"] = [
+    ("regal force", NAMED_CARD),
+]
+SPECIAL_CASES["gandalf the grey"] = [
+    ("gandalf", SELF),
+]
 SPECIAL_CASES["genestealer patriarch"] = [
     ("genestealer's kiss", FLAVOR_KEYWORD),
     ("children of the cult", FLAVOR_KEYWORD),
 ]
-SPECIAL_CASES["hexmark destroyer"] = [("multi-threat eliminator", FLAVOR_KEYWORD)]
+SPECIAL_CASES["hexmark destroyer"] = [
+    ("multi-threat eliminator", FLAVOR_KEYWORD),
+]
 SPECIAL_CASES["imotekh the stormlord"] = [
     ("phaeron", FLAVOR_KEYWORD),
     ("grand strategist", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["kaya the inexorable"] = [
+    ("ghostform", UNIQUE_COUNTER),
+]
+SPECIAL_CASES["lita, mechanical engineer"] = [
+    ("zeppelin", UNIQUE_TOKEN),
 ]
 SPECIAL_CASES["magnus the red"] = [
     ("unearthly power", FLAVOR_KEYWORD),
     ("blade of magnus", FLAVOR_KEYWORD),
 ]
-SPECIAL_CASES["okaun, eye of chaos"] = [("zndrsplt, eye of wisdom", NAMED_CARD)]
-SPECIAL_CASES["pippin, warden of isengard"] = [
-    ("merry, warden of isengard", NAMED_CARD)
+SPECIAL_CASES["okaun, eye of chaos"] = [
+    ("zndrsplt, eye of wisdom", NAMED_CARD),
 ]
-SPECIAL_CASES["pixie guide"] = [("grant an advantage", FLAVOR_KEYWORD)]
+SPECIAL_CASES["pippin, warden of isengard"] = [
+    ("merry, warden of isengard", NAMED_CARD),
+]
+SPECIAL_CASES["pixie guide"] = [
+    ("grant an advantage", FLAVOR_KEYWORD),
+]
 SPECIAL_CASES["rory williams"] = [
     ("amy pond", NAMED_CARD),
     ("the last centurion", FLAVOR_KEYWORD),
 ]
-SPECIAL_CASES["sister of silence"] = [("psychic abomination", FLAVOR_KEYWORD)]
-SPECIAL_CASES["sister repentia"] = [("martyrdom", FLAVOR_KEYWORD)]
-SPECIAL_CASES["skorpekh destroyer"] = [("hyperphase threshers", FLAVOR_KEYWORD)]
+SPECIAL_CASES["sam, loyal attendant"] = [
+    ("frodo, adventurous hobbit", NAMED_CARD),
+]
+SPECIAL_CASES["sister of silence"] = [
+    ("psychic abomination", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["sister repentia"] = [
+    ("martyrdom", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["skorpekh destroyer"] = [
+    ("hyperphase threshers", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["space marine scout"] = [
+    ("concealed position", FLAVOR_KEYWORD),
+]
 SPECIAL_CASES["survivor's med kit"] = [
     ("stimpak", FLAVOR_KEYWORD),
     ("fancy lads snack cakes", FLAVOR_KEYWORD),
     ("radaway", FLAVOR_KEYWORD),
 ]
-SPECIAL_CASES["trygon prime"] = [("subterranean assault", FLAVOR_KEYWORD)]
+SPECIAL_CASES["towering viewpoint"] = [
+    ("leap of faith", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["trygon prime"] = [
+    ("subterranean assault", FLAVOR_KEYWORD),
+]
 SPECIAL_CASES["you find the villains' lair"] = [
     ("foil their scheme", FLAVOR_KEYWORD),
     ("learn their secrets", FLAVOR_KEYWORD),
 ]
-SPECIAL_CASES["teferi's wavecaster"] = [("teferi, timeless voyager", NAMED_CARD)]
-SPECIAL_CASES["tetravus"] = [("tetravite", UNIQUE_TOKEN)]
+SPECIAL_CASES["teferi's wavecaster"] = [
+    ("teferi, timeless voyager", NAMED_CARD),
+]
+SPECIAL_CASES["tetravus"] = [
+    ("tetravite", UNIQUE_TOKEN),
+]
+SPECIAL_CASES["the eleventh doctor"] = [
+    ("i. am. talking!", FLAVOR_KEYWORD),
+]
 SPECIAL_CASES["the golden throne"] = [
     ("arcane life-support", FLAVOR_KEYWORD),
     ("a thousand souls die every day", FLAVOR_KEYWORD),
 ]
-SPECIAL_CASES["the rani"] = [("mark of the rani", UNIQUE_TOKEN)]
-SPECIAL_CASES["trynn, champion of freedom"] = [
-    ("silvar, devourer of the free", NAMED_CARD)
+SPECIAL_CASES["the rani"] = [
+    ("mark of the rani", UNIQUE_TOKEN),
 ]
-SPECIAL_CASES["witness protection"] = [("legitimate businessperson", UNIQUE_TOKEN)]
-SPECIAL_CASES["zndrsplt, eye of wisdom"] = [("okaun, eye of chaos", NAMED_CARD)]
+SPECIAL_CASES["thijarian witness"] = [
+    ("bear witness", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["trazyn the infinite"] = [
+    ("prismatic gallery", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["trynn, champion of freedom"] = [
+    ("silvar, devourer of the free", NAMED_CARD),
+]
+SPECIAL_CASES["vraska's stoneglare"] = [
+    ("vraska, regal gorgon", NAMED_CARD),
+]
+SPECIAL_CASES["wilfred mott"] = [
+    ("look to the stars", FLAVOR_KEYWORD),
+]
+SPECIAL_CASES["witness protection"] = [
+    ("legitimate businessperson", UNIQUE_TOKEN),
+]
+SPECIAL_CASES["zndrsplt, eye of wisdom"] = [
+    ("okaun, eye of chaos", NAMED_CARD),
+]
 
 PLURALS = {}
 PLURALS["artifacts"] = "artifact ~s"
@@ -78,6 +168,10 @@ PLURALS["planeswalkers"] = "planeswalker ~s"
 PLURALS["salamanders"] = "salamander ~s"
 PLURALS["slivers"] = "sliver ~s"
 
+VERBS = {}
+VERBS["discovered"] = "discover ~ed"
+VERBS["explores"] = "explore ~s"
+
 
 def clean_special_words(the_card):
     for word in PLURALS:
@@ -85,6 +179,10 @@ def clean_special_words(the_card):
             the_card["oracle_text"] = the_card["oracle_text"].replace(
                 word, PLURALS[word]
             )
+
+    for word in VERBS:
+        if word in the_card["oracle_text"]:
+            the_card["oracle_text"] = the_card["oracle_text"].replace(word, VERBS[word])
 
     if the_card["name"] not in SPECIAL_CASES:
         return the_card

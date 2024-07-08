@@ -24,6 +24,7 @@ class TrainingConfig:
     weight_decay: float = 0.08
     learn_rate_hi: float = 1.0e-3
     learn_rate_lo: float = 1.0e-4
+    warmup_steps: int = 500
     eval_interval: int = 500
     eval_batch_count: int = 64
 
@@ -166,9 +167,23 @@ def train_card_model(
     result.num_params = model.count_params()
     mx.eval(model.parameters())
     loss_and_grad_fn = nn.value_and_grad(model, CardModel.loss_fn)
-    learn_rate = optimizers.cosine_decay(
-        train_config.learn_rate_hi, train_config.num_epochs, train_config.learn_rate_lo
+
+    normal_steps: int = train_config.num_epochs - train_config.warmup_steps
+    decay_lr = optimizers.cosine_decay(
+        train_config.learn_rate_hi, normal_steps, train_config.learn_rate_lo
     )
+    if train_config.warmup_steps > 0:
+        warmup_lr = optimizers.linear_schedule(
+            train_config.learn_rate_hi / 100,
+            train_config.learn_rate_hi,
+            train_config.warmup_steps,
+        )
+        learn_rate = optimizers.join_schedules(
+            [warmup_lr, decay_lr], [train_config.warmup_steps]
+        )
+    else:
+        learn_rate = decay_lr
+
     optimizer = optimizers.AdamW(
         learning_rate=learn_rate, weight_decay=train_config.weight_decay
     )

@@ -50,16 +50,17 @@ if __name__ == "__main__":
     model_config.n_head = 4
     model_config.n_layer = 8
     model_config.n_ff_inner = model_config.n_embd * 3
-    model_config.dropout = 0.30
+    model_config.dropout = 0.31
     model_config.bias = False
     model_config.weight_tying = False
 
     train_config = TrainingConfig()
     train_config.num_epochs = 75000
-    train_config.batch_sizes = [16, 24, 32, 48]
+    train_config.batch_sizes = [16, 20, 24, 32, 48]
     train_config.weight_decay = 0.08
     train_config.learn_rate_hi = 1.0e-3
     train_config.learn_rate_lo = 1.0e-4
+    train_config.warmup_steps = 500
     train_config.eval_interval = 500
     train_config.eval_batch_count = 64
 

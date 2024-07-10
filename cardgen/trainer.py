@@ -26,7 +26,8 @@ class TrainingConfig:
     learn_rate_lo: float = 1.0e-4
     warmup_steps: int = 500
     eval_interval: int = 500
-    eval_batch_count: int = 64
+    eval_batch_count: int = 20
+    eval_batch_size: int = 128
 
     def as_str(self, prefix: str = "") -> str:
         result = ""
@@ -132,12 +133,11 @@ def _measure_loss(
     batch_loader: _BatchLoader,
     use_test: bool,
 ) -> float:
-    BATCH_SIZE = 32
     model.train(False)
     losses: list[float] = []
     for _ in range(train_config.eval_batch_count):
         x, y = batch_loader.gen_batch(
-            BATCH_SIZE, model_config.block_size, use_test=use_test
+            train_config.eval_batch_size, model_config.block_size, use_test=use_test
         )
         this_loss = model.loss_fn(x, y)
         losses.append(this_loss.item())

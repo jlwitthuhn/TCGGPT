@@ -6,6 +6,7 @@ SELF = "~"
 FLAVOR_ABILITY_WORD = "$flavor_ability_word$"
 NAMED_CARD = "$named_card$"
 UNIQUE_COUNTER = "$unique_counter$"
+UNIQUE_PLANESWALKER = "$unique_planeswalker$"
 UNIQUE_TOKEN = "$unique_token$"
 
 SPECIAL_CASES = {}
@@ -21,6 +22,9 @@ SPECIAL_CASES["auditore ambush"] = [
 SPECIAL_CASES["axelrod gunnarson"] = [
     ("axelrod", SELF),
 ]
+SPECIAL_CASES["catti-brie of mithral hall"] = [
+    ("catti-brie", SELF),
+]
 SPECIAL_CASES["denry klin, editor in chief"] = [
     ("denry", SELF),
 ]
@@ -31,6 +35,9 @@ SPECIAL_CASES["drizzt do'urden"] = [
 SPECIAL_CASES["durnan of the yawning portal"] = [
     ("durnan", SELF),
 ]
+SPECIAL_CASES["ellivere of the wild court"] = [
+    ("virtuous", UNIQUE_TOKEN),
+]
 SPECIAL_CASES["freyalise, skyshroud partisan"] = [
     ("regal force", NAMED_CARD),
 ]
@@ -40,8 +47,24 @@ SPECIAL_CASES["gandalf the grey"] = [
 SPECIAL_CASES["kaya the inexorable"] = [
     ("ghostform", UNIQUE_COUNTER),
 ]
+SPECIAL_CASES["kjeldoran home guard"] = [
+    ("deserter", UNIQUE_TOKEN),
+]
 SPECIAL_CASES["lita, mechanical engineer"] = [
     ("zeppelin", UNIQUE_TOKEN),
+]
+SPECIAL_CASES["mordenkainen"] = [
+    ("mordenkainen", UNIQUE_PLANESWALKER),
+]
+SPECIAL_CASES["nissa's encouragement"] = [
+    ("brambleweft behemoth", NAMED_CARD),
+    ("nissa, genesis mage", NAMED_CARD),
+]
+SPECIAL_CASES["raven clan war-axe"] = [
+    ("eivor, battle-ready", NAMED_CARD),
+]
+SPECIAL_CASES["skophos maze-warden"] = [
+    ("labyrinth of skophos", NAMED_CARD),
 ]
 SPECIAL_CASES["tomb of urami"] = [
     ("urami", UNIQUE_TOKEN),
@@ -54,6 +77,9 @@ SPECIAL_CASES["tetravus"] = [
 ]
 SPECIAL_CASES["the rani"] = [
     ("mark of the rani", UNIQUE_TOKEN),
+]
+SPECIAL_CASES["tooth and claw"] = [
+    ("carnivore", UNIQUE_TOKEN),
 ]
 SPECIAL_CASES["vraska's stoneglare"] = [
     ("vraska, regal gorgon", NAMED_CARD),
@@ -76,9 +102,9 @@ PLURALS["slivers"] = "sliver ~s"
 
 VERBS = {}
 VERBS["cloaks"] = "cloak ~s"
+VERBS["foraging"] = "forage ~ing"
 VERBS["discovered"] = "discover ~ed"
 VERBS["explores"] = "explore ~s"
-
 
 def _clean_special_words(the_card):
     for word in PLURALS:

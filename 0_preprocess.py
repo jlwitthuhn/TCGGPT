@@ -58,12 +58,14 @@ def is_card_valid(maybe_card):
 
 
 def is_card_eligible(maybe_card):
-    a = maybe_card["layout"] == "normal"
-    b = maybe_card["set_type"] != "funny"
-    c = maybe_card["set_type"] != "alchemy"
-    d = maybe_card["set_type"] != "token"
-    e = maybe_card["border_color"] != "silver"
-    return a and b and c and d and e
+    result = maybe_card["layout"] == "normal"
+    result = result and maybe_card["set_type"] != "funny"
+    result = result and maybe_card["set_type"] != "alchemy"
+    result = result and maybe_card["set_type"] != "token"
+    result = result and maybe_card["border_color"] != "silver"
+    result = result and maybe_card["set"] != "past"
+    result = result and maybe_card["set"] != "pcel"
+    return result
 
 
 def write_full(out_file, the_card):

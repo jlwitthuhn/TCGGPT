@@ -1,3 +1,7 @@
+import re
+
+from unidecode import unidecode
+
 SELF = "~"
 FLAVOR_ABILITY_WORD = "$flavor_ability_word$"
 NAMED_CARD = "$named_card$"
@@ -205,7 +209,7 @@ VERBS["discovered"] = "discover ~ed"
 VERBS["explores"] = "explore ~s"
 
 
-def clean_special_words(the_card):
+def _clean_special_words(the_card):
     for word in PLURALS:
         if word in the_card["oracle_text"]:
             the_card["oracle_text"] = the_card["oracle_text"].replace(
@@ -223,3 +227,32 @@ def clean_special_words(the_card):
         the_card["oracle_text"] = the_card["oracle_text"].replace(find, replace)
 
     return the_card
+
+
+def clean_card(the_card):
+    # Alchemy versions of cards start with 'A-', remove it
+    if the_card["name"].startswith("A-"):
+        the_card["name"] = the_card["name"][2:]
+
+    # Replace names first before further cleaning up strings
+    the_card["oracle_text"] = the_card["oracle_text"].replace(the_card["name"], "~")
+
+    # Some cards have a name of the form "Name, Title"
+    # Also replace any instance of 'Name' in the card in this case
+    if "," in the_card["name"]:
+        comma_index = the_card["name"].find(",")
+        short_name = the_card["name"][:comma_index]
+        the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
+
+    # Standard cleanup
+    the_card["mana_cost"] = the_card["mana_cost"].lower()
+    the_card["type_line"] = unidecode(the_card["type_line"]).lower()
+    the_card["name"] = unidecode(the_card["name"]).lower()
+    the_card["oracle_text"] = (
+        unidecode(the_card["oracle_text"]).lower().replace("\n", " | ")
+    )
+
+    # Remove reminder text
+    the_card["oracle_text"] = re.sub("\(.*?\)", "", the_card["oracle_text"])
+
+    return _clean_special_words(the_card)

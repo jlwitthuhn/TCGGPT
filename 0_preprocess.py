@@ -4,12 +4,9 @@
 
 import json
 import random
-import re
 import sys
 
-from unidecode import unidecode
-
-from cardgen.clean import clean_special_words
+from cardgen.clean import clean_card
 from cardgen.tokenizer import CardTokenizer
 
 
@@ -82,35 +79,6 @@ def write_full(out_file, the_card):
 
 def write_name(out_file, the_card):
     out_file.write(the_card["name"].lower() + "\n")
-
-
-def clean_card(the_card):
-    # Alchemy versions of cards start with 'A-', remove it
-    if the_card["name"].startswith("A-"):
-        the_card["name"] = the_card["name"][2:]
-
-    # Replace names first before further cleaning up strings
-    the_card["oracle_text"] = the_card["oracle_text"].replace(the_card["name"], "~")
-
-    # Some cards have a name of the form "Name, Title"
-    # Also replace any instance of 'Name' in the card in this case
-    if "," in the_card["name"]:
-        comma_index = the_card["name"].find(",")
-        short_name = the_card["name"][:comma_index]
-        the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
-
-    # Standard cleanup
-    the_card["mana_cost"] = the_card["mana_cost"].lower()
-    the_card["type_line"] = unidecode(the_card["type_line"]).lower()
-    the_card["name"] = unidecode(the_card["name"]).lower()
-    the_card["oracle_text"] = (
-        unidecode(the_card["oracle_text"]).lower().replace("\n", " | ")
-    )
-
-    # Remove reminder text
-    the_card["oracle_text"] = re.sub("\(.*?\)", "", the_card["oracle_text"])
-
-    return clean_special_words(the_card)
 
 
 def format_data(in_path, train_fraction):

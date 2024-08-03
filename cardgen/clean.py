@@ -12,14 +12,8 @@ SPECIAL_CASES = {}
 SPECIAL_CASES["angel's herald"] = [
     ("empyrial archangel", NAMED_CARD),
 ]
-SPECIAL_CASES["anrakyr the traveller"] = [
-    ("lord of the pyrrhian legions", FLAVOR_ABILITY_WORD),
-]
 SPECIAL_CASES["arbiter of the ideal"] = [
     ("manifestation", UNIQUE_COUNTER),
-]
-SPECIAL_CASES["aspiring champion"] = [
-    ("ruinous ascension", FLAVOR_ABILITY_WORD),
 ]
 SPECIAL_CASES["auditore ambush"] = [
     ("ezio, blade of vengeance", NAMED_CARD),
@@ -27,29 +21,8 @@ SPECIAL_CASES["auditore ambush"] = [
 SPECIAL_CASES["axelrod gunnarson"] = [
     ("axelrod", SELF),
 ]
-SPECIAL_CASES["biophagus"] = [
-    ("genomic enhancement", FLAVOR_ABILITY_WORD),
-]
 SPECIAL_CASES["blaring captain"] = [
     ("blaring recruiter", NAMED_CARD),
-]
-SPECIAL_CASES["broodlord"] = [
-    ("brood telepathy", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["butch deloria, tunnel snake"] = [
-    ("tunnel snakes rule!", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["circle of the land druid"] = [
-    ("natural recovery", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["clamavus"] = [
-    ("proclamator hailer", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["clara oswald"] = [
-    ("impossible girl", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["commander sofia daguerre"] = [
-    ("crash landing", FLAVOR_ABILITY_WORD),
 ]
 SPECIAL_CASES["denry klin, editor in chief"] = [
     ("denry", SELF),
@@ -61,28 +34,11 @@ SPECIAL_CASES["drizzt do'urden"] = [
 SPECIAL_CASES["durnan of the yawning portal"] = [
     ("durnan", SELF),
 ]
-SPECIAL_CASES["firbolg flutist"] = [
-    ("enthralling performance", FLAVOR_ABILITY_WORD),
-]
 SPECIAL_CASES["freyalise, skyshroud partisan"] = [
     ("regal force", NAMED_CARD),
 ]
 SPECIAL_CASES["gandalf the grey"] = [
     ("gandalf", SELF),
-]
-SPECIAL_CASES["genestealer patriarch"] = [
-    ("genestealer's kiss", FLAVOR_ABILITY_WORD),
-    ("children of the cult", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["havi, the all-father"] = [
-    ("sage project", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["hexmark destroyer"] = [
-    ("multi-threat eliminator", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["imotekh the stormlord"] = [
-    ("phaeron", FLAVOR_ABILITY_WORD),
-    ("grand strategist", FLAVOR_ABILITY_WORD),
 ]
 SPECIAL_CASES["kaya the inexorable"] = [
     ("ghostform", UNIQUE_COUNTER),
@@ -90,37 +46,14 @@ SPECIAL_CASES["kaya the inexorable"] = [
 SPECIAL_CASES["lita, mechanical engineer"] = [
     ("zeppelin", UNIQUE_TOKEN),
 ]
-SPECIAL_CASES["magnus the red"] = [
-    ("unearthly power", FLAVOR_ABILITY_WORD),
-    ("blade of magnus", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["mawloc"] = [
-    ("terror from the deep", FLAVOR_ABILITY_WORD),
-]
 SPECIAL_CASES["okaun, eye of chaos"] = [
     ("zndrsplt, eye of wisdom", NAMED_CARD),
 ]
 SPECIAL_CASES["pippin, warden of isengard"] = [
     ("merry, warden of isengard", NAMED_CARD),
 ]
-SPECIAL_CASES["pixie guide"] = [
-    ("grant an advantage", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["rory williams"] = [
-    ("amy pond", NAMED_CARD),
-    ("the last centurion", FLAVOR_ABILITY_WORD),
-]
 SPECIAL_CASES["sam, loyal attendant"] = [
     ("frodo, adventurous hobbit", NAMED_CARD),
-]
-SPECIAL_CASES["sister of silence"] = [
-    ("psychic abomination", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["sister repentia"] = [
-    ("martyrdom", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["skorpekh destroyer"] = [
-    ("hyperphase threshers", FLAVOR_ABILITY_WORD),
 ]
 SPECIAL_CASES["soulblade corrupter"] = [
     ("soulblade renewer", NAMED_CARD),
@@ -128,26 +61,8 @@ SPECIAL_CASES["soulblade corrupter"] = [
 SPECIAL_CASES["soulblade renewer"] = [
     ("soulblade corrupter", NAMED_CARD),
 ]
-SPECIAL_CASES["space marine scout"] = [
-    ("concealed position", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["survivor's med kit"] = [
-    ("stimpak", FLAVOR_ABILITY_WORD),
-    ("fancy lads snack cakes", FLAVOR_ABILITY_WORD),
-    ("radaway", FLAVOR_ABILITY_WORD),
-]
 SPECIAL_CASES["tomb of urami"] = [
     ("urami", UNIQUE_TOKEN),
-]
-SPECIAL_CASES["towering viewpoint"] = [
-    ("leap of faith", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["trygon prime"] = [
-    ("subterranean assault", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["you find the villains' lair"] = [
-    ("foil their scheme", FLAVOR_ABILITY_WORD),
-    ("learn their secrets", FLAVOR_ABILITY_WORD),
 ]
 SPECIAL_CASES["teferi's wavecaster"] = [
     ("teferi, timeless voyager", NAMED_CARD),
@@ -155,21 +70,8 @@ SPECIAL_CASES["teferi's wavecaster"] = [
 SPECIAL_CASES["tetravus"] = [
     ("tetravite", UNIQUE_TOKEN),
 ]
-SPECIAL_CASES["the eleventh doctor"] = [
-    ("i. am. talking!", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["the golden throne"] = [
-    ("arcane life-support", FLAVOR_ABILITY_WORD),
-    ("a thousand souls die every day", FLAVOR_ABILITY_WORD),
-]
 SPECIAL_CASES["the rani"] = [
     ("mark of the rani", UNIQUE_TOKEN),
-]
-SPECIAL_CASES["thijarian witness"] = [
-    ("bear witness", FLAVOR_ABILITY_WORD),
-]
-SPECIAL_CASES["trazyn the infinite"] = [
-    ("prismatic gallery", FLAVOR_ABILITY_WORD),
 ]
 SPECIAL_CASES["trynn, champion of freedom"] = [
     ("silvar, devourer of the free", NAMED_CARD),
@@ -177,15 +79,8 @@ SPECIAL_CASES["trynn, champion of freedom"] = [
 SPECIAL_CASES["vraska's stoneglare"] = [
     ("vraska, regal gorgon", NAMED_CARD),
 ]
-SPECIAL_CASES["wilfred mott"] = [
-    ("look to the stars", FLAVOR_ABILITY_WORD),
-]
 SPECIAL_CASES["witness protection"] = [
     ("legitimate businessperson", UNIQUE_TOKEN),
-]
-SPECIAL_CASES["you've been caught stealing"] = [
-    ("threaten the merchant", FLAVOR_ABILITY_WORD),
-    ("bribe the guards", FLAVOR_ABILITY_WORD),
 ]
 SPECIAL_CASES["zndrsplt, eye of wisdom"] = [
     ("okaun, eye of chaos", NAMED_CARD),
@@ -229,6 +124,48 @@ def _clean_special_words(the_card):
     return the_card
 
 
+#                                  Prefix                 Keyword             ' -- '
+FLAVOR_ABILITY_REGEX = re.compile("(?:^|(?:\|\s(?:\*\s)?))([a-zA-Z\s\.!\?\-]+)\s\-\-\s")
+
+# Defined in comprehensive rules 207.2c
+# Last updated 2024-08-02
+ABILITY_WORDS = {
+    "battalion",
+    "bloodrush",
+    "channel",
+    "chroma",
+    "domain",
+    "fateful hour",
+    "grandeur",
+    "hellbent",
+    "heroic",
+    "imprint",
+    "join forces",
+    "kinship",
+    "landfall",
+    "metalcraft",
+    "morbid",
+    "radiance",
+    "sweep",
+    "tempting offer",
+    "threshold",
+}
+
+
+def _clean_flavor_ability(the_card):
+    maybe_swap_words = FLAVOR_ABILITY_REGEX.findall(the_card["oracle_text"])
+    for this_word in maybe_swap_words:
+        if this_word in ABILITY_WORDS:
+            # Do not swap out words defined by the rules
+            continue
+        if "choose one" in this_word:
+            continue
+        the_card["oracle_text"] = the_card["oracle_text"].replace(
+            this_word, FLAVOR_ABILITY_WORD
+        )
+    return the_card
+
+
 def clean_card(the_card):
     # Alchemy versions of cards start with 'A-', remove it
     if the_card["name"].startswith("A-"):
@@ -255,4 +192,6 @@ def clean_card(the_card):
     # Remove reminder text
     the_card["oracle_text"] = re.sub("\(.*?\)", "", the_card["oracle_text"])
 
-    return _clean_special_words(the_card)
+    the_card = _clean_flavor_ability(the_card)
+    the_card = _clean_special_words(the_card)
+    return the_card

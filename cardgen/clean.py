@@ -21,9 +21,6 @@ SPECIAL_CASES["auditore ambush"] = [
 SPECIAL_CASES["axelrod gunnarson"] = [
     ("axelrod", SELF),
 ]
-SPECIAL_CASES["blaring captain"] = [
-    ("blaring recruiter", NAMED_CARD),
-]
 SPECIAL_CASES["denry klin, editor in chief"] = [
     ("denry", SELF),
 ]
@@ -46,21 +43,6 @@ SPECIAL_CASES["kaya the inexorable"] = [
 SPECIAL_CASES["lita, mechanical engineer"] = [
     ("zeppelin", UNIQUE_TOKEN),
 ]
-SPECIAL_CASES["okaun, eye of chaos"] = [
-    ("zndrsplt, eye of wisdom", NAMED_CARD),
-]
-SPECIAL_CASES["pippin, warden of isengard"] = [
-    ("merry, warden of isengard", NAMED_CARD),
-]
-SPECIAL_CASES["sam, loyal attendant"] = [
-    ("frodo, adventurous hobbit", NAMED_CARD),
-]
-SPECIAL_CASES["soulblade corrupter"] = [
-    ("soulblade renewer", NAMED_CARD),
-]
-SPECIAL_CASES["soulblade renewer"] = [
-    ("soulblade corrupter", NAMED_CARD),
-]
 SPECIAL_CASES["tomb of urami"] = [
     ("urami", UNIQUE_TOKEN),
 ]
@@ -73,17 +55,11 @@ SPECIAL_CASES["tetravus"] = [
 SPECIAL_CASES["the rani"] = [
     ("mark of the rani", UNIQUE_TOKEN),
 ]
-SPECIAL_CASES["trynn, champion of freedom"] = [
-    ("silvar, devourer of the free", NAMED_CARD),
-]
 SPECIAL_CASES["vraska's stoneglare"] = [
     ("vraska, regal gorgon", NAMED_CARD),
 ]
 SPECIAL_CASES["witness protection"] = [
     ("legitimate businessperson", UNIQUE_TOKEN),
-]
-SPECIAL_CASES["zndrsplt, eye of wisdom"] = [
-    ("okaun, eye of chaos", NAMED_CARD),
 ]
 
 PLURALS = {}
@@ -165,6 +141,16 @@ def _clean_flavor_ability(the_card):
         )
     return the_card
 
+PARTNER_REGEX = re.compile("partner with ([a-zA-Z0-9,\-\s]+?)\s+[\|$]")
+
+def _clean_partner(the_card):
+    maybe_swap_words = PARTNER_REGEX.findall(the_card["oracle_text"])
+    for this_word in maybe_swap_words:
+        the_card["oracle_text"] = the_card["oracle_text"].replace(
+            this_word, NAMED_CARD
+        )
+    return the_card
+
 
 def clean_card(the_card):
     # Alchemy versions of cards start with 'A-', remove it
@@ -192,6 +178,7 @@ def clean_card(the_card):
     # Remove reminder text
     the_card["oracle_text"] = re.sub("\(.*?\)", "", the_card["oracle_text"])
 
+    the_card = _clean_partner(the_card)
     the_card = _clean_flavor_ability(the_card)
     the_card = _clean_special_words(the_card)
     return the_card

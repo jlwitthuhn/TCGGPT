@@ -1,3 +1,5 @@
+from cardgen.valid_words import VALID_WORDS
+
 SPLIT_CHARS = [".", ",", "/", '"', ":", ";", "-", "+", "'", "[", "]"]
 DIGIT_CHARS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
@@ -84,12 +86,13 @@ class CardTokenizer:
             self._id_to_string[id] = token
             self._string_to_id[token] = id
 
-    def write_stats(self, path: str):
+    def write_stats(self, path: str, exclude_valid_words: bool):
         with open(path, "w") as out_file:
             for token in reversed(
                 sorted(self._token_counts, key=self._token_counts.get)
             ):
-                out_file.write(f"<{token}>: {self._token_counts[token]}\n")
+                if (exclude_valid_words == False) or (token not in VALID_WORDS):
+                    out_file.write(f"<{token}>: {self._token_counts[token]}\n")
 
     def decode_token(self, token_id: int) -> str:
         assert token_id in self._id_to_string

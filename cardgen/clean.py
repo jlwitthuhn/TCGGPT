@@ -10,6 +10,10 @@ UNIQUE_PLANESWALKER = "$unique_planeswalker$"
 UNIQUE_TOKEN = "$unique_token$"
 
 SPECIAL_CASES = {}
+SPECIAL_CASES["agency outfitter"] = [
+    ("magnifying glass", NAMED_CARD),
+    ("thinking cap", NAMED_CARD),
+]
 SPECIAL_CASES["angel's herald"] = [
     ("empyrial archangel", NAMED_CARD),
 ]
@@ -38,11 +42,29 @@ SPECIAL_CASES["durnan of the yawning portal"] = [
 SPECIAL_CASES["ellivere of the wild court"] = [
     ("virtuous", UNIQUE_TOKEN),
 ]
+SPECIAL_CASES["festering newt"] = [
+    ("bogbrew witch", NAMED_CARD),
+]
 SPECIAL_CASES["freyalise, skyshroud partisan"] = [
     ("regal force", NAMED_CARD),
 ]
 SPECIAL_CASES["gandalf the grey"] = [
     ("gandalf", SELF),
+]
+SPECIAL_CASES["garruk's warsteed"] = [
+    ("garruk, savage herald", NAMED_CARD),
+]
+SPECIAL_CASES["gate to the afterlife"] = [
+    ("god-pharaoh's gift", NAMED_CARD),
+]
+SPECIAL_CASES["giant caterpillar"] = [
+    ("butterfly", UNIQUE_TOKEN),
+]
+SPECIAL_CASES["gideon's resolve"] = [
+    ("gideon, martial paragon", NAMED_CARD),
+]
+SPECIAL_CASES["kassandra, eagle bearer"] = [
+    ("the spear of leonidas", NAMED_CARD),
 ]
 SPECIAL_CASES["kaya the inexorable"] = [
     ("ghostform", UNIQUE_COUNTER),
@@ -53,18 +75,33 @@ SPECIAL_CASES["kjeldoran home guard"] = [
 SPECIAL_CASES["lita, mechanical engineer"] = [
     ("zeppelin", UNIQUE_TOKEN),
 ]
-SPECIAL_CASES["mordenkainen"] = [
-    ("mordenkainen", UNIQUE_PLANESWALKER),
-]
 SPECIAL_CASES["nissa's encouragement"] = [
     ("brambleweft behemoth", NAMED_CARD),
     ("nissa, genesis mage", NAMED_CARD),
 ]
+SPECIAL_CASES["phantasmal sphere"] = [
+    ("orb", UNIQUE_TOKEN),
+]
+SPECIAL_CASES["rashka the slayer"] = [
+    ("rashka", SELF),
+]
+SPECIAL_CASES["ral's dispersal"] = [
+    ("ral, caller of storms", NAMED_CARD),
+]
 SPECIAL_CASES["raven clan war-axe"] = [
     ("eivor, battle-ready", NAMED_CARD),
 ]
+SPECIAL_CASES["replicating ring"] = [
+    ("replicated ring", UNIQUE_TOKEN),
+]
+SPECIAL_CASES["rowan's stalwarts"] = [
+    ("rowan, fearless sparkmage", NAMED_CARD),
+]
 SPECIAL_CASES["skophos maze-warden"] = [
     ("labyrinth of skophos", NAMED_CARD),
+]
+SPECIAL_CASES["sol'kanar the tainted"] = [
+    ("sol'kanar", SELF),
 ]
 SPECIAL_CASES["tomb of urami"] = [
     ("urami", UNIQUE_TOKEN),
@@ -74,6 +111,9 @@ SPECIAL_CASES["teferi's wavecaster"] = [
 ]
 SPECIAL_CASES["tetravus"] = [
     ("tetravite", UNIQUE_TOKEN),
+]
+SPECIAL_CASES["tezzeret's betrayal"] = [
+    ("tezzeret, master of metal", NAMED_CARD),
 ]
 SPECIAL_CASES["the rani"] = [
     ("mark of the rani", UNIQUE_TOKEN),
@@ -88,23 +128,32 @@ SPECIAL_CASES["witness protection"] = [
     ("legitimate businessperson", UNIQUE_TOKEN),
 ]
 
+SPECIAL_TYPES = {}
+SPECIAL_TYPES["mordenkainen"] = ("mordenkainen", UNIQUE_PLANESWALKER)
+SPECIAL_TYPES["vronos, masked inquisitor"] = ("vronos", UNIQUE_PLANESWALKER)
+SPECIAL_TYPES["zariel, archduke of avernus"] = ("zariel", UNIQUE_PLANESWALKER)
+
 PLURALS = {}
 PLURALS["artifacts"] = "artifact ~s"
 PLURALS["artificers"] = "artificer ~s"
 PLURALS["cards"] = "card ~s"
 PLURALS["creatures"] = "creature ~s"
 PLURALS["enchantments"] = "enchantment ~s"
+PLURALS["goats"] = "goat ~s"
 PLURALS["goblins"] = "goblin ~s"
 PLURALS["permanents"] = "permanent ~s"
 PLURALS["planeswalkers"] = "planeswalker ~s"
+PLURALS["robots"] = "robot ~s"
 PLURALS["salamanders"] = "salamander ~s"
 PLURALS["slivers"] = "sliver ~s"
 
 VERBS = {}
 VERBS["cloaks"] = "cloak ~s"
+VERBS["drawing"] = "draw ~ing"
 VERBS["foraging"] = "forage ~ing"
 VERBS["discovered"] = "discover ~ed"
 VERBS["explores"] = "explore ~s"
+VERBS["plotting"] = "plot ~ing"
 
 def _clean_special_words(the_card):
     for word in PLURALS:
@@ -117,11 +166,13 @@ def _clean_special_words(the_card):
         if word in the_card["oracle_text"]:
             the_card["oracle_text"] = the_card["oracle_text"].replace(word, VERBS[word])
 
-    if the_card["name"] not in SPECIAL_CASES:
-        return the_card
+    if the_card["name"] in SPECIAL_CASES:
+        for find, replace in SPECIAL_CASES[the_card["name"]]:
+            the_card["oracle_text"] = the_card["oracle_text"].replace(find, replace)
 
-    for find, replace in SPECIAL_CASES[the_card["name"]]:
-        the_card["oracle_text"] = the_card["oracle_text"].replace(find, replace)
+    if the_card["name"] in SPECIAL_TYPES:
+        find, replace = SPECIAL_TYPES[the_card["name"]]
+        the_card["type_line"] = the_card["type_line"].replace(find, replace)
 
     return the_card
 

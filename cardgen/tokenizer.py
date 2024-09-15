@@ -1,6 +1,6 @@
 from cardgen.valid_words import VALID_WORDS
 
-SPLIT_CHARS = [".", ",", "/", '"', ":", ";", "-", "+", "'", "[", "]"]
+SPLIT_CHARS = [".", ",", "/", '"', ":", ";", "-", "+", "'", "[", "]", "{", "}"]
 DIGIT_CHARS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 
@@ -24,11 +24,6 @@ def consume_next_token(the_string: str) -> tuple[str, str]:
 
     if the_string[0] in SPLIT_CHARS or the_string[0] in DIGIT_CHARS:
         return the_string[0], the_string[1:]
-
-    # Treat full special glyphs as a token
-    if the_string[0] == "{":
-        idx_brace = the_string.find("}")
-        return the_string[: idx_brace + 1], the_string[idx_brace + 1 :]
 
     idx_space = the_string.find(" ")
     # Delimit by spaces
@@ -86,7 +81,7 @@ class CardTokenizer:
             self._id_to_string[id] = token
             self._string_to_id[token] = id
 
-    def write_stats(self, path: str, exclude_valid_words: bool):
+    def write_stats(self, path: str, exclude_valid_words: bool = False):
         with open(path, "w") as out_file:
             for token in reversed(
                 sorted(self._token_counts, key=self._token_counts.get)

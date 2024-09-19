@@ -53,6 +53,7 @@ if __name__ == "__main__":
     model_config.dropout = 0.31
     model_config.bias = False
     model_config.weight_tying = False
+    model_config.swiglu = False
 
     train_config = TrainingConfig()
     train_config.num_epochs = 70000

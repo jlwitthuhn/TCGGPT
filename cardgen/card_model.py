@@ -10,7 +10,6 @@ from mlx import nn, utils
 
 BASE_WIDTH = 96
 
-
 @dataclass
 class ModelConfig:
     block_size: int = 160
@@ -18,10 +17,11 @@ class ModelConfig:
     n_embd: int = BASE_WIDTH
     n_head: int = 4
     n_layer: int = 3
-    n_ff_inner: int = BASE_WIDTH * 4
+    n_ff_inner: int = BASE_WIDTH * 3
     dropout: float = 0.25
     bias: bool = False
     weight_tying: bool = False
+    swiglu: bool = False
 
     def as_str(self, prefix: str = "") -> str:
         result = ""
@@ -81,15 +81,26 @@ class FeedForward(nn.Module):
 
     def __init__(self, config: ModelConfig):
         super().__init__()
-        self.c_fc = nn.Linear(config.n_embd, config.n_ff_inner, bias=config.bias)
-        self.gelu = nn.GELU()
-        self.c_proj = nn.Linear(config.n_ff_inner, config.n_embd, bias=config.bias)
+        self.swiglu = config.swiglu
+        if (self.swiglu):
+            self.linear_in_silu = nn.Linear(config.n_embd, config.n_ff_inner, bias=config.bias)
+            self.silu = nn.SiLU()
+            self.linear_in_mult = nn.Linear(config.n_embd, config.n_ff_inner, bias=config.bias)
+            self.linear_out = nn.Linear(config.n_ff_inner, config.n_embd, bias=config.bias)
+        else:
+            self.linear_in = nn.Linear(config.n_embd, config.n_ff_inner, bias=config.bias)
+            self.gelu = nn.GELU()
+            self.linear_out = nn.Linear(config.n_ff_inner, config.n_embd, bias=config.bias)
         self.dropout = nn.Dropout(config.dropout)
 
     def __call__(self, x: mx.array):
-        x = self.c_fc(x)
-        x = self.gelu(x)
-        x = self.c_proj(x)
+        if (self.swiglu):
+            x = self.silu(self.linear_in_silu(x)) * self.linear_in_mult(x)
+            x = self.linear_out(x)
+        else:
+            x = self.linear_in(x)
+            x = self.gelu(x)
+            x = self.linear_out(x)
         x = self.dropout(x)
         return x
 
@@ -123,6 +134,8 @@ class CardModel(nn.Module):
         model_config.dropout = params["cfg_dropout"].item()
         model_config.bias = params["cfg_bias"].item()
         model_config.weight_tying = params["cfg_weight_tying"].item()
+        model_config.swiglu = params["cfg_swiglu"].item()
+
         model = CardModel(None, model_config)
         model.update(params)
         mx.eval(model.parameters())
@@ -139,6 +152,7 @@ class CardModel(nn.Module):
         params["cfg_dropout"] = mx.array(self.config.dropout)
         params["cfg_bias"] = mx.array(self.config.bias)
         params["cfg_weight_tying"] = mx.array(self.config.weight_tying)
+        params["cfg_swiglu"] = mx.array(self.config.swiglu)
 
         os.makedirs(os.path.dirname(path), exist_ok=True)
         mx.save_safetensors(path, dict(utils.tree_flatten(params)))

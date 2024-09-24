@@ -155,6 +155,7 @@ VERBS["discovered"] = "discover ~ed"
 VERBS["explores"] = "explore ~s"
 VERBS["plotting"] = "plot ~ing"
 
+
 def _clean_special_words(the_card):
     for word in PLURALS:
         if word in the_card["oracle_text"]:
@@ -218,14 +219,14 @@ def _clean_flavor_ability(the_card):
         )
     return the_card
 
+
 PARTNER_REGEX = re.compile("partner with ([a-zA-Z0-9,\-\s]+?)\s+[\|$]")
+
 
 def _clean_partner(the_card):
     maybe_swap_words = PARTNER_REGEX.findall(the_card["oracle_text"])
     for this_word in maybe_swap_words:
-        the_card["oracle_text"] = the_card["oracle_text"].replace(
-            this_word, NAMED_CARD
-        )
+        the_card["oracle_text"] = the_card["oracle_text"].replace(this_word, NAMED_CARD)
     return the_card
 
 

@@ -214,7 +214,9 @@ def train_card_model(
                 model, train_config, model_config, batch_loader, False
             )
             result.train_losses.append(loss_train)
-            progress_bar.set_description(f"{label} Te:{loss_test:4f} Tr:{loss_train:4f}")
+            progress_bar.set_description(
+                f"{label} Te:{loss_test:4f} Tr:{loss_train:4f}"
+            )
 
     result.duration = datetime.now() - time_begin
 

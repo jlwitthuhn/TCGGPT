@@ -2,11 +2,11 @@
 # This is used to help find tokens that do need to be cleaned
 
 VALID_WORDS = {
-    "frenzy", # Frenzy Sliver
-    "make", # Gilded Drake
-    "pairs", # Niv-Mizzet Reborn
-    "illegal", # Gilded Drake
-    "instance", # Fatespinner
-    "touches", # Chaos Orb
-    "yourself", # Lae'zel, Vlaakith's Champion
+    "frenzy",  # Frenzy Sliver
+    "make",  # Gilded Drake
+    "pairs",  # Niv-Mizzet Reborn
+    "illegal",  # Gilded Drake
+    "instance",  # Fatespinner
+    "touches",  # Chaos Orb
+    "yourself",  # Lae'zel, Vlaakith's Champion
 }

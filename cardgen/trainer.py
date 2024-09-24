@@ -189,7 +189,8 @@ def train_card_model(
     )
 
     time_begin = datetime.now()
-    for i in tqdm(range(train_config.num_epochs), desc=label):
+    progress_bar = tqdm(range(train_config.num_epochs), desc=label)
+    for i in progress_bar:
         model.train(True)
         batch_size = _get_batch_size(
             i, train_config.num_epochs, train_config.batch_sizes
@@ -213,6 +214,7 @@ def train_card_model(
                 model, train_config, model_config, batch_loader, False
             )
             result.train_losses.append(loss_train)
+            progress_bar.set_description(f"{label} Te:{loss_test:4f} Tr:{loss_train:4f}")
 
     result.duration = datetime.now() - time_begin
 

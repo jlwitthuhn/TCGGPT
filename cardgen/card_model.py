@@ -10,6 +10,7 @@ from mlx import nn, utils
 
 BASE_WIDTH = 96
 
+
 @dataclass
 class ModelConfig:
     block_size: int = 160
@@ -20,8 +21,12 @@ class ModelConfig:
     n_ff_inner: int = BASE_WIDTH * 3
     dropout: float = 0.25
     bias: bool = False
-    weight_tying: bool = False
-    swiglu: bool = False
+    weight_tying: bool = (
+        False  # True uses the same weights for token embeddings and the output linear layer, false uses separate weights
+    )
+    swiglu: bool = False  # True uses SwiGLU activation, false uses GELU activation
+    rope: bool = False  # True uses RoPE, false uses trainable position embeddings
+    rope_base: int = 10000
 
     def as_str(self, prefix: str = "") -> str:
         result = ""
@@ -35,16 +40,23 @@ class SelfAttention(nn.Module):
     def __init__(self, config: ModelConfig):
         super().__init__()
         assert config.n_embd % config.n_head == 0
-        # key, query, value - all concatenated
-        self.c_attn = nn.Linear(config.n_embd, 3 * config.n_embd, bias=config.bias)
-        # Output projection
-        self.c_proj = nn.Linear(config.n_embd, config.n_embd, bias=config.bias)
-        # Regularization layers
-        self.attn_dropout = nn.Dropout(config.dropout)
-        self.resid_dropout = nn.Dropout(config.dropout)
+
         self.n_embd = config.n_embd
         self.n_head = config.n_head
         self.dropout = config.dropout
+
+        # query, key, value - all concatenated
+        self.c_attn = nn.Linear(config.n_embd, 3 * config.n_embd, bias=config.bias)
+        # Output projection
+        self.c_proj = nn.Linear(config.n_embd, config.n_embd, bias=config.bias)
+        # Rope
+        self.use_rope = config.rope
+        if self.use_rope:
+            head_dim = config.n_embd // config.n_head
+            self.rope = nn.RoPE(head_dim, base=config.rope_base)
+        # Regularization layers
+        self.attn_dropout = nn.Dropout(config.dropout)
+        self.resid_dropout = nn.Dropout(config.dropout)
         # Mask for -inf values
         self._mask = mx.tri(config.block_size, config.block_size)
         self._mask = self._mask.reshape(1, 1, config.block_size, config.block_size)
@@ -60,6 +72,10 @@ class SelfAttention(nn.Module):
         q = q.transpose([0, 2, 1, 3])  # Swap T and n_head axes -> (B, nh, T, hs)
         k = k.reshape((B, T, self.n_head, C // self.n_head)).transpose([0, 2, 1, 3])
         v = v.reshape((B, T, self.n_head, C // self.n_head)).transpose([0, 2, 1, 3])
+
+        if self.use_rope:
+            q = self.rope(q)
+            k = self.rope(k)
 
         # k is transposed so dimensions are valid for (q @ k) matrix multiply
         # First two dimensions are (batch, n_head) so we don't touch those
@@ -82,19 +98,29 @@ class FeedForward(nn.Module):
     def __init__(self, config: ModelConfig):
         super().__init__()
         self.swiglu = config.swiglu
-        if (self.swiglu):
-            self.linear_in_silu = nn.Linear(config.n_embd, config.n_ff_inner, bias=config.bias)
+        if self.swiglu:
+            self.linear_in_silu = nn.Linear(
+                config.n_embd, config.n_ff_inner, bias=config.bias
+            )
             self.silu = nn.SiLU()
-            self.linear_in_mult = nn.Linear(config.n_embd, config.n_ff_inner, bias=config.bias)
-            self.linear_out = nn.Linear(config.n_ff_inner, config.n_embd, bias=config.bias)
+            self.linear_in_mult = nn.Linear(
+                config.n_embd, config.n_ff_inner, bias=config.bias
+            )
+            self.linear_out = nn.Linear(
+                config.n_ff_inner, config.n_embd, bias=config.bias
+            )
         else:
-            self.linear_in = nn.Linear(config.n_embd, config.n_ff_inner, bias=config.bias)
+            self.linear_in = nn.Linear(
+                config.n_embd, config.n_ff_inner, bias=config.bias
+            )
             self.gelu = nn.GELU()
-            self.linear_out = nn.Linear(config.n_ff_inner, config.n_embd, bias=config.bias)
+            self.linear_out = nn.Linear(
+                config.n_ff_inner, config.n_embd, bias=config.bias
+            )
         self.dropout = nn.Dropout(config.dropout)
 
     def __call__(self, x: mx.array):
-        if (self.swiglu):
+        if self.swiglu:
             x = self.silu(self.linear_in_silu(x)) * self.linear_in_mult(x)
             x = self.linear_out(x)
         else:
@@ -135,6 +161,8 @@ class CardModel(nn.Module):
         model_config.bias = params["cfg_bias"].item()
         model_config.weight_tying = params["cfg_weight_tying"].item()
         model_config.swiglu = params["cfg_swiglu"].item()
+        model_config.rope = params["cfg_rope"].item()
+        model_config.rope_base = params["cfg_rope_base"].item()
 
         model = CardModel(None, model_config)
         model.update(params)
@@ -153,6 +181,8 @@ class CardModel(nn.Module):
         params["cfg_bias"] = mx.array(self.config.bias)
         params["cfg_weight_tying"] = mx.array(self.config.weight_tying)
         params["cfg_swiglu"] = mx.array(self.config.swiglu)
+        params["cfg_rope"] = mx.array(self.config.rope)
+        params["cfg_rope_base"] = mx.array(self.config.rope_base)
 
         os.makedirs(os.path.dirname(path), exist_ok=True)
         mx.save_safetensors(path, dict(utils.tree_flatten(params)))
@@ -168,13 +198,15 @@ class CardModel(nn.Module):
         # Define layers
         self.transformer = {
             "wte": nn.Embedding(config.vocab_size, config.n_embd),  # Token Embedding
-            "wpe": nn.Embedding(
-                config.block_size, config.n_embd
-            ),  # Learnable position embedding
             "drop": nn.Dropout(config.dropout),  # Embedding dropout layer
-            "h": [Block(config) for _ in range(config.n_layer)],
+            "h": [Block(config) for _ in range(config.n_layer)],  # Transformer blocks
             "ln_f": nn.LayerNorm(config.n_embd, bias=config.bias),
         }
+        if config.rope == False:
+            self.transformer["wpe"] = nn.Embedding(
+                config.block_size, config.n_embd
+            )  # Learnable position embedding
+
         self.lm_head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
 
         if config.weight_tying:
@@ -183,12 +215,15 @@ class CardModel(nn.Module):
     def __call__(self, tokens_in: mx.array):
         B, T = tokens_in.shape
         assert T <= self.config.block_size
-        pos = mx.arange(0, T, 1, dtype=tokens_in.dtype)
 
-        tok_embd = self.transformer["wte"](tokens_in)
-        pos_embd = self.transformer["wpe"](pos)
+        x = self.transformer["wte"](tokens_in)
 
-        x = self.transformer["drop"](tok_embd + pos_embd)
+        if self.config.rope == False:
+            pos = mx.arange(0, T, 1, dtype=tokens_in.dtype)
+            pos_embd = self.transformer["wpe"](pos)
+            x = x + pos_embd
+
+        x = self.transformer["drop"](x)
         for block in self.transformer["h"]:
             x = block(x)
         x = self.transformer["ln_f"](x)
@@ -200,9 +235,12 @@ class CardModel(nn.Module):
         count_all = sum(p.size for _, p in utils.tree_flatten(self.parameters()))
         if include_embedding:
             return count_all
-        count_embedding = sum(
-            p.size for _, p in utils.tree_flatten(self.transformer["wpe"].parameters())
-        )
+        count_embedding = 0
+        if self.config.rope == False:
+            count_embedding += sum(
+                p.size
+                for _, p in utils.tree_flatten(self.transformer["wpe"].parameters())
+            )
         if self.config.weight_tying == False:
             count_embedding += sum(
                 p.size

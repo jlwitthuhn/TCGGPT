@@ -28,14 +28,17 @@ def write_output(
 
     te_loss = train_out.test_losses[-1]
     tr_loss = train_out.train_losses[-1]
-    bottom_text = f"Te: {te_loss:.4f} Tr: {tr_loss:.4f} Frac: {tr_loss / te_loss :.4f}"
+    bottom_text = f"Te: {te_loss:.4f} Tr: {tr_loss:.4f}"
 
     graph_path = f"{out_dir}/{run_label}.png"
     fig, ax = plt.subplots()
     ax.set_title(f"{run_label}\n{bottom_text}")
+    for i in range(1, len(train_config.batch_sizes)):
+        line = i * train_config.num_epochs / len(train_config.batch_sizes)
+        ax.axvline(x=line, linestyle="dotted", linewidth=1.0, color="#0000007F")
     ax.plot(train_out.eval_points, train_out.test_losses, label="test")
     ax.plot(train_out.eval_points, train_out.train_losses, label="train")
-    ax.grid(visible=True)
+    ax.grid(visible=True, axis='y')
     ax.legend()
     fig.savefig(graph_path)
 

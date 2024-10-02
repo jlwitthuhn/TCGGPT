@@ -15,8 +15,10 @@ if __name__ == "__main__":
         print_help()
         sys.exit(0)
 
-    tokenizer: CardTokenizer = CardTokenizer("./data/full.txt")
-    model: CardModel = CardModel.load_file(sys.argv[1])
+    model_path: str = sys.argv[1]
+    model: CardModel = CardModel.load_file(model_path)
+    tokenizer_path = model_path.replace(".safetensors", ".tokenizer")
+    tokenizer: CardTokenizer = CardTokenizer.load_file(tokenizer_path)
 
     for _ in range(int(sys.argv[2])):
         start = tokenizer.encode_token("<NewCard>")

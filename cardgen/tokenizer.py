@@ -1,3 +1,7 @@
+import json
+
+from typing import Dict, Union
+
 from cardgen.valid_words import VALID_WORDS
 
 SPLIT_CHARS = [".", ",", "/", '"', ":", ";", "-", "+", "'", "[", "]", "{", "}"]
@@ -56,7 +60,29 @@ class CardTokenizer:
     _vocab_size = 0
     _token_counts = {}
 
-    def __init__(self, path: str):
+    def save_file(self, path: str):
+        out_file = open(path, 'w')
+        json.dump(self._string_to_id, out_file)
+
+    def load_file(path: str):
+        in_file = open(path, "r")
+        loaded_dict = json.loads(in_file.read())
+        assert(isinstance(loaded_dict, dict))
+        return CardTokenizer(loaded_dict)
+
+    def __init__(self, path_or_dict: Union[str, Dict[str, int]]):
+        assert(path_or_dict != None)
+
+        # Special case to load a pre-made tokenizer dict
+        if isinstance(path_or_dict, dict):
+            tokens_dict: dict = path_or_dict
+            self._id_to_string = {id: string for string, id in tokens_dict.items()}
+            self._string_to_id = {string: id for id, string in self._id_to_string.items()}
+            assert(len(self._id_to_string) == len(self._string_to_id))
+            self._vocab_size = len(self._id_to_string)
+            return
+
+        path: str = path_or_dict
         with open(path, "r") as file:
             cards = file.read().splitlines()
 

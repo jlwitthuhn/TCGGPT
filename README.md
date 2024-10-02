@@ -46,11 +46,11 @@ For this section, I will assume you have downloaded the oracle json file and pla
     * `pip install -r ./requirements.txt`
 2. Run the preprocess script to extract the data from the oracle json file. This will produce a few files in `./data/`.
     * `python ./0_preprocess.py ./data/raw/oracle-cards.json`
-3. Run the training script to train the network with default configuration. This will produce a model file at `./model/model.safetensors`. It will also write some details about the training run to `./train_log/default/`.
+3. Run the training script to train the network with default configuration. This will produce a model file at `./model/model.safetensors` and a tokenizer definition at `./model/model.tokenizer`. It will also write some details about the training run to `./train_log/default/`.
     * `python ./1_train_model.py`
 4. Run the inference script to generate any number of cards. Cards are delimited by the string `<NewCard>`.
     * `python ./2_inference.py ./model/model.safetensors 3`
-    * Note that you will still need the file `./data/full.txt` for the model to run correctly, not just the model file. The full data set is needed to build the tokenizer.
+    * This will automatically locate the tokenizer definition by replacing `.safetensors` with `.tokenizer` in the model path.
 
 ## Architecture
 

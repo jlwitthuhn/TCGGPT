@@ -39,6 +39,7 @@ class TrainingConfig:
 @dataclass
 class TrainingOutput:
     model: CardModel = None
+    tokenizer: CardTokenizer = None
     longest_card: int = 0
     num_params: int = 0
     duration: timedelta = None
@@ -49,7 +50,7 @@ class TrainingOutput:
     def as_str(self, prefix: str = "") -> str:
         result = ""
         for field in dataclasses.fields(self):
-            if field.name != "model":
+            if field.name != "model" and field.name != "tokenizer":
                 result += f"{prefix}{field.name}: {self.__getattribute__(field.name)}\n"
         return result[:-1]
 
@@ -157,6 +158,7 @@ def train_card_model(
     result = TrainingOutput()
 
     tokenizer = CardTokenizer("./data/full.txt")
+    result.tokenizer = tokenizer
     model_config.vocab_size = tokenizer.get_vocab_size()
     data_train, data_test = _load_data(tokenizer)
     batch_loader = _BatchLoader(data_train, data_test)

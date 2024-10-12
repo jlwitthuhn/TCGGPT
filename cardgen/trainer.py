@@ -208,7 +208,6 @@ def train_card_model(
         iter_n: int = i + 1
         if iter_n % train_config.eval_interval == 0 and iter_n >= train_config.first_eval_epoch:
             if iter_n == train_config.num_epochs:
-                print("Evaluating final batch...")
                 batch_multiplier = 2
             else:
                 batch_multiplier = 1

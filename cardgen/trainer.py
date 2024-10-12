@@ -14,12 +14,10 @@ from cardgen.card_model import CardModel, ModelConfig
 from cardgen.tokenizer import CardTokenizer
 
 
-FIRST_EVAL = 2500
-
-
 @dataclass
 class TrainingConfig:
     num_epochs: int = 80000
+    first_eval_epoch: int = 3000
     batch_sizes: list[int] = field(default_factory=lambda: [48])
     weight_decay: float = 0.08
     learn_rate_hi: float = 1.0e-3
@@ -133,10 +131,11 @@ def _measure_loss(
     model_config: ModelConfig,
     batch_loader: _BatchLoader,
     use_test: bool,
+    batch_count_multiplier: int,
 ) -> float:
     model.train(False)
     losses: list[float] = []
-    for _ in range(train_config.eval_batch_count):
+    for _ in range(train_config.eval_batch_count * batch_count_multiplier):
         x, y = batch_loader.gen_batch(
             train_config.eval_batch_size, model_config.block_size, use_test=use_test
         )
@@ -206,14 +205,20 @@ def train_card_model(
 
         mx.eval(model.parameters(), optimizer.state, loss)
 
-        if (i + 1) % train_config.eval_interval == 0 and (i + 1) >= FIRST_EVAL:
-            result.eval_points.append(i + 1)
+        iter_n: int = i + 1
+        if iter_n % train_config.eval_interval == 0 and iter_n >= train_config.first_eval_epoch:
+            if iter_n == train_config.num_epochs:
+                print("Evaluating final batch...")
+                batch_multiplier = 2
+            else:
+                batch_multiplier = 1
+            result.eval_points.append(iter_n)
             loss_test = _measure_loss(
-                model, train_config, model_config, batch_loader, True
+                model, train_config, model_config, batch_loader, True, batch_multiplier
             )
             result.test_losses.append(loss_test)
             loss_train = _measure_loss(
-                model, train_config, model_config, batch_loader, False
+                model, train_config, model_config, batch_loader, False, batch_multiplier
             )
             result.train_losses.append(loss_train)
             progress_bar.set_description(

@@ -63,6 +63,9 @@ SPECIAL_CASES["giant caterpillar"] = [
 SPECIAL_CASES["gideon's resolve"] = [
     ("gideon, martial paragon", NAMED_CARD),
 ]
+SPECIAL_CASES["hazoret the fervent"] = [
+    ("hazoret", SELF),
+]
 SPECIAL_CASES["kassandra, eagle bearer"] = [
     ("the spear of leonidas", NAMED_CARD),
 ]
@@ -127,8 +130,12 @@ SPECIAL_CASES["vraska's stoneglare"] = [
 SPECIAL_CASES["witness protection"] = [
     ("legitimate businessperson", UNIQUE_TOKEN),
 ]
+SPECIAL_CASES["yanling's harbinger"] = [
+    ("mu yanling, celestial wind", NAMED_CARD),
+]
 
 SPECIAL_TYPES = {}
+SPECIAL_TYPES["dakkon, shadow slayer"] = ("dakkon", UNIQUE_PLANESWALKER)
 SPECIAL_TYPES["mordenkainen"] = ("mordenkainen", UNIQUE_PLANESWALKER)
 SPECIAL_TYPES["vronos, masked inquisitor"] = ("vronos", UNIQUE_PLANESWALKER)
 SPECIAL_TYPES["zariel, archduke of avernus"] = ("zariel", UNIQUE_PLANESWALKER)
@@ -136,6 +143,7 @@ SPECIAL_TYPES["zariel, archduke of avernus"] = ("zariel", UNIQUE_PLANESWALKER)
 PLURALS = {}
 PLURALS["artifacts"] = "artifact ~s"
 PLURALS["artificers"] = "artificer ~s"
+PLURALS["battles"] = "battle ~s"
 PLURALS["cards"] = "card ~s"
 PLURALS["creatures"] = "creature ~s"
 PLURALS["enchantments"] = "enchantment ~s"
@@ -147,13 +155,23 @@ PLURALS["robots"] = "robot ~s"
 PLURALS["salamanders"] = "salamander ~s"
 PLURALS["slivers"] = "sliver ~s"
 
+PREFIXES = {}
+PREFIXES["unchanged"] = "un~ changed"
+
 VERBS = {}
+VERBS["caused"] = "cause ~ed"
+VERBS["causes"] = "cause ~s"
+VERBS["changed"] = "change ~ed"
+VERBS["changing"] = "change ~ing"
 VERBS["cloaks"] = "cloak ~s"
 VERBS["drawing"] = "draw ~ing"
+VERBS["draws"] = "draw ~s"
 VERBS["foraging"] = "forage ~ing"
 VERBS["discovered"] = "discover ~ed"
 VERBS["explores"] = "explore ~s"
+VERBS["passed"] = "pass ~ed"
 VERBS["plotting"] = "plot ~ing"
+VERBS["turning"] = "turn ~ing"
 
 
 def _clean_special_words(the_card):
@@ -162,6 +180,10 @@ def _clean_special_words(the_card):
             the_card["oracle_text"] = the_card["oracle_text"].replace(
                 word, PLURALS[word]
             )
+
+    for word in PREFIXES:
+        if word in the_card["oracle_text"]:
+            the_card["oracle_text"] = the_card["oracle_text"].replace(word, PREFIXES[word])
 
     for word in VERBS:
         if word in the_card["oracle_text"]:

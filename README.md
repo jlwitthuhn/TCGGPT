@@ -49,8 +49,9 @@ For this section, I will assume you have downloaded the oracle json file and pla
 3. Run the training script to train the network with default configuration. This will produce a model file at `./model/model.safetensors` and a tokenizer definition at `./model/model.tokenizer`. It will also write some details about the training run to `./train_log/default/`.
     * `python ./1_train_model.py`
 4. Run the inference script to generate any number of cards. Cards are delimited by the string `<NewCard>`.
-    * `python ./2_inference.py ./model/model.safetensors 3`
+    * `python ./2_inference.py ./model/model.safetensors --count 5`
     * This will automatically locate the tokenizer definition by replacing `.safetensors` with `.tokenizer` in the model path.
+    * Run `python ./2_inference.py --help` to see available inference options.
 
 ## Architecture
 

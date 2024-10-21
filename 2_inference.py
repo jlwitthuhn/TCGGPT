@@ -13,6 +13,9 @@ if __name__ == "__main__":
     arg_parser.add_argument(
         "--count", default=3, type=int, help="Number of cards to generate"
     )
+    arg_parser.add_argument(
+        "--temp", default=1.0, type=float, help="Sampling temperature"
+    )
     args = arg_parser.parse_args()
 
     model_path: str = args.model_path
@@ -22,7 +25,7 @@ if __name__ == "__main__":
 
     for _ in range(args.count):
         start = tokenizer.encode_token("<NewCard>")
-        output = model.generate_card(start)
+        output = model.generate_card(start, temperature=args.temp)
         output_strs: list[str] = []
         for token in output[0]:
             output_strs.append(tokenizer.decode_token(token.item()))

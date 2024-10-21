@@ -248,9 +248,9 @@ class CardModel(nn.Module):
             )
         return count_all - count_embedding
 
-    def generate_card(self, separator_token: int):
+    def generate_card(self, separator_token: int, *, temperature=1.0):
         idx = mx.array([[separator_token]])
-        return self.generate(idx, end_token=separator_token)
+        return self.generate(idx, end_token=separator_token, temperature=temperature)
 
     def generate(self, idx, *, max_new_tokens=150, end_token=None, temperature=1.0):
         if isinstance(idx, list):

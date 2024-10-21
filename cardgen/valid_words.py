@@ -8,9 +8,9 @@ VALID_WORDS = {
     "pairs",  # Niv-Mizzet Reborn
     "illegal",  # Gilded Drake
     "instance",  # Fatespinner
-    "recently", # Mana Maze
-    "smaller", # Snowblind
+    "recently",  # Mana Maze
+    "smaller",  # Snowblind
     "touches",  # Chaos Orb
-    "walrus", # Bronze Walrus
+    "walrus",  # Bronze Walrus
     "yourself",  # Lae'zel, Vlaakith's Champion
 }

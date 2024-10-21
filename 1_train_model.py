@@ -38,7 +38,7 @@ def write_output(
         ax.axvline(x=line, linestyle="dotted", linewidth=1.0, color="#0000007F")
     ax.plot(train_out.eval_points, train_out.test_losses, label="test")
     ax.plot(train_out.eval_points, train_out.train_losses, label="train")
-    ax.grid(visible=True, axis='y')
+    ax.grid(visible=True, axis="y")
     ax.legend()
     fig.savefig(graph_path)
 

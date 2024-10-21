@@ -10,7 +10,9 @@ if __name__ == "__main__":
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     arg_parser.add_argument("model_path", help="Path to model safetensors file")
-    arg_parser.add_argument("--count", default=3, type=int, help="Number of cards to generate")
+    arg_parser.add_argument(
+        "--count", default=3, type=int, help="Number of cards to generate"
+    )
     args = arg_parser.parse_args()
 
     model_path: str = args.model_path

@@ -183,7 +183,9 @@ def _clean_special_words(the_card):
 
     for word in PREFIXES:
         if word in the_card["oracle_text"]:
-            the_card["oracle_text"] = the_card["oracle_text"].replace(word, PREFIXES[word])
+            the_card["oracle_text"] = the_card["oracle_text"].replace(
+                word, PREFIXES[word]
+            )
 
     for word in VERBS:
         if word in the_card["oracle_text"]:

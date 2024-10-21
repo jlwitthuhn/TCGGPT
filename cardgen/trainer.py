@@ -206,7 +206,10 @@ def train_card_model(
         mx.eval(model.parameters(), optimizer.state, loss)
 
         iter_n: int = i + 1
-        if iter_n % train_config.eval_interval == 0 and iter_n >= train_config.first_eval_epoch:
+        if (
+            iter_n % train_config.eval_interval == 0
+            and iter_n >= train_config.first_eval_epoch
+        ):
             if iter_n == train_config.num_epochs:
                 batch_multiplier = 2
             else:

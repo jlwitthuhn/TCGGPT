@@ -1,5 +1,4 @@
 import argparse
-import sys
 
 from cardgen.card_model import CardModel
 from cardgen.tokenizer import CardTokenizer

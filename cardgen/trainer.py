@@ -44,6 +44,7 @@ class TrainingOutput:
     eval_points: list[int] = field(default_factory=lambda: [])
     test_losses: list[int] = field(default_factory=lambda: [])
     train_losses: list[int] = field(default_factory=lambda: [])
+    data_epochs: float = 0.0
 
     def as_str(self, prefix: str = "") -> str:
         result = ""
@@ -65,6 +66,12 @@ class _BatchLoader:
         self.data_test = data_test
         self.data_train = data_train
         self.remaining_train = []
+
+    def get_train_epoch_count(self) -> float:
+        items_total: int = len(self.data_train)
+        items_remaining: int = len(self.remaining_train)
+        items_used_this_epoch: int = items_total - items_remaining
+        return self.cycles_train + (items_used_this_epoch / items_total)
 
     def gen_batch(
         self,
@@ -227,6 +234,7 @@ def train_card_model(
                 f"{label} Te:{loss_test:4f} Tr:{loss_train:4f}"
             )
 
+    result.data_epochs = batch_loader.get_train_epoch_count()
     result.duration = datetime.now() - time_begin
 
     result.model = model

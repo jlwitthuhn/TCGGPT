@@ -203,9 +203,8 @@ class CardModel(nn.Module):
             "ln_f": nn.LayerNorm(config.n_embd, bias=config.bias),
         }
         if config.rope == False:
-            self.transformer["wpe"] = nn.Embedding(
-                config.block_size, config.n_embd
-            )  # Learnable position embedding
+            # Learnable position embedding
+            self.transformer["wpe"] = nn.Embedding(config.block_size, config.n_embd)
 
         self.lm_head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
 

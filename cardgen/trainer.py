@@ -16,17 +16,17 @@ from cardgen.tokenizer import CardTokenizer
 
 @dataclass
 class TrainingConfig:
-    num_epochs: int = 80000
-    first_eval_epoch: int = 3000
+    num_epochs: int = 62000
+    first_eval_epoch: int = 4000
     batch_sizes: list[int] = field(default_factory=lambda: [48])
-    weight_decay_embed: float = 0.08
+    weight_decay_embed: float = 0.04
     weight_decay: float = 0.08
     learn_rate_hi: float = 1.0e-3
     learn_rate_lo: float = 1.0e-4
     warmup_steps: int = 500
     eval_interval: int = 500
-    eval_batch_count: int = 20
-    eval_batch_size: int = 128
+    eval_batch_count: int = 10
+    eval_batch_size: int = 256
 
     def as_str(self, prefix: str = "") -> str:
         result = ""
@@ -59,13 +59,16 @@ class _BatchLoader:
     data_test: list[list[int]]
     data_train: list[list[int]]
 
+    remaining_test: list[list[int]]
     remaining_train: list[list[int]]
 
+    cycles_test: int = 0
     cycles_train: int = 0
 
     def __init__(self, data_train: list[list[int]], data_test: list[list[int]]):
         self.data_test = data_test
         self.data_train = data_train
+        self.remaining_test = []
         self.remaining_train = []
 
     def get_train_epoch_count(self) -> float:
@@ -79,28 +82,39 @@ class _BatchLoader:
         batch_size: int,
         block_size: int,
         *,
-        use_test: bool = False,
-        even_distribution: bool = False,
+        use_test: bool,
+        even_distribution: bool,
     ):
-        if use_test:
-            source_dataset = self.data_test
-        else:
-            source_dataset = self.data_train
 
         if even_distribution:
-            assert use_test == False
 
-            def get_card() -> list[int]:
-                if len(self.remaining_train) == 0:
-                    self.remaining_train = source_dataset.copy()
-                    random.seed(12345 + self.cycles_train)
-                    random.shuffle(self.remaining_train)
-                    self.cycles_train += 1
-                return self.remaining_train.pop()
+            if use_test:
+
+                def get_card() -> list[int]:
+                    if len(self.remaining_test) == 0:
+                        self.remaining_test = self.data_test.copy()
+                        random.seed(12345 + self.cycles_test)
+                        random.shuffle(self.remaining_test)
+                        self.cycles_test += 1
+                    return self.remaining_test.pop()
+
+            else:
+
+                def get_card() -> list[int]:
+                    if len(self.remaining_train) == 0:
+                        self.remaining_train = self.data_train.copy()
+                        random.seed(12345 + self.cycles_train)
+                        random.shuffle(self.remaining_train)
+                        self.cycles_train += 1
+                    return self.remaining_train.pop()
 
         else:
 
             def get_card() -> list[int]:
+                if use_test:
+                    source_dataset = self.data_test
+                else:
+                    source_dataset = self.data_train
                 max_index = len(source_dataset)
                 index = random.randint(0, max_index - 1)
                 return source_dataset[index]
@@ -145,7 +159,13 @@ def _measure_loss(
     losses: list[float] = []
     for _ in range(train_config.eval_batch_count * batch_count_multiplier):
         x, y = batch_loader.gen_batch(
-            train_config.eval_batch_size, model_config.block_size, use_test=use_test
+            train_config.eval_batch_size,
+            model_config.block_size,
+            use_test=use_test,
+            # Only use even distributon for testing loss
+            # Doing it for training loss will consume cards from
+            # the training list without actually training on them
+            even_distribution=use_test,
         )
         this_loss = model.loss_fn(x, y)
         losses.append(this_loss.item())
@@ -208,11 +228,13 @@ def train_card_model(
             i, train_config.num_epochs, train_config.batch_sizes
         )
         x, y = batch_loader.gen_batch(
-            batch_size, model_config.block_size, even_distribution=True
+            batch_size, model_config.block_size, use_test=False, even_distribution=True
         )
 
         loss, grads = loss_and_grad_fn(model, x, y)
-        optimizer_embed.update(model.transformer["wte"], grads["transformer"].pop("wte"))
+        optimizer_embed.update(
+            model.transformer["wte"], grads["transformer"].pop("wte")
+        )
         optimizer.update(model, grads)
 
         mx.eval(model.parameters(), optimizer.state, loss)

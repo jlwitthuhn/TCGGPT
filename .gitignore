@@ -4,3 +4,4 @@ data/*.txt
 data/raw/*.json
 model/
 train_log/
+TODO

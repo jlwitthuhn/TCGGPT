@@ -19,6 +19,7 @@ class TrainingConfig:
     num_epochs: int = 80000
     first_eval_epoch: int = 3000
     batch_sizes: list[int] = field(default_factory=lambda: [48])
+    weight_decay_embed: float = 0.08
     weight_decay: float = 0.08
     learn_rate_hi: float = 1.0e-3
     learn_rate_lo: float = 1.0e-4
@@ -192,6 +193,9 @@ def train_card_model(
     else:
         learn_rate = decay_lr
 
+    optimizer_embed = optimizers.AdamW(
+        learning_rate=learn_rate, weight_decay=train_config.weight_decay_embed
+    )
     optimizer = optimizers.AdamW(
         learning_rate=learn_rate, weight_decay=train_config.weight_decay
     )
@@ -208,6 +212,7 @@ def train_card_model(
         )
 
         loss, grads = loss_and_grad_fn(model, x, y)
+        optimizer_embed.update(model.transformer["wte"], grads["transformer"].pop("wte"))
         optimizer.update(model, grads)
 
         mx.eval(model.parameters(), optimizer.state, loss)

@@ -262,7 +262,10 @@ class CardModel(nn.Module):
                 idx_clipped = idx
             logits = self(idx_clipped)
             logits = logits[:, -1, :] / temperature
+            topk_min = mx.min(mx.topk(logits, 50), axis=-1, keepdims=True)
+            logits = mx.where(logits >= topk_min, logits, float("-inf"))
             ix = mx.random.categorical(logits, num_samples=1)
+            mx.eval(ix)
             assert ix.shape == (1, 1)
             if ix[0][0] == end_token:
                 break

@@ -117,6 +117,12 @@ class CardTokenizer:
                 if (exclude_valid_words == False) or (token not in VALID_WORDS):
                     out_file.write(f"<{token}>: {self._token_counts[token]}\n")
 
+    def decode(self, tokens: list[int]) -> str:
+        strs: list[str] = []
+        for token in tokens:
+            strs.append(self.decode_token(token))
+        return " ".join(strs)
+
     def decode_token(self, token_id: int) -> str:
         assert token_id in self._id_to_string
         return self._id_to_string[token_id]

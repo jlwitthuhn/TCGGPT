@@ -26,7 +26,5 @@ if __name__ == "__main__":
     for _ in range(args.count):
         start = tokenizer.encode_token("<NewCard>")
         output = model.generate_card(start, temperature=args.temp)
-        output_strs: list[str] = []
-        for token in output[0]:
-            output_strs.append(tokenizer.decode_token(token.item()))
-        print(" ".join(output_strs))
+        output_str = tokenizer.decode(output[0].tolist())
+        print(output_str)

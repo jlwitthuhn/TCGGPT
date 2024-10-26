@@ -20,6 +20,7 @@ if __name__ == "__main__":
 
     model_path: str = args.model_path
     model: CardModel = CardModel.load_file(model_path)
+    model.eval()
     tokenizer_path = model_path.replace(".safetensors", ".tokenizer")
     tokenizer: CardTokenizer = CardTokenizer.load_file(tokenizer_path)
 

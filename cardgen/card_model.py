@@ -247,11 +247,15 @@ class CardModel(nn.Module):
             )
         return count_all - count_embedding
 
-    def generate_card(self, separator_token: int, *, temperature=1.0):
+    def generate_card(self, separator_token: int, *, temperature=1.0, topk=50):
         idx = mx.array([[separator_token]])
-        return self.generate(idx, end_token=separator_token, temperature=temperature)
+        return self.generate(
+            idx, end_token=separator_token, temperature=temperature, topk=topk
+        )
 
-    def generate(self, idx, *, max_new_tokens=150, end_token=None, temperature=1.0):
+    def generate(
+        self, idx, *, max_new_tokens=150, end_token=None, temperature=1.0, topk=50
+    ):
         if isinstance(idx, list):
             idx = mx.array(idx)
         for _ in range(max_new_tokens):
@@ -262,7 +266,7 @@ class CardModel(nn.Module):
                 idx_clipped = idx
             logits = self(idx_clipped)
             logits = logits[:, -1, :] / temperature
-            topk_min = mx.min(mx.topk(logits, 50), axis=-1, keepdims=True)
+            topk_min = mx.min(mx.topk(logits, topk), axis=-1, keepdims=True)
             logits = mx.where(logits >= topk_min, logits, float("-inf"))
             ix = mx.random.categorical(logits, num_samples=1)
             mx.eval(ix)

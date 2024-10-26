@@ -16,6 +16,12 @@ if __name__ == "__main__":
     arg_parser.add_argument(
         "--temp", default=1.0, type=float, help="Sampling temperature"
     )
+    arg_parser.add_argument(
+        "--topk",
+        default=50,
+        type=int,
+        help="Only select from the top k most likely tokens",
+    )
     args = arg_parser.parse_args()
 
     model_path: str = args.model_path
@@ -26,6 +32,6 @@ if __name__ == "__main__":
 
     for _ in range(args.count):
         start = tokenizer.encode_token("<NewCard>")
-        output = model.generate_card(start, temperature=args.temp)
+        output = model.generate_card(start, temperature=args.temp, topk=args.topk)
         output_str = tokenizer.decode(output[0].tolist())
         print(output_str)

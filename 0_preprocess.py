@@ -26,12 +26,14 @@ def print_help():
                 "type_line": "Creature — Dinosaur",
                 "oracle_text": "Rules text goes here.",
                 "set_type": "expansion",
+                "oversized": False,
+                "border_color": "black",
             },
             indent=2,
         )
     )
     print(
-        "Cards with a layout other than 'normal' or a set type of 'funny' or 'alchemy' will be ignored"
+        "Cards with a layout other than 'normal' and ones that are silver-bordered or otherwise not playable under normal rules will not be included"
     )
     print()
 
@@ -58,7 +60,10 @@ def is_card_valid(maybe_card):
 
 
 def is_card_eligible(maybe_card):
-    result = maybe_card["layout"] == "normal"
+    result = True
+    result = result and maybe_card["layout"] == "normal"
+    result = result and maybe_card["oversized"] != True
+    result = result and maybe_card["set_type"] != "funny"
     result = result and maybe_card["set_type"] != "funny"
     result = result and maybe_card["set_type"] != "alchemy"
     result = result and maybe_card["set_type"] != "token"
@@ -92,7 +97,7 @@ def format_data(in_path, train_fraction):
     in_file = open(in_path, "r")
     card_list = json.loads(in_file.read())
     print("Found " + str(len(card_list)) + " cards")
-    # Full file is used to simplify training the tokenizer
+    # Full file is used to simplify making the tokenizer later
     out_file_full = open("./data/full.txt", "w")
     cards_train = []
     cards_test = []

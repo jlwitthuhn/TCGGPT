@@ -66,21 +66,37 @@ SPECIAL_CASES["gideon's resolve"] = [
 SPECIAL_CASES["hazoret the fervent"] = [
     ("hazoret", SELF),
 ]
+SPECIAL_CASES["inquisitor eisenhorn"] = [
+    ("cherubael", UNIQUE_TOKEN),
+]
 SPECIAL_CASES["kassandra, eagle bearer"] = [
     ("the spear of leonidas", NAMED_CARD),
 ]
 SPECIAL_CASES["kaya the inexorable"] = [
     ("ghostform", UNIQUE_COUNTER),
 ]
+SPECIAL_CASES["kibo, uktabi prince"] = [
+    ("banana", UNIQUE_TOKEN),
+]
 SPECIAL_CASES["kjeldoran home guard"] = [
     ("deserter", UNIQUE_TOKEN),
+]
+SPECIAL_CASES["koma, cosmos serpent"] = [
+    # Actually named "koma's coil" but the name has already been replaced
+    ("~'s coil", UNIQUE_TOKEN),
 ]
 SPECIAL_CASES["lita, mechanical engineer"] = [
     ("zeppelin", UNIQUE_TOKEN),
 ]
+SPECIAL_CASES["marauding maulhorn"] = [
+    ("advocate of the beast", NAMED_CARD),
+]
 SPECIAL_CASES["nissa's encouragement"] = [
     ("brambleweft behemoth", NAMED_CARD),
     ("nissa, genesis mage", NAMED_CARD),
+]
+SPECIAL_CASES["overlord of the hauntwoods"] = [
+    ("everywhere", UNIQUE_TOKEN),
 ]
 SPECIAL_CASES["phantasmal sphere"] = [
     ("orb", UNIQUE_TOKEN),
@@ -115,6 +131,9 @@ SPECIAL_CASES["teferi's wavecaster"] = [
 SPECIAL_CASES["tetravus"] = [
     ("tetravite", UNIQUE_TOKEN),
 ]
+SPECIAL_CASES["teyo, aegis adept"] = [
+    ("lumbering lightshield", NAMED_CARD),
+]
 SPECIAL_CASES["tezzeret's betrayal"] = [
     ("tezzeret, master of metal", NAMED_CARD),
 ]
@@ -124,11 +143,20 @@ SPECIAL_CASES["the rani"] = [
 SPECIAL_CASES["tooth and claw"] = [
     ("carnivore", UNIQUE_TOKEN),
 ]
+SPECIAL_CASES["verix bladewing"] = [
+    ("karox bladewing", UNIQUE_TOKEN),
+]
 SPECIAL_CASES["vraska's stoneglare"] = [
     ("vraska, regal gorgon", NAMED_CARD),
 ]
+SPECIAL_CASES["wall of kelp"] = [
+    ("kelp", UNIQUE_TOKEN),
+]
 SPECIAL_CASES["witness protection"] = [
     ("legitimate businessperson", UNIQUE_TOKEN),
+]
+SPECIAL_CASES["xathrid gorgon"] = [
+    ("petrification", UNIQUE_COUNTER),
 ]
 SPECIAL_CASES["yanling's harbinger"] = [
     ("mu yanling, celestial wind", NAMED_CARD),
@@ -141,37 +169,43 @@ SPECIAL_TYPES["vronos, masked inquisitor"] = ("vronos", UNIQUE_PLANESWALKER)
 SPECIAL_TYPES["zariel, archduke of avernus"] = ("zariel", UNIQUE_PLANESWALKER)
 
 PLURALS = {}
-PLURALS["artifacts"] = "artifact ~s"
-PLURALS["artificers"] = "artificer ~s"
-PLURALS["battles"] = "battle ~s"
-PLURALS["cards"] = "card ~s"
-PLURALS["creatures"] = "creature ~s"
-PLURALS["enchantments"] = "enchantment ~s"
-PLURALS["goats"] = "goat ~s"
-PLURALS["goblins"] = "goblin ~s"
-PLURALS["permanents"] = "permanent ~s"
-PLURALS["planeswalkers"] = "planeswalker ~s"
-PLURALS["robots"] = "robot ~s"
-PLURALS["salamanders"] = "salamander ~s"
-PLURALS["slivers"] = "sliver ~s"
+PLURALS["artifacts"] = "artifact *s"
+PLURALS["artificers"] = "artificer *s"
+PLURALS["battles"] = "battle *s"
+PLURALS["cards"] = "card *s"
+PLURALS["creatures"] = "creature *s"
+PLURALS["deck"] = "deck *s"
+PLURALS["enchantments"] = "enchantment *s"
+PLURALS["goats"] = "goat *s"
+PLURALS["goblins"] = "goblin *s"
+PLURALS["gorgons"] = "gorgon *s"
+PLURALS["permanents"] = "permanent *s"
+PLURALS["planeswalkers"] = "planeswalker *s"
+PLURALS["robots"] = "robot *s"
+PLURALS["salamanders"] = "salamander *s"
+PLURALS["slivers"] = "sliver *s"
 
 PREFIXES = {}
-PREFIXES["unchanged"] = "un~ changed"
+PREFIXES["nonattacking"] = "non` attacking"
+PREFIXES["nonblocking"] = "non` blocking"
+PREFIXES["unchanged"] = "un` changed"
 
 VERBS = {}
-VERBS["caused"] = "cause ~ed"
-VERBS["causes"] = "cause ~s"
-VERBS["changed"] = "change ~ed"
-VERBS["changing"] = "change ~ing"
-VERBS["cloaks"] = "cloak ~s"
-VERBS["drawing"] = "draw ~ing"
-VERBS["draws"] = "draw ~s"
-VERBS["foraging"] = "forage ~ing"
-VERBS["discovered"] = "discover ~ed"
-VERBS["explores"] = "explore ~s"
-VERBS["passed"] = "pass ~ed"
-VERBS["plotting"] = "plot ~ing"
-VERBS["turning"] = "turn ~ing"
+VERBS["attacking"] = "attack `ing"
+VERBS["blocking"] = "block `ing"
+VERBS["caused"] = "cause `ed"
+VERBS["causes"] = "cause `s"
+VERBS["changed"] = "change `ed"
+VERBS["changing"] = "change `ing"
+VERBS["cloaks"] = "cloak `s"
+VERBS["drawing"] = "draw `ing"
+VERBS["draws"] = "draw `s"
+VERBS["foraging"] = "forage `ing"
+VERBS["discovered"] = "discover `ed"
+VERBS["explores"] = "explore `s"
+VERBS["passed"] = "pass `ed"
+VERBS["plotting"] = "plot `ing"
+VERBS["turning"] = "turn `ing"
 
 
 def _clean_special_words(the_card):

@@ -1,6 +1,7 @@
 import argparse
 
 from cardgen.card_model import CardModel
+from cardgen.clean import unclean_text
 from cardgen.tokenizer import CardTokenizer
 
 
@@ -34,4 +35,5 @@ if __name__ == "__main__":
         start = tokenizer.encode_token("<NewCard>")
         output = model.generate_card(start, temperature=args.temp, topk=args.topk)
         output_str = tokenizer.decode(output[0].tolist())
+        output_str = unclean_text(output_str)
         print(output_str)

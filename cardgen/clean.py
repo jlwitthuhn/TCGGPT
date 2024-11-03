@@ -318,3 +318,22 @@ def clean_card(the_card):
     the_card = _clean_flavor_ability(the_card)
     the_card = _clean_special_words(the_card)
     return the_card
+
+
+REVERSE_VERBS = {b: a for a, b in VERBS.items()}
+REVERSE_PREFIXES = {b: a for a, b in PREFIXES.items()}
+REVERSE_PLURALS = {b: a for a, b in PLURALS.items()}
+
+
+def unclean_text(text: str):
+    result: str = text
+    for source in REVERSE_VERBS:
+        if source in result:
+            result = result.replace(source, REVERSE_VERBS[source])
+    for source in REVERSE_PREFIXES:
+        if source in result:
+            result = result.replace(source, REVERSE_PREFIXES[source])
+    for source in REVERSE_PLURALS:
+        if source in result:
+            result = result.replace(source, REVERSE_PLURALS[source])
+    return result

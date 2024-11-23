@@ -7,8 +7,9 @@ import mlx.core as mx
 from dataclasses import dataclass
 
 from mlx import nn, utils
+from mlx.core import Dtype
 
-BASE_WIDTH = 96
+BASE_WIDTH = 72
 
 
 @dataclass
@@ -18,8 +19,8 @@ class ModelConfig:
     n_embd: int = BASE_WIDTH
     n_head: int = 4
     n_layer: int = 3
-    n_ff_inner: int = BASE_WIDTH * 3
-    dropout: float = 0.25
+    n_ff_inner: int = BASE_WIDTH * 2
+    dropout: float = 0.36
     bias: bool = False
     weight_tying: bool = (
         False  # True uses the same weights for token embeddings and the output linear layer, false uses separate weights
@@ -27,6 +28,8 @@ class ModelConfig:
     swiglu: bool = False  # True uses SwiGLU activation, false uses GELU activation
     rope: bool = False  # True uses RoPE, false uses trainable position embeddings
     rope_base: int = 10000
+    bf16_attn: bool = True
+    bf16_tfm_ff: bool = False
 
     def as_str(self, prefix: str = "") -> str:
         result = ""
@@ -47,16 +50,20 @@ class SelfAttention(nn.Module):
 
         # query, key, value - all concatenated
         self.c_attn = nn.Linear(config.n_embd, 3 * config.n_embd, bias=config.bias)
+
         # Output projection
         self.c_proj = nn.Linear(config.n_embd, config.n_embd, bias=config.bias)
+
         # Rope
         self.use_rope = config.rope
         if self.use_rope:
             head_dim = config.n_embd // config.n_head
             self.rope = nn.RoPE(head_dim, base=config.rope_base)
+
         # Regularization layers
         self.attn_dropout = nn.Dropout(config.dropout)
         self.resid_dropout = nn.Dropout(config.dropout)
+
         # Mask for -inf values
         self._mask = mx.tri(config.block_size, config.block_size)
         self._mask = self._mask.reshape(1, 1, config.block_size, config.block_size)
@@ -135,13 +142,28 @@ class Block(nn.Module):
 
     def __init__(self, config: ModelConfig):
         super().__init__()
+        self._dtype_attn = mx.bfloat16 if config.bf16_attn else mx.float32
+        self._dtype_ff = mx.bfloat16 if config.bf16_tfm_ff else mx.float32
+        self.config = config
+
         self.ln_1 = nn.LayerNorm(config.n_embd, bias=config.bias)
+        self.ln_1.set_dtype(self._dtype_attn)
+
         self.attn = SelfAttention(config)
+        self.attn.set_dtype(self._dtype_attn)
+
         self.ln_2 = nn.LayerNorm(config.n_embd, bias=config.bias)
+        self.ln_2.set_dtype(self._dtype_ff)
+
         self.ff = FeedForward(config)
+        self.ff.set_dtype(self._dtype_ff)
 
     def __call__(self, x: mx.array):
+        if x.dtype != self._dtype_attn:
+            x = x.astype(self._dtype_attn)
         x = x + self.attn(self.ln_1(x))
+        if x.dtype != self._dtype_ff:
+            x = x.astype(self._dtype_ff)
         x = x + self.ff(self.ln_2(x))
         return x
 
@@ -163,6 +185,8 @@ class CardModel(nn.Module):
         model_config.swiglu = params["cfg_swiglu"].item()
         model_config.rope = params["cfg_rope"].item()
         model_config.rope_base = params["cfg_rope_base"].item()
+        model_config.bf16_attn = params["cfg_bf16_attn"].item()
+        model_config.bf16_tfm_ff = params["cfg_bf16_tfm_ff"].item()
 
         model = CardModel(None, model_config)
         model.update(params)
@@ -183,6 +207,8 @@ class CardModel(nn.Module):
         params["cfg_swiglu"] = mx.array(self.config.swiglu)
         params["cfg_rope"] = mx.array(self.config.rope)
         params["cfg_rope_base"] = mx.array(self.config.rope_base)
+        params["cfg_bf16_attn"] = mx.array(self.config.bf16_attn)
+        params["cfg_bf16_tfm_ff"] = mx.array(self.config.bf16_tfm_ff)
 
         os.makedirs(os.path.dirname(path), exist_ok=True)
         mx.save_safetensors(path, dict(utils.tree_flatten(params)))

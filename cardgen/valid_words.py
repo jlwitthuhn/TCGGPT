@@ -3,8 +3,10 @@
 
 VALID_WORDS = {
     "h",  # Rage Extractor (generic phyrexian mana)
+    "continues",  # Titania's Song
     "flipping",  # Fiery Gambit
     "frenzy",  # Frenzy Sliver
+    "generic",  # Jegantha, the Wellspring
     "group",  # The Celestial Toymaker
     "magic",  # Shahrazad
     "make",  # Gilded Drake
@@ -14,7 +16,9 @@ VALID_WORDS = {
     "recently",  # Mana Maze
     "smaller",  # Snowblind
     "stop",  # Fiery Gambit
+    "tenth",  # Legate Lanius, Caesar's Ace
     "touches",  # Chaos Orb
     "walrus",  # Bronze Walrus
     "yourself",  # Lae'zel, Vlaakith's Champion
+    "zero",  # The Biblioplex
 }

@@ -63,9 +63,9 @@ def is_card_eligible(maybe_card):
     result = True
     result = result and maybe_card["layout"] == "normal"
     result = result and maybe_card["oversized"] != True
-    result = result and maybe_card["set_type"] != "funny"
-    result = result and maybe_card["set_type"] != "funny"
     result = result and maybe_card["set_type"] != "alchemy"
+    result = result and maybe_card["set_type"] != "funny"
+    result = result and maybe_card["set_type"] != "memorabilia"
     result = result and maybe_card["set_type"] != "token"
     result = result and maybe_card["border_color"] != "silver"
     result = result and maybe_card["set"] != "past"

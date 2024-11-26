@@ -63,6 +63,9 @@ SPECIAL_CASES["giant caterpillar"] = [
 SPECIAL_CASES["gideon's resolve"] = [
     ("gideon, martial paragon", NAMED_CARD),
 ]
+SPECIAL_CASES["goldmeadow lookout"] = [
+    ("goldmeadow harrier", UNIQUE_TOKEN),
+]
 SPECIAL_CASES["hazoret the fervent"] = [
     ("hazoret", SELF),
 ]
@@ -88,8 +91,14 @@ SPECIAL_CASES["koma, cosmos serpent"] = [
 SPECIAL_CASES["lita, mechanical engineer"] = [
     ("zeppelin", UNIQUE_TOKEN),
 ]
+SPECIAL_CASES["llanowar mentor"] = [
+    ("llanowar elves", UNIQUE_TOKEN),
+]
 SPECIAL_CASES["marauding maulhorn"] = [
     ("advocate of the beast", NAMED_CARD),
+]
+SPECIAL_CASES["murmuration"] = [
+    ("storm crow", UNIQUE_TOKEN),
 ]
 SPECIAL_CASES["nissa's encouragement"] = [
     ("brambleweft behemoth", NAMED_CARD),
@@ -109,6 +118,10 @@ SPECIAL_CASES["ral's dispersal"] = [
 ]
 SPECIAL_CASES["raven clan war-axe"] = [
     ("eivor, battle-ready", NAMED_CARD),
+]
+SPECIAL_CASES["renowned weaponsmith"] = [
+    ("heart-piercer bow", NAMED_CARD),
+    ("vial of dragonfire", NAMED_CARD),
 ]
 SPECIAL_CASES["replicating ring"] = [
     ("replicated ring", UNIQUE_TOKEN),
@@ -175,6 +188,7 @@ PLURALS["battles"] = "battle *s"
 PLURALS["cards"] = "card *s"
 PLURALS["creatures"] = "creature *s"
 PLURALS["deck"] = "deck *s"
+PLURALS["doors"] = "door *s"
 PLURALS["enchantments"] = "enchantment *s"
 PLURALS["goats"] = "goat *s"
 PLURALS["goblins"] = "goblin *s"
@@ -182,6 +196,7 @@ PLURALS["gorgons"] = "gorgon *s"
 PLURALS["permanents"] = "permanent *s"
 PLURALS["planeswalkers"] = "planeswalker *s"
 PLURALS["robots"] = "robot *s"
+PLURALS["rooms"] = "room *s"
 PLURALS["salamanders"] = "salamander *s"
 PLURALS["slivers"] = "sliver *s"
 
@@ -191,6 +206,7 @@ PREFIXES["nonblocking"] = "non` blocking"
 PREFIXES["unchanged"] = "un` changed"
 
 VERBS = {}
+VERBS["antes"] = "ante `s"
 VERBS["attacking"] = "attack `ing"
 VERBS["blocking"] = "block `ing"
 VERBS["caused"] = "cause `ed"
@@ -198,14 +214,18 @@ VERBS["causes"] = "cause `s"
 VERBS["changed"] = "change `ed"
 VERBS["changing"] = "change `ing"
 VERBS["cloaks"] = "cloak `s"
+VERBS["connives"] = "connive `s"
+VERBS["dealing"] = "deal `ing"
+VERBS["discovered"] = "discover `ed"
 VERBS["drawing"] = "draw `ing"
 VERBS["draws"] = "draw `s"
-VERBS["foraging"] = "forage `ing"
-VERBS["discovered"] = "discover `ed"
 VERBS["explores"] = "explore `s"
+VERBS["foraging"] = "forage `ing"
 VERBS["passed"] = "pass `ed"
 VERBS["plotting"] = "plot `ing"
+VERBS["spliced"] = "splice `ed"
 VERBS["turning"] = "turn `ing"
+VERBS["unlocked"] = "unlock `ed"
 
 
 def _clean_special_words(the_card):

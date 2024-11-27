@@ -258,7 +258,7 @@ def train_card_model(
             )
             result.train_losses.append(loss_train)
             progress_bar.set_description(
-                f"{label} Te:{loss_test:4f} Tr:{loss_train:4f}"
+                f"{label} Te:{loss_test:.4f} Tr:{loss_train:.4f}"
             )
 
     result.data_epochs = batch_loader.get_train_epoch_count()

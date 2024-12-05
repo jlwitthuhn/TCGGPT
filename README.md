@@ -48,6 +48,7 @@ For this section, I will assume you have downloaded the oracle json file and pla
     * `python ./0_preprocess.py ./data/raw/oracle-cards.json`
 3. Run the training script to train the network with default configuration. This will produce a model file at `./model/model.safetensors` and a tokenizer definition at `./model/model.tokenizer`. It will also write some details about the training run to `./train_log/default/`.
     * `python ./1_train_model.py`
+    * By default this will do a 'fast' training run which will result in a slightly lower quality model but train 3x faster. You can use the argument `--full` to do a full training run instead.
 4. Run the inference script to generate any number of cards. Cards are delimited by the string `<NewCard>`.
     * `python ./2_inference.py ./model/model.safetensors --count 5`
     * This will automatically locate the tokenizer definition by replacing `.safetensors` with `.tokenizer` in the model path.

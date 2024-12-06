@@ -37,12 +37,21 @@ def print_help():
     )
     print()
 
+# Cards with unique mechanics and words. Anything listed here is subjectively
+# 'too far' from a standard magic card to be useful in training.
+FORBIDDEN_NAMES = {
+    "Chaos Orb",
+    "Falling Star",
+    "Fiery Gambit",
+    "Goblin Game",
+}
 
 def is_card_valid(maybe_card):
     return (
         "id" in maybe_card
         and isinstance(maybe_card["id"], str)
         and "name" in maybe_card
+        and maybe_card["name"] not in FORBIDDEN_NAMES
         and isinstance(maybe_card["name"], str)
         and "layout" in maybe_card
         and isinstance(maybe_card["layout"], str)

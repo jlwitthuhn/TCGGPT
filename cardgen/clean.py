@@ -5,9 +5,9 @@ from unidecode import unidecode
 SELF = "~"
 FLAVOR_ABILITY_WORD = "$flavor_ability_word$"
 NAMED_CARD = "$named_card$"
+NAMED_PERMANENT = "$named_permanent$"
 UNIQUE_COUNTER = "$unique_counter$"
-UNIQUE_PLANESWALKER = "$unique_planeswalker$"
-UNIQUE_TOKEN = "$unique_token$"
+UNIQUE_PLANESWALKER_TYPE = "$unique_planeswalker_type$"
 
 SPECIAL_CASES = {}
 SPECIAL_CASES["agency outfitter"] = [
@@ -23,6 +23,9 @@ SPECIAL_CASES["arbiter of the ideal"] = [
 SPECIAL_CASES["auditore ambush"] = [
     ("ezio, blade of vengeance", NAMED_CARD),
 ]
+SPECIAL_CASES["awakening of vitu-ghazi"] = [
+    ("vitu-ghazi", NAMED_PERMANENT),
+]
 SPECIAL_CASES["axelrod gunnarson"] = [
     ("axelrod", SELF),
 ]
@@ -34,13 +37,16 @@ SPECIAL_CASES["denry klin, editor in chief"] = [
 ]
 SPECIAL_CASES["drizzt do'urden"] = [
     ("drizzt", SELF),
-    ("guenhwyvar", UNIQUE_TOKEN),
+    ("guenhwyvar", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["durnan of the yawning portal"] = [
     ("durnan", SELF),
 ]
 SPECIAL_CASES["ellivere of the wild court"] = [
-    ("virtuous", UNIQUE_TOKEN),
+    ("virtuous", NAMED_PERMANENT),
+]
+SPECIAL_CASES["estrid, the masked"] = [
+    ("mask", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["festering newt"] = [
     ("bogbrew witch", NAMED_CARD),
@@ -58,19 +64,25 @@ SPECIAL_CASES["gate to the afterlife"] = [
     ("god-pharaoh's gift", NAMED_CARD),
 ]
 SPECIAL_CASES["giant caterpillar"] = [
-    ("butterfly", UNIQUE_TOKEN),
+    ("butterfly", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["gideon's resolve"] = [
     ("gideon, martial paragon", NAMED_CARD),
 ]
 SPECIAL_CASES["goldmeadow lookout"] = [
-    ("goldmeadow harrier", UNIQUE_TOKEN),
+    ("goldmeadow harrier", NAMED_PERMANENT),
+]
+SPECIAL_CASES["gorm the great"] = [
+    ("gorm", SELF),
 ]
 SPECIAL_CASES["hazoret the fervent"] = [
     ("hazoret", SELF),
 ]
 SPECIAL_CASES["inquisitor eisenhorn"] = [
-    ("cherubael", UNIQUE_TOKEN),
+    ("cherubael", NAMED_PERMANENT),
+]
+SPECIAL_CASES["jace's ruse"] = [
+    ("jace, arcane strategist", NAMED_CARD),
 ]
 SPECIAL_CASES["kassandra, eagle bearer"] = [
     ("the spear of leonidas", NAMED_CARD),
@@ -79,36 +91,39 @@ SPECIAL_CASES["kaya the inexorable"] = [
     ("ghostform", UNIQUE_COUNTER),
 ]
 SPECIAL_CASES["kibo, uktabi prince"] = [
-    ("banana", UNIQUE_TOKEN),
+    ("banana", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["kjeldoran home guard"] = [
-    ("deserter", UNIQUE_TOKEN),
+    ("deserter", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["koma, cosmos serpent"] = [
     # Actually named "koma's coil" but the name has already been replaced
-    ("~'s coil", UNIQUE_TOKEN),
+    ("~'s coil", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["lita, mechanical engineer"] = [
-    ("zeppelin", UNIQUE_TOKEN),
+    ("zeppelin", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["llanowar mentor"] = [
-    ("llanowar elves", UNIQUE_TOKEN),
+    ("llanowar elves", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["marauding maulhorn"] = [
     ("advocate of the beast", NAMED_CARD),
 ]
 SPECIAL_CASES["murmuration"] = [
-    ("storm crow", UNIQUE_TOKEN),
+    ("storm crow", NAMED_PERMANENT),
+]
+SPECIAL_CASES["moira brown, guide author"] = [
+    ("wasteland survival guide", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["nissa's encouragement"] = [
     ("brambleweft behemoth", NAMED_CARD),
     ("nissa, genesis mage", NAMED_CARD),
 ]
 SPECIAL_CASES["overlord of the hauntwoods"] = [
-    ("everywhere", UNIQUE_TOKEN),
+    ("everywhere", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["phantasmal sphere"] = [
-    ("orb", UNIQUE_TOKEN),
+    ("orb", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["rashka the slayer"] = [
     ("rashka", SELF),
@@ -124,10 +139,16 @@ SPECIAL_CASES["renowned weaponsmith"] = [
     ("vial of dragonfire", NAMED_CARD),
 ]
 SPECIAL_CASES["replicating ring"] = [
-    ("replicated ring", UNIQUE_TOKEN),
+    ("replicated ring", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["rowan's stalwarts"] = [
     ("rowan, fearless sparkmage", NAMED_CARD),
+]
+SPECIAL_CASES["shaun & rebecca, agents"] = [
+    ("the animus", NAMED_CARD),
+]
+SPECIAL_CASES["sphinx's herald"] = [
+    ("sphinx sovereign", NAMED_CARD),
 ]
 SPECIAL_CASES["skophos maze-warden"] = [
     ("labyrinth of skophos", NAMED_CARD),
@@ -136,37 +157,43 @@ SPECIAL_CASES["sol'kanar the tainted"] = [
     ("sol'kanar", SELF),
 ]
 SPECIAL_CASES["tomb of urami"] = [
-    ("urami", UNIQUE_TOKEN),
+    ("urami", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["teferi's wavecaster"] = [
     ("teferi, timeless voyager", NAMED_CARD),
 ]
 SPECIAL_CASES["tetravus"] = [
-    ("tetravite", UNIQUE_TOKEN),
+    ("tetravite", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["teyo, aegis adept"] = [
     ("lumbering lightshield", NAMED_CARD),
+]
+SPECIAL_CASES["tezzeret the schemer"] = [
+    ("etherium cell", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["tezzeret's betrayal"] = [
     ("tezzeret, master of metal", NAMED_CARD),
 ]
 SPECIAL_CASES["the rani"] = [
-    ("mark of the rani", UNIQUE_TOKEN),
+    ("mark of the rani", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["tooth and claw"] = [
-    ("carnivore", UNIQUE_TOKEN),
+    ("carnivore", NAMED_PERMANENT),
+]
+SPECIAL_CASES["tuktuk the explorer"] = [
+    ("tuktuk the returned", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["verix bladewing"] = [
-    ("karox bladewing", UNIQUE_TOKEN),
+    ("karox bladewing", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["vraska's stoneglare"] = [
     ("vraska, regal gorgon", NAMED_CARD),
 ]
 SPECIAL_CASES["wall of kelp"] = [
-    ("kelp", UNIQUE_TOKEN),
+    ("kelp", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["witness protection"] = [
-    ("legitimate businessperson", UNIQUE_TOKEN),
+    ("legitimate businessperson", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["xathrid gorgon"] = [
     ("petrification", UNIQUE_COUNTER),
@@ -176,10 +203,11 @@ SPECIAL_CASES["yanling's harbinger"] = [
 ]
 
 SPECIAL_TYPES = {}
-SPECIAL_TYPES["dakkon, shadow slayer"] = ("dakkon", UNIQUE_PLANESWALKER)
-SPECIAL_TYPES["mordenkainen"] = ("mordenkainen", UNIQUE_PLANESWALKER)
-SPECIAL_TYPES["vronos, masked inquisitor"] = ("vronos", UNIQUE_PLANESWALKER)
-SPECIAL_TYPES["zariel, archduke of avernus"] = ("zariel", UNIQUE_PLANESWALKER)
+SPECIAL_TYPES["dakkon, shadow slayer"] = ("dakkon", UNIQUE_PLANESWALKER_TYPE)
+SPECIAL_TYPES["estrid, the masked"] = ("estrid", UNIQUE_PLANESWALKER_TYPE)
+SPECIAL_TYPES["mordenkainen"] = ("mordenkainen", UNIQUE_PLANESWALKER_TYPE)
+SPECIAL_TYPES["vronos, masked inquisitor"] = ("vronos", UNIQUE_PLANESWALKER_TYPE)
+SPECIAL_TYPES["zariel, archduke of avernus"] = ("zariel", UNIQUE_PLANESWALKER_TYPE)
 
 PLURALS = {}
 PLURALS["artifacts"] = "artifact *s"
@@ -195,14 +223,17 @@ PLURALS["goblins"] = "goblin *s"
 PLURALS["gorgons"] = "gorgon *s"
 PLURALS["permanents"] = "permanent *s"
 PLURALS["planeswalkers"] = "planeswalker *s"
+PLURALS["rebels"] = "rebel *s"
 PLURALS["robots"] = "robot *s"
 PLURALS["rooms"] = "room *s"
 PLURALS["salamanders"] = "salamander *s"
+PLURALS["shards"] = "shard *s"
 PLURALS["slivers"] = "sliver *s"
 
 PREFIXES = {}
 PREFIXES["nonattacking"] = "non` attacking"
 PREFIXES["nonblocking"] = "non` blocking"
+PREFIXES["redistribute"] = "re` distribute"
 PREFIXES["unchanged"] = "un` changed"
 
 VERBS = {}
@@ -219,10 +250,13 @@ VERBS["dealing"] = "deal `ing"
 VERBS["discovered"] = "discover `ed"
 VERBS["drawing"] = "draw `ing"
 VERBS["draws"] = "draw `s"
+VERBS["enchanting"] = "enchant `ing"
 VERBS["explores"] = "explore `s"
+VERBS["faced"] = "face `ed"
 VERBS["foraging"] = "forage `ing"
 VERBS["passed"] = "pass `ed"
 VERBS["plotting"] = "plot `ing"
+VERBS["rolls"] = "roll `s"
 VERBS["spliced"] = "splice `ed"
 VERBS["turning"] = "turn `ing"
 VERBS["unlocked"] = "unlock `ed"

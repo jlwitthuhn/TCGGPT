@@ -3,21 +3,22 @@
 
 VALID_WORDS = {
     "h",  # Rage Extractor (generic phyrexian mana)
+    "absorb",  # Lymph Sliver
     "continues",  # Titania's Song
-    "flipping",  # Fiery Gambit
+    "ferret",  # Joven's Ferrets
     "frenzy",  # Frenzy Sliver
     "generic",  # Jegantha, the Wellspring
     "group",  # The Celestial Toymaker
     "magic",  # Shahrazad
     "make",  # Gilded Drake
+    "mulligan",  # Serum Powder
+    "over",  # Thrasta, Tempest's Roar
     "pairs",  # Niv-Mizzet Reborn
     "illegal",  # Gilded Drake
     "instance",  # Fatespinner
     "recently",  # Mana Maze
     "smaller",  # Snowblind
-    "stop",  # Fiery Gambit
     "tenth",  # Legate Lanius, Caesar's Ace
-    "touches",  # Chaos Orb
     "walrus",  # Bronze Walrus
     "yourself",  # Lae'zel, Vlaakith's Champion
     "zero",  # The Biblioplex

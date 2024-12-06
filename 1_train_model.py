@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     train_config = TrainingConfig()
     train_config.num_epochs = 110000
-    train_config.first_eval_epoch = 4000
+    train_config.first_eval_epoch = 5000
     train_config.batch_sizes = [16, 20, 24, 32, 40]
     train_config.weight_decay_embed = 0.03
     train_config.weight_decay = 0.07

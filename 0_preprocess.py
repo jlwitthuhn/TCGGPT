@@ -76,7 +76,7 @@ def write_name(out_file, the_card):
     out_file.write(the_card["name"].lower() + "\n")
 
 
-def format_data(in_path, test_fraction):
+def format_data(in_path: str, test_fraction: float, omit_valid_words: bool):
     print("Loading input file: " + in_path)
     in_file = open(in_path, "r")
     card_list = json.loads(in_file.read())
@@ -110,7 +110,7 @@ def format_data(in_path, test_fraction):
         write_full(out_file_test, this_card)
     print(f"Test set: {len(cards_test)}")
     tokenizer = CardTokenizer("./data/full.txt")
-    tokenizer.write_stats("./data/token_frequency.txt")
+    tokenizer.write_stats("./data/token_frequency.txt", omit_valid_words)
     print("Wrote token_frequency.txt")
 
 
@@ -121,6 +121,7 @@ if __name__ == "__main__":
     )
     arg_parser.add_argument("json_path", help="Path to the scryfall json file")
     arg_parser.add_argument("--test", default=0.1, type=float, help="Fraction of data to use as the test split")
+    arg_parser.add_argument("--omit-valid-words", action='store_true', help="When active, do not include valid words in token_frequency.txt")
     args = arg_parser.parse_args()
 
-    format_data(args.json_path, args.test)
+    format_data(args.json_path, args.test, args.omit_valid_words)

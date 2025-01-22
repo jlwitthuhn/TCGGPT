@@ -356,8 +356,10 @@ def _clean_special_words(the_card):
     return the_card
 
 
-#                                  Prefix                 Keyword                 ' -- '
-FLAVOR_ABILITY_REGEX = re.compile("(?:^|(?:\|\s(?:\*\s)?))([a-zA-Z0-9'\s\.!\?\-]+)\s\-\-\s")
+FLAVOR_ABILITY_REGEX = re.compile(
+    # Prefix                Keyword                ' -- '
+    "(?:^|(?:\|\s(?:\*\s)?))([a-zA-Z0-9'\s\.!\?\-]+)\s\-\-\s"
+)
 
 # Defined in comprehensive rules 207.2c
 # Last updated 2024-08-02

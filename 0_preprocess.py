@@ -37,6 +37,7 @@ def print_help():
     )
     print()
 
+
 # Cards with unique mechanics and words. Anything listed here is subjectively
 # 'too far' from a standard magic card to be useful in training.
 FORBIDDEN_NAMES = {
@@ -45,6 +46,7 @@ FORBIDDEN_NAMES = {
     "Fiery Gambit",
     "Goblin Game",
 }
+
 
 def is_card_valid(maybe_card):
     return (

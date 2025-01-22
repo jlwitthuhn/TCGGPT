@@ -29,6 +29,9 @@ SPECIAL_CASES["awakening of vitu-ghazi"] = [
 SPECIAL_CASES["axelrod gunnarson"] = [
     ("axelrod", SELF),
 ]
+SPECIAL_CASES["basri's aegis"] = [
+    ("basri, devoted paladin", NAMED_CARD),
+]
 SPECIAL_CASES["catti-brie of mithral hall"] = [
     ("catti-brie", SELF),
 ]
@@ -48,6 +51,9 @@ SPECIAL_CASES["ellivere of the wild court"] = [
 SPECIAL_CASES["estrid, the masked"] = [
     ("mask", NAMED_PERMANENT),
 ]
+SPECIAL_CASES["farid, enterprising salvager"] = [
+    ("scrap", NAMED_PERMANENT),
+]
 SPECIAL_CASES["festering newt"] = [
     ("bogbrew witch", NAMED_CARD),
 ]
@@ -60,6 +66,14 @@ SPECIAL_CASES["gandalf the grey"] = [
 SPECIAL_CASES["garruk's warsteed"] = [
     ("garruk, savage herald", NAMED_CARD),
 ]
+SPECIAL_CASES["garth one-eye"] = [
+    ("disenchant", NAMED_CARD),
+    ("braingeyser", NAMED_CARD),
+    ("terror", NAMED_CARD),
+    ("shivan dragon", NAMED_CARD),
+    ("regrowth", NAMED_CARD),
+    ("black lotus", NAMED_CARD),
+]
 SPECIAL_CASES["gate to the afterlife"] = [
     ("god-pharaoh's gift", NAMED_CARD),
 ]
@@ -68,6 +82,9 @@ SPECIAL_CASES["giant caterpillar"] = [
 ]
 SPECIAL_CASES["gideon's resolve"] = [
     ("gideon, martial paragon", NAMED_CARD),
+]
+SPECIAL_CASES["gimli of the glittering caves"] = [
+    ("gimli", SELF),
 ]
 SPECIAL_CASES["goldmeadow lookout"] = [
     ("goldmeadow harrier", NAMED_PERMANENT),
@@ -100,6 +117,14 @@ SPECIAL_CASES["koma, cosmos serpent"] = [
     # Actually named "koma's coil" but the name has already been replaced
     ("~'s coil", NAMED_PERMANENT),
 ]
+SPECIAL_CASES["koma, world-eater"] = [
+    # Actually named "koma's coil" but the name has already been replaced
+    ("~'s coil", NAMED_PERMANENT),
+]
+SPECIAL_CASES["kyscu drake"] = [
+    ("spitting drake", NAMED_PERMANENT),
+    ("viashivan dragon", NAMED_CARD),
+]
 SPECIAL_CASES["lita, mechanical engineer"] = [
     ("zeppelin", NAMED_PERMANENT),
 ]
@@ -118,6 +143,9 @@ SPECIAL_CASES["moira brown, guide author"] = [
 SPECIAL_CASES["nissa's encouragement"] = [
     ("brambleweft behemoth", NAMED_CARD),
     ("nissa, genesis mage", NAMED_CARD),
+]
+SPECIAL_CASES["oko's hospitality"] = [
+    ("oko, the trickster", NAMED_CARD),
 ]
 SPECIAL_CASES["overlord of the hauntwoods"] = [
     ("everywhere", NAMED_PERMANENT),
@@ -147,17 +175,26 @@ SPECIAL_CASES["rowan's stalwarts"] = [
 SPECIAL_CASES["shaun & rebecca, agents"] = [
     ("the animus", NAMED_CARD),
 ]
+SPECIAL_CASES["shoreline scout"] = [
+    ("tropical island", NAMED_CARD),
+]
+SPECIAL_CASES["smoke spirits' aid"] = [
+    ("smoke blessing", NAMED_PERMANENT),
+]
+SPECIAL_CASES["sophia, dogged detective"] = [
+    ("tiny", NAMED_PERMANENT),
+]
 SPECIAL_CASES["sphinx's herald"] = [
     ("sphinx sovereign", NAMED_CARD),
+]
+SPECIAL_CASES["splintering wind"] = [
+    ("splinter", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["skophos maze-warden"] = [
     ("labyrinth of skophos", NAMED_CARD),
 ]
 SPECIAL_CASES["sol'kanar the tainted"] = [
     ("sol'kanar", SELF),
-]
-SPECIAL_CASES["tomb of urami"] = [
-    ("urami", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["teferi's wavecaster"] = [
     ("teferi, timeless voyager", NAMED_CARD),
@@ -177,8 +214,14 @@ SPECIAL_CASES["tezzeret's betrayal"] = [
 SPECIAL_CASES["the rani"] = [
     ("mark of the rani", NAMED_PERMANENT),
 ]
+SPECIAL_CASES["tomb of urami"] = [
+    ("urami", NAMED_PERMANENT),
+]
 SPECIAL_CASES["tooth and claw"] = [
     ("carnivore", NAMED_PERMANENT),
+]
+SPECIAL_CASES["toralf's disciple"] = [
+    ("lightning bolt", NAMED_CARD),
 ]
 SPECIAL_CASES["tuktuk the explorer"] = [
     ("tuktuk the returned", NAMED_PERMANENT),
@@ -201,11 +244,18 @@ SPECIAL_CASES["xathrid gorgon"] = [
 SPECIAL_CASES["yanling's harbinger"] = [
     ("mu yanling, celestial wind", NAMED_CARD),
 ]
+SPECIAL_CASES["zimone, all-questioning"] = [
+    ("primo, the indivisible", NAMED_PERMANENT),
+]
 
 SPECIAL_TYPES = {}
+SPECIAL_TYPES["arlinn, voice of the pack"] = ("arlinn", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["dakkon, shadow slayer"] = ("dakkon", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["estrid, the masked"] = ("estrid", UNIQUE_PLANESWALKER_TYPE)
+SPECIAL_TYPES["grist, the hunger tide"] = ("grist", UNIQUE_PLANESWALKER_TYPE)
+SPECIAL_TYPES["jeska, thrice reborn"] = ("jeska", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["mordenkainen"] = ("mordenkainen", UNIQUE_PLANESWALKER_TYPE)
+SPECIAL_TYPES["quintorius kand"] = ("quintorius", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["vronos, masked inquisitor"] = ("vronos", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["zariel, archduke of avernus"] = ("zariel", UNIQUE_PLANESWALKER_TYPE)
 
@@ -216,25 +266,32 @@ PLURALS["battles"] = "battle *s"
 PLURALS["cards"] = "card *s"
 PLURALS["creatures"] = "creature *s"
 PLURALS["deck"] = "deck *s"
+PLURALS["demons"] = "demon *s"
+PLURALS["devils"] = "devil *s"
 PLURALS["doors"] = "door *s"
 PLURALS["enchantments"] = "enchantment *s"
 PLURALS["goats"] = "goat *s"
 PLURALS["goblins"] = "goblin *s"
 PLURALS["gorgons"] = "gorgon *s"
+PLURALS["imps"] = "imp *s"
 PLURALS["permanents"] = "permanent *s"
 PLURALS["planeswalkers"] = "planeswalker *s"
 PLURALS["rebels"] = "rebel *s"
 PLURALS["robots"] = "robot *s"
 PLURALS["rooms"] = "room *s"
 PLURALS["salamanders"] = "salamander *s"
+PLURALS["snakes"] = "snake *s"
 PLURALS["shards"] = "shard *s"
 PLURALS["slivers"] = "sliver *s"
+PLURALS["tieflings"] = "tiefling *s"
 
 PREFIXES = {}
 PREFIXES["nonattacking"] = "non` attacking"
 PREFIXES["nonblocking"] = "non` blocking"
 PREFIXES["redistribute"] = "re` distribute"
 PREFIXES["unchanged"] = "un` changed"
+PREFIXES["untapped"] = "un` tapped"
+PREFIXES["untap"] = "un` tap"
 
 VERBS = {}
 VERBS["antes"] = "ante `s"
@@ -244,6 +301,7 @@ VERBS["caused"] = "cause `ed"
 VERBS["causes"] = "cause `s"
 VERBS["changed"] = "change `ed"
 VERBS["changing"] = "change `ing"
+VERBS["circled"] = "circle `ed"
 VERBS["cloaks"] = "cloak `s"
 VERBS["connives"] = "connive `s"
 VERBS["dealing"] = "deal `ing"
@@ -251,13 +309,21 @@ VERBS["discovered"] = "discover `ed"
 VERBS["drawing"] = "draw `ing"
 VERBS["draws"] = "draw `s"
 VERBS["enchanting"] = "enchant `ing"
+VERBS["enlisted"] = "enlist `ed"
 VERBS["explores"] = "explore `s"
 VERBS["faced"] = "face `ed"
 VERBS["foraging"] = "forage `ing"
+VERBS["found"] = "find `ed"
+VERBS["loses"] = "lose `s"
+VERBS["losing"] = "lose `ing"
+VERBS["lost"] = "lose `ed"
 VERBS["passed"] = "pass `ed"
 VERBS["plotting"] = "plot `ing"
+VERBS["revealed"] = "reveal `ed"
+VERBS["reveals"] = "reveal `s"
 VERBS["rolls"] = "roll `s"
 VERBS["spliced"] = "splice `ed"
+VERBS["tapped"] = "tap `ed"
 VERBS["turning"] = "turn `ing"
 VERBS["unlocked"] = "unlock `ed"
 
@@ -290,8 +356,8 @@ def _clean_special_words(the_card):
     return the_card
 
 
-#                                  Prefix                 Keyword             ' -- '
-FLAVOR_ABILITY_REGEX = re.compile("(?:^|(?:\|\s(?:\*\s)?))([a-zA-Z\s\.!\?\-]+)\s\-\-\s")
+#                                  Prefix                 Keyword                 ' -- '
+FLAVOR_ABILITY_REGEX = re.compile("(?:^|(?:\|\s(?:\*\s)?))([a-zA-Z0-9'\s\.!\?\-]+)\s\-\-\s")
 
 # Defined in comprehensive rules 207.2c
 # Last updated 2024-08-02

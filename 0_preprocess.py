@@ -2,40 +2,13 @@
 # These files can be downloaded at https://scryfall.com/docs/api/bulk-data
 # I recommend the 'Oracle Cards' set which has been deduplicated by card name
 
+import argparse
 import json
 import random
 import sys
 
 from cardgen.clean import clean_card
 from cardgen.tokenizer import CardTokenizer
-
-
-def print_help():
-    print("Usage: python3 0_preprocess.py [input file path] [test percent]")
-    print(
-        "The file must contain an array of json objects, each with the following shape:"
-    )
-    print(
-        json.dumps(
-            {
-                "id": "Some sort of guid goes here",
-                "name": "Card Name",
-                "layout": "normal",
-                "mana_cost": "{W}{U}{B}{R}{G}",
-                "cmc": 5,
-                "type_line": "Creature — Dinosaur",
-                "oracle_text": "Rules text goes here.",
-                "set_type": "expansion",
-                "oversized": False,
-                "border_color": "black",
-            },
-            indent=2,
-        )
-    )
-    print(
-        "Cards with a layout other than 'normal' and ones that are silver-bordered or otherwise not playable under normal rules will not be included"
-    )
-    print()
 
 
 # Cards with unique mechanics and words. Anything listed here is subjectively
@@ -103,7 +76,7 @@ def write_name(out_file, the_card):
     out_file.write(the_card["name"].lower() + "\n")
 
 
-def format_data(in_path, train_fraction):
+def format_data(in_path, test_fraction):
     print("Loading input file: " + in_path)
     in_file = open(in_path, "r")
     card_list = json.loads(in_file.read())
@@ -122,7 +95,7 @@ def format_data(in_path, train_fraction):
             write_full(out_file_full, this_card)
             count = count + 1
             # Append to either train or test set
-            if len(cards_test) / (len(cards_train) + 1) < train_fraction:
+            if len(cards_test) / (len(cards_train) + 1) < test_fraction:
                 cards_test.append(this_card)
             else:
                 cards_train.append(this_card)
@@ -142,17 +115,12 @@ def format_data(in_path, train_fraction):
 
 
 if __name__ == "__main__":
+    arg_parser = argparse.ArgumentParser(
+        description="Transform data from scryfall json format to text ready for training",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    arg_parser.add_argument("json_path", help="Path to the scryfall json file")
+    arg_parser.add_argument("--test", default=0.1, type=float, help="Fraction of data to use as the test split")
+    args = arg_parser.parse_args()
 
-    if len(sys.argv) != 2 and len(sys.argv) != 3:
-        print_help()
-        sys.exit(0)
-
-    train_fraction: float = 0.10
-    if len(sys.argv) == 3:
-        try:
-            train_fraction = float(sys.argv[2]) / 100.0
-        except ValueError:
-            print_help()
-            sys.exit(0)
-
-    format_data(sys.argv[1], train_fraction)
+    format_data(args.json_path, args.test)

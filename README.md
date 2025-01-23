@@ -36,17 +36,7 @@ It also frequently produces nonsense.
 <Text> whenever you cast a spell that targets a creature or that shares a creature type with at the end step , ~ deals 2 damage to any target .
 ```
 
-## Running the Scripts
-
-### Running a pre-built model
-
-Pre-trained models are available on the [Releases](https://github.com/jlwitthuhn/TCGGPT/releases) page. When you are using a pre-trained model, be sure that you are also using the inference script from the git tag attached to that release. Sometimes backwards-incompatible changes will be made to the model architecture.
-
-First, download the latest release `models.zip` as well as the source code. The zip file will just contain two files, a model and a tokenizer. These two files must both exist in the same directory and have the same name (before extension). You can just drop both of them into the repository root.
-
-When the model files are in place, you can run `python 2_inference.py ./model_full.safetensors`.
-
-### Building and running the model
+## Building and Running the Model
 
 Before beginning, you will need the raw data to train the network. You can download a json file in the appropriate format from [Scryfall's Bulk Data page](https://scryfall.com/docs/api/bulk-data). The best set for training is 'Oracle Cards' because it is de-duplicated by card name.
 

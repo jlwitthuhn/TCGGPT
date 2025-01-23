@@ -95,7 +95,19 @@ The raw data from scryfall is cleaned in a way to help the model learn meaningfu
 7. Some plural words are decomposed into the singular version of the word followed by `*s`. (ex: `creatures` -> `creature *s`)
 8. Some verbs are decomposed into a base verb followed by a suffix. (ex: `tapped` -> ``tap `ed``)
 
-## Training Loss
+## Training
 
-A graph of the training loss across train and test sets when trained on the scryfall oracle dump from July 3, 2024:
+The following data was gathered from a full training run of commit `a2b2f876` with the scryfall data from Jan 22, 2025.
+
+### Training Info
+
+Training set: 24912 cards
+Test set: 2492 cards
+Training iterations: 90000
+Batch sizes: 16, 20, 24, 32, 40
+Parameter count: 928960
+
+### Loss
+
+This graph shows both the train and test loss over time. Dotted vertical lines indicate points where the batch size was inceased.
 ![Training Loss](./img/loss.png)

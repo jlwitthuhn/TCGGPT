@@ -101,11 +101,11 @@ The following data was gathered from a full training run of commit `a2b2f876` wi
 
 ### Training Info
 
-Training set: 24912 cards
-Test set: 2492 cards
-Training iterations: 90000
-Batch sizes: 16, 20, 24, 32, 40
-Parameter count: 928960
+* Training set: 24912 cards
+* Test set: 2492 cards
+* Training iterations: 90000
+* Batch sizes: 16, 20, 24, 32, 40
+* Parameter count: 928960
 
 ### Loss
 

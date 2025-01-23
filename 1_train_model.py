@@ -50,11 +50,11 @@ if __name__ == "__main__":
     model_config = ModelConfig()
     model_config.block_size = 160
     model_config.vocab_size = None
-    model_config.n_embd = 72
+    model_config.n_embd = 80
     model_config.n_head = 4
-    model_config.n_layer = 16
+    model_config.n_layer = 12
     model_config.n_ff_inner = model_config.n_embd * 2
-    model_config.dropout = 0.36
+    model_config.dropout = 0.25
     model_config.bias = False
     model_config.weight_tying = False
     model_config.swiglu = True
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     model_config.bf16_tfm_ff = False
 
     train_config = TrainingConfig()
-    train_config.num_epochs = 110000
+    train_config.num_epochs = 100000
     train_config.first_eval_epoch = 5000
     train_config.batch_sizes = [16, 20, 24, 32, 40]
     train_config.weight_decay_embed = 0.03
@@ -81,12 +81,12 @@ if __name__ == "__main__":
     if len(sys.argv) == 2 and sys.argv[1] == "--full":
         print("Using full training...")
         label = "model_full"
-        model_config.dropout = 0.24
+        model_config.dropout = 0.25
         train_config.num_epochs = 90000
     else:
         print("Using fast training...")
         label = "model"
-        model_config.dropout = 0.14
+        model_config.dropout = 0.15
         train_config.num_epochs = 30000
 
 result = train_card_model(label, train_config, model_config)

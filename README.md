@@ -4,7 +4,7 @@ TCGGPT is a series of python scripts that can be used to train and run inference
 
 TCGGPT is built on MLX and will only run on Macs with an Apple Silicon processor.
 
-This repo does not contain the model or training data, just the scripts needed to build and run the model. A standard training run takes 25 minutes and a full training run takes 1 hour and 15 minutes on my M4 Max MBP.
+This repo does not contain the model or training data, just the scripts needed to build and run the model. A standard training run takes 20 minutes and a full training run takes 60 minutes on my M4 Max MBP.
 
 ## Example Output
 

@@ -110,4 +110,5 @@ The following data was gathered from a full training run of commit `a2b2f876` wi
 ### Loss
 
 This graph shows both the train and test loss over time. Dotted vertical lines indicate points where the batch size was inceased.
+
 ![Training Loss](./img/loss.png)

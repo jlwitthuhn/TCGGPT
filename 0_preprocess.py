@@ -96,7 +96,9 @@ def format_data(
             write_full(out_file_full, this_card)
             count = count + 1
             # Append to either train or test set
-            if len(cards_test) / (len(cards_train) + 1) < test_fraction:
+            len_test = len(cards_test)
+            len_all = len(cards_train) + len_test
+            if len_test / (len_all + 1) < test_fraction:
                 cards_test.append(this_card)
             else:
                 cards_train.append(this_card)
@@ -128,7 +130,9 @@ if __name__ == "__main__":
         help="Fraction of data to use as the test split",
     )
     arg_parser.add_argument(
-        "--lite-clean", action="store_true", help="Only do basic data cleaning. See the function clean_card in cardgen/clean.py for details"
+        "--lite-clean",
+        action="store_true",
+        help="Only do basic data cleaning. See the function clean_card in cardgen/clean.py for details",
     )
     arg_parser.add_argument(
         "--omit-valid-words",

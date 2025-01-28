@@ -431,10 +431,10 @@ def clean_card(the_card, lite_clean: bool):
     the_card["oracle_text"] = (
         unidecode(the_card["oracle_text"]).lower().replace("\n", " | ")
     )
+    # Remove reminder text
+    the_card["oracle_text"] = re.sub("\(.*?\)", "", the_card["oracle_text"])
 
     if not lite_clean:
-        # Remove reminder text
-        the_card["oracle_text"] = re.sub("\(.*?\)", "", the_card["oracle_text"])
         the_card = _clean_partner(the_card)
         the_card = _clean_flavor_ability(the_card)
         the_card = _clean_special_words(the_card)

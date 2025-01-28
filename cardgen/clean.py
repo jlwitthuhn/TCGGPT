@@ -410,7 +410,7 @@ def _clean_partner(the_card):
     return the_card
 
 
-def clean_card(the_card):
+def clean_card(the_card, lite_clean: bool):
     # Alchemy versions of cards start with 'A-', remove it
     if the_card["name"].startswith("A-"):
         the_card["name"] = the_card["name"][2:]
@@ -419,7 +419,6 @@ def clean_card(the_card):
     the_card["oracle_text"] = the_card["oracle_text"].replace(the_card["name"], "~")
 
     # Some cards have a name of the form "Name, Title"
-    # Also replace any instance of 'Name' in the card in this case
     if "," in the_card["name"]:
         comma_index = the_card["name"].find(",")
         short_name = the_card["name"][:comma_index]
@@ -433,12 +432,13 @@ def clean_card(the_card):
         unidecode(the_card["oracle_text"]).lower().replace("\n", " | ")
     )
 
-    # Remove reminder text
-    the_card["oracle_text"] = re.sub("\(.*?\)", "", the_card["oracle_text"])
+    if not lite_clean:
+        # Remove reminder text
+        the_card["oracle_text"] = re.sub("\(.*?\)", "", the_card["oracle_text"])
+        the_card = _clean_partner(the_card)
+        the_card = _clean_flavor_ability(the_card)
+        the_card = _clean_special_words(the_card)
 
-    the_card = _clean_partner(the_card)
-    the_card = _clean_flavor_ability(the_card)
-    the_card = _clean_special_words(the_card)
     return the_card
 
 

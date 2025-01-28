@@ -10,7 +10,6 @@ import sys
 from cardgen.clean import clean_card
 from cardgen.tokenizer import CardTokenizer
 
-
 # Cards with unique mechanics and words. Anything listed here is subjectively
 # 'too far' from a standard magic card to be useful in training.
 FORBIDDEN_NAMES = {
@@ -76,7 +75,9 @@ def write_name(out_file, the_card):
     out_file.write(the_card["name"].lower() + "\n")
 
 
-def format_data(in_path: str, test_fraction: float, omit_valid_words: bool):
+def format_data(
+    in_path: str, test_fraction: float, lite_clean: bool, omit_valid_words: bool
+):
     print("Loading input file: " + in_path)
     in_file = open(in_path, "r")
     card_list = json.loads(in_file.read())
@@ -91,7 +92,7 @@ def format_data(in_path: str, test_fraction: float, omit_valid_words: bool):
 
     for this_card in card_list:
         if is_card_valid(this_card) and is_card_eligible(this_card):
-            clean_card(this_card)
+            clean_card(this_card, lite_clean)
             write_full(out_file_full, this_card)
             count = count + 1
             # Append to either train or test set
@@ -120,8 +121,20 @@ if __name__ == "__main__":
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     arg_parser.add_argument("json_path", help="Path to the scryfall json file")
-    arg_parser.add_argument("--test", default=0.1, type=float, help="Fraction of data to use as the test split")
-    arg_parser.add_argument("--omit-valid-words", action='store_true', help="When active, do not include valid words in token_frequency.txt")
+    arg_parser.add_argument(
+        "--test",
+        default=0.1,
+        type=float,
+        help="Fraction of data to use as the test split",
+    )
+    arg_parser.add_argument(
+        "--lite-clean", action="store_true", help="Only do basic data cleaning. See the function clean_card in cardgen/clean.py for details"
+    )
+    arg_parser.add_argument(
+        "--omit-valid-words",
+        action="store_true",
+        help="Do not include valid words in token_frequency.txt",
+    )
     args = arg_parser.parse_args()
 
-    format_data(args.json_path, args.test, args.omit_valid_words)
+    format_data(args.json_path, args.test, args.lite_clean, args.omit_valid_words)

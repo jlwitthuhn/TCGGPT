@@ -146,13 +146,13 @@ class Block(nn.Module):
         self._dtype_ff = mx.bfloat16 if config.bf16_tfm_ff else mx.float32
         self.config = config
 
-        self.ln_1 = nn.LayerNorm(config.n_embd, bias=config.bias)
+        self.ln_1 = nn.RMSNorm(config.n_embd)
         self.ln_1.set_dtype(self._dtype_attn)
 
         self.attn = SelfAttention(config)
         self.attn.set_dtype(self._dtype_attn)
 
-        self.ln_2 = nn.LayerNorm(config.n_embd, bias=config.bias)
+        self.ln_2 = nn.RMSNorm(config.n_embd)
         self.ln_2.set_dtype(self._dtype_ff)
 
         self.ff = FeedForward(config)
@@ -226,7 +226,7 @@ class CardModel(nn.Module):
             "wte": nn.Embedding(config.vocab_size, config.n_embd),  # Token Embedding
             "drop": nn.Dropout(config.dropout),  # Embedding dropout layer
             "h": [Block(config) for _ in range(config.n_layer)],  # Transformer blocks
-            "ln_f": nn.LayerNorm(config.n_embd, bias=config.bias),
+            "ln_f": nn.RMSNorm(config.n_embd),
         }
         if config.rope == False:
             # Learnable position embedding

@@ -60,9 +60,6 @@ SPECIAL_CASES["festering newt"] = [
 SPECIAL_CASES["freyalise, skyshroud partisan"] = [
     ("regal force", NAMED_CARD),
 ]
-SPECIAL_CASES["gandalf the grey"] = [
-    ("gandalf", SELF),
-]
 SPECIAL_CASES["garruk's warsteed"] = [
     ("garruk, savage herald", NAMED_CARD),
 ]
@@ -88,12 +85,6 @@ SPECIAL_CASES["gimli of the glittering caves"] = [
 ]
 SPECIAL_CASES["goldmeadow lookout"] = [
     ("goldmeadow harrier", NAMED_PERMANENT),
-]
-SPECIAL_CASES["gorm the great"] = [
-    ("gorm", SELF),
-]
-SPECIAL_CASES["hazoret the fervent"] = [
-    ("hazoret", SELF),
 ]
 SPECIAL_CASES["inquisitor eisenhorn"] = [
     ("cherubael", NAMED_PERMANENT),
@@ -153,9 +144,6 @@ SPECIAL_CASES["overlord of the hauntwoods"] = [
 SPECIAL_CASES["phantasmal sphere"] = [
     ("orb", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["rashka the slayer"] = [
-    ("rashka", SELF),
-]
 SPECIAL_CASES["ral's dispersal"] = [
     ("ral, caller of storms", NAMED_CARD),
 ]
@@ -192,9 +180,6 @@ SPECIAL_CASES["splintering wind"] = [
 ]
 SPECIAL_CASES["skophos maze-warden"] = [
     ("labyrinth of skophos", NAMED_CARD),
-]
-SPECIAL_CASES["sol'kanar the tainted"] = [
-    ("sol'kanar", SELF),
 ]
 SPECIAL_CASES["teferi's wavecaster"] = [
     ("teferi, timeless voyager", NAMED_CARD),
@@ -422,6 +407,12 @@ def clean_card(the_card, lite_clean: bool):
     if "," in the_card["name"]:
         comma_index = the_card["name"].find(",")
         short_name = the_card["name"][:comma_index]
+        the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
+
+    # Other cards have a name like "Name the Title"
+    elif " the " in the_card["name"]:
+        the_index = the_card["name"].find(" the ")
+        short_name = the_card["name"][:the_index]
         the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
 
     # Standard cleanup

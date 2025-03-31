@@ -14,6 +14,9 @@ SPECIAL_CASES["agency outfitter"] = [
     ("magnifying glass", NAMED_CARD),
     ("thinking cap", NAMED_CARD),
 ]
+SPECIAL_CASES["ajani, strength of the pride"] = [
+    ("~'s pridemate", NAMED_PERMANENT),
+]
 SPECIAL_CASES["angel's herald"] = [
     ("empyrial archangel", NAMED_CARD),
 ]
@@ -32,8 +35,21 @@ SPECIAL_CASES["axelrod gunnarson"] = [
 SPECIAL_CASES["basri's aegis"] = [
     ("basri, devoted paladin", NAMED_CARD),
 ]
+SPECIAL_CASES["behemoth's herald"] = [
+    ("godsire", NAMED_CARD),
+]
+SPECIAL_CASES["bogbrew witch"] = [
+    ("festering newt", NAMED_CARD),
+    ("bubbling cauldron", NAMED_CARD),
+]
+SPECIAL_CASES["boris devilboon"] = [
+    ("minor demon", NAMED_PERMANENT),
+]
 SPECIAL_CASES["catti-brie of mithral hall"] = [
     ("catti-brie", SELF),
+]
+SPECIAL_CASES["chandra's outburst"] = [
+    ("chandra, bold pyromancer", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["denry klin, editor in chief"] = [
     ("denry", SELF),
@@ -71,6 +87,9 @@ SPECIAL_CASES["garth one-eye"] = [
 SPECIAL_CASES["gate to the afterlife"] = [
     ("god-pharaoh's gift", NAMED_CARD),
 ]
+SPECIAL_CASES["general kudro of drannith"] = [
+    ("general kudro", SELF),
+]
 SPECIAL_CASES["giant caterpillar"] = [
     ("butterfly", NAMED_PERMANENT),
 ]
@@ -79,6 +98,11 @@ SPECIAL_CASES["gideon's resolve"] = [
 ]
 SPECIAL_CASES["goldmeadow lookout"] = [
     ("goldmeadow harrier", NAMED_PERMANENT),
+]
+SPECIAL_CASES["helm of kaldra"] = [
+    ("sword of kaldra", NAMED_CARD),
+    ("shield of kaldra", NAMED_CARD),
+    ("kaldra", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["inquisitor eisenhorn"] = [
     ("cherubael", NAMED_PERMANENT),
@@ -116,6 +140,9 @@ SPECIAL_CASES["lita, mechanical engineer"] = [
 SPECIAL_CASES["llanowar mentor"] = [
     ("llanowar elves", NAMED_PERMANENT),
 ]
+SPECIAL_CASES["mangara of corondor"] = [
+    ("mangara", SELF),
+]
 SPECIAL_CASES["marauding maulhorn"] = [
     ("advocate of the beast", NAMED_CARD),
 ]
@@ -124,6 +151,9 @@ SPECIAL_CASES["murmuration"] = [
 ]
 SPECIAL_CASES["moira brown, guide author"] = [
     ("wasteland survival guide", NAMED_PERMANENT),
+]
+SPECIAL_CASES["nazahn, revered bladesmith"] = [
+    ("hammer of ~", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["nissa's encouragement"] = [
     ("brambleweft behemoth", NAMED_CARD),
@@ -154,11 +184,24 @@ SPECIAL_CASES["replicating ring"] = [
 SPECIAL_CASES["rowan's stalwarts"] = [
     ("rowan, fearless sparkmage", NAMED_CARD),
 ]
+SPECIAL_CASES["sharae of numbing depths"] = [
+    ("sharae", SELF),
+]
 SPECIAL_CASES["shaun & rebecca, agents"] = [
     ("the animus", NAMED_CARD),
 ]
+SPECIAL_CASES["shield of kaldra"] = [
+    ("sword of kaldra", NAMED_CARD),
+    ("helm of kaldra", NAMED_CARD),
+]
 SPECIAL_CASES["shoreline scout"] = [
     ("tropical island", NAMED_CARD),
+]
+SPECIAL_CASES["skophos maze-warden"] = [
+    ("labyrinth of skophos", NAMED_CARD),
+]
+SPECIAL_CASES["sliversmith"] = [
+    ("metallic sliver", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["smoke spirits' aid"] = [
     ("smoke blessing", NAMED_PERMANENT),
@@ -172,8 +215,8 @@ SPECIAL_CASES["sphinx's herald"] = [
 SPECIAL_CASES["splintering wind"] = [
     ("splinter", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["skophos maze-warden"] = [
-    ("labyrinth of skophos", NAMED_CARD),
+SPECIAL_CASES["summoning station"] = [
+    ("pincher", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["teferi's wavecaster"] = [
     ("teferi, timeless voyager", NAMED_CARD),
@@ -190,8 +233,17 @@ SPECIAL_CASES["tezzeret the schemer"] = [
 SPECIAL_CASES["tezzeret's betrayal"] = [
     ("tezzeret, master of metal", NAMED_CARD),
 ]
+SPECIAL_CASES["the first doctor"] = [
+    ("tardis", NAMED_CARD),
+]
+SPECIAL_CASES["the hive"] = [
+    ("wasp", NAMED_PERMANENT),
+]
 SPECIAL_CASES["the rani"] = [
     ("mark of the rani", NAMED_PERMANENT),
+]
+SPECIAL_CASES["the spear of leonidas"] = [
+    ("phobos", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["tomb of urami"] = [
     ("urami", NAMED_PERMANENT),
@@ -204,6 +256,9 @@ SPECIAL_CASES["toralf's disciple"] = [
 ]
 SPECIAL_CASES["tuktuk the explorer"] = [
     ("tuktuk the returned", NAMED_PERMANENT),
+]
+SPECIAL_CASES["twitching doll"] = [
+    ("nest", UNIQUE_COUNTER),
 ]
 SPECIAL_CASES["verix bladewing"] = [
     ("karox bladewing", NAMED_PERMANENT),
@@ -236,6 +291,7 @@ SPECIAL_TYPES["jeska, thrice reborn"] = ("jeska", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["mordenkainen"] = ("mordenkainen", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["quintorius kand"] = ("quintorius", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["vronos, masked inquisitor"] = ("vronos", UNIQUE_PLANESWALKER_TYPE)
+SPECIAL_TYPES["xenagos, the reveler"] = ("xenagos", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["zariel, archduke of avernus"] = ("zariel", UNIQUE_PLANESWALKER_TYPE)
 
 PLURALS = {}
@@ -259,9 +315,11 @@ PLURALS["rebels"] = "rebel *s"
 PLURALS["robots"] = "robot *s"
 PLURALS["rooms"] = "room *s"
 PLURALS["salamanders"] = "salamander *s"
+PLURALS["servos"] = "servo *s"
 PLURALS["snakes"] = "snake *s"
 PLURALS["shards"] = "shard *s"
 PLURALS["slivers"] = "sliver *s"
+PLURALS["thopters"] = "thopter *s"
 PLURALS["tieflings"] = "tiefling *s"
 
 PREFIXES = {}
@@ -285,22 +343,30 @@ VERBS["cloaks"] = "cloak `s"
 VERBS["connives"] = "connive `s"
 VERBS["dealing"] = "deal `ing"
 VERBS["discovered"] = "discover `ed"
+VERBS["discovers"] = "discover `s"
 VERBS["drawing"] = "draw `ing"
 VERBS["draws"] = "draw `s"
+VERBS["embalmed"] = "embalm `ed"
 VERBS["enchanting"] = "enchant `ing"
 VERBS["enlisted"] = "enlist `ed"
 VERBS["explores"] = "explore `s"
 VERBS["faced"] = "face `ed"
 VERBS["foraging"] = "forage `ing"
 VERBS["found"] = "find `ed"
+VERBS["guessed"] = "guess `ed"
+VERBS["guesses"] = "guess `s"
 VERBS["loses"] = "lose `s"
 VERBS["losing"] = "lose `ing"
 VERBS["lost"] = "lose `ed"
+VERBS["moved"] = "move `ed"
 VERBS["passed"] = "pass `ed"
 VERBS["plotting"] = "plot `ing"
+VERBS["regenerated"] = "regenerate `ed"
+VERBS["regenerates"] = "regenerate `s"
 VERBS["revealed"] = "reveal `ed"
 VERBS["reveals"] = "reveal `s"
 VERBS["rolls"] = "roll `s"
+VERBS["seeks"] = "seek `s"
 VERBS["spliced"] = "splice `ed"
 VERBS["tapped"] = "tap `ed"
 VERBS["turning"] = "turn `ing"

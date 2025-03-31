@@ -7,12 +7,14 @@ VALID_WORDS = {
     "below",  # Cryptic Spires
     "continues",  # Titania's Song
     "ferret",  # Joven's Ferrets
+    "fourth",  # Lost to Legend
     "frenzy",  # Frenzy Sliver
     "generic",  # Jegantha, the Wellspring
     "group",  # The Celestial Toymaker
     "homelands",  # Apocalypse Chime
     "magic",  # Shahrazad
     "make",  # Gilded Drake
+    "match",  # Expert-Level Safe
     "mulligan",  # Serum Powder
     "over",  # Thrasta, Tempest's Roar
     "pairs",  # Niv-Mizzet Reborn

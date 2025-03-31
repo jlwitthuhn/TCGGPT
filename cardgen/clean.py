@@ -42,9 +42,6 @@ SPECIAL_CASES["drizzt do'urden"] = [
     ("drizzt", SELF),
     ("guenhwyvar", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["durnan of the yawning portal"] = [
-    ("durnan", SELF),
-]
 SPECIAL_CASES["ellivere of the wild court"] = [
     ("virtuous", NAMED_PERMANENT),
 ]
@@ -79,9 +76,6 @@ SPECIAL_CASES["giant caterpillar"] = [
 ]
 SPECIAL_CASES["gideon's resolve"] = [
     ("gideon, martial paragon", NAMED_CARD),
-]
-SPECIAL_CASES["gimli of the glittering caves"] = [
-    ("gimli", SELF),
 ]
 SPECIAL_CASES["goldmeadow lookout"] = [
     ("goldmeadow harrier", NAMED_PERMANENT),
@@ -408,8 +402,12 @@ def clean_card(the_card, lite_clean: bool):
         comma_index = the_card["name"].find(",")
         short_name = the_card["name"][:comma_index]
         the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
-
-    # Other cards have a name like "Name the Title"
+    # Other cards have a name like "Name of the Thing"
+    elif " of the " in the_card["name"]:
+        of_index = the_card["name"].find(" of the ")
+        short_name = the_card["name"][:of_index]
+        the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
+    # Or "Name the Title"
     elif " the " in the_card["name"]:
         the_index = the_card["name"].find(" the ")
         short_name = the_card["name"][:the_index]

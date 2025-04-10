@@ -23,6 +23,9 @@ SPECIAL_CASES["angel's herald"] = [
 SPECIAL_CASES["arbiter of the ideal"] = [
     ("manifestation", UNIQUE_COUNTER),
 ]
+SPECIAL_CASES["ashiok's forerunner"] = [
+    ("ashiok, sculptor of fears", NAMED_CARD),
+]
 SPECIAL_CASES["auditore ambush"] = [
     ("ezio, blade of vengeance", NAMED_CARD),
 ]
@@ -53,6 +56,10 @@ SPECIAL_CASES["chandra's outburst"] = [
 ]
 SPECIAL_CASES["denry klin, editor in chief"] = [
     ("denry", SELF),
+]
+SPECIAL_CASES["dragonstorm forecaster"] = [
+    ("dragonstorm globe", NAMED_CARD),
+    ("boulderborn dragon", NAMED_CARD),
 ]
 SPECIAL_CASES["drizzt do'urden"] = [
     ("drizzt", SELF),
@@ -109,6 +116,9 @@ SPECIAL_CASES["inquisitor eisenhorn"] = [
 ]
 SPECIAL_CASES["jace's ruse"] = [
     ("jace, arcane strategist", NAMED_CARD),
+]
+SPECIAL_CASES["jedit ojanen of efrava"] = [
+    ("jedit ojanen", SELF),
 ]
 SPECIAL_CASES["kassandra, eagle bearer"] = [
     ("the spear of leonidas", NAMED_CARD),
@@ -321,10 +331,12 @@ PLURALS["shards"] = "shard *s"
 PLURALS["slivers"] = "sliver *s"
 PLURALS["thopters"] = "thopter *s"
 PLURALS["tieflings"] = "tiefling *s"
+PLURALS["upkeeps"] = "upkeep *s"
 
 PREFIXES = {}
 PREFIXES["nonattacking"] = "non` attacking"
 PREFIXES["nonblocking"] = "non` blocking"
+PREFIXES["nonenchantment"] = "non` enchantment"
 PREFIXES["redistribute"] = "re` distribute"
 PREFIXES["unchanged"] = "un` changed"
 PREFIXES["untapped"] = "un` tapped"
@@ -333,41 +345,64 @@ PREFIXES["untap"] = "un` tap"
 VERBS = {}
 VERBS["antes"] = "ante `s"
 VERBS["attacking"] = "attack `ing"
+VERBS["bargained"] = "bargain `ed"
 VERBS["blocking"] = "block `ing"
 VERBS["caused"] = "cause `ed"
 VERBS["causes"] = "cause `s"
+VERBS["championed"] = "champion `ed"
 VERBS["changed"] = "change `ed"
 VERBS["changing"] = "change `ing"
 VERBS["circled"] = "circle `ed"
 VERBS["cloaks"] = "cloak `s"
 VERBS["connives"] = "connive `s"
+VERBS["crewed"] = "crew `ed"
+VERBS["crews"] = "crew `s"
 VERBS["dealing"] = "deal `ing"
+VERBS["devoured"] = "devour `ed"
 VERBS["discovered"] = "discover `ed"
 VERBS["discovers"] = "discover `s"
 VERBS["drawing"] = "draw `ing"
 VERBS["draws"] = "draw `s"
 VERBS["embalmed"] = "embalm `ed"
+VERBS["enchanted"] = "enchant `ed"
 VERBS["enchanting"] = "enchant `ing"
 VERBS["enlisted"] = "enlist `ed"
+VERBS["enlists"] = "enlist `s"
+VERBS["equipped"] = "equip `ed"
+VERBS["escaped"] = "escape `ed"
+VERBS["escapes"] = "escape `s"
+VERBS["evolves"] = "evolve `s"
+VERBS["exploited"] = "exploit `ed"
+VERBS["exploits"] = "exploit `s"
 VERBS["explores"] = "explore `s"
 VERBS["faced"] = "face `ed"
 VERBS["foraging"] = "forage `ing"
+VERBS["foretelling"] = "foretell `ing"
+VERBS["foretold"] = "foretell `ed"
+VERBS["fortified"] = "fortify `ed"
 VERBS["found"] = "find `ed"
 VERBS["guessed"] = "guess `ed"
 VERBS["guesses"] = "guess `s"
+VERBS["haunts"] = "haunt `s"
 VERBS["loses"] = "lose `s"
 VERBS["losing"] = "lose `ing"
 VERBS["lost"] = "lose `ed"
+VERBS["mentors"] = "mentor `s"
 VERBS["moved"] = "move `ed"
+VERBS["mutated"] = "mutate `ed"
+VERBS["mutates"] = "mutate `ed"
 VERBS["passed"] = "pass `ed"
+VERBS["plotted"] = "plot `ed"
 VERBS["plotting"] = "plot `ing"
 VERBS["regenerated"] = "regenerate `ed"
 VERBS["regenerates"] = "regenerate `s"
+VERBS["renowned"] = "renown `ed"
 VERBS["revealed"] = "reveal `ed"
 VERBS["reveals"] = "reveal `s"
 VERBS["rolls"] = "roll `s"
 VERBS["seeks"] = "seek `s"
 VERBS["spliced"] = "splice `ed"
+VERBS["suspended"] = "suspend `ed"
 VERBS["tapped"] = "tap `ed"
 VERBS["turning"] = "turn `ing"
 VERBS["unlocked"] = "unlock `ed"
@@ -430,6 +465,14 @@ ABILITY_WORDS = {
     "threshold",
 }
 
+# Defined in comprehensive rules section 702
+# This list is incomplete as only very few of these words need to be treated specially
+KEYWORD_ABILITIES = {
+    "boast",
+    "exhaust",
+    "forecast",
+    "foretell",
+}
 
 def _clean_flavor_ability(the_card):
     maybe_swap_words = FLAVOR_ABILITY_REGEX.findall(the_card["oracle_text"])
@@ -437,7 +480,7 @@ def _clean_flavor_ability(the_card):
         if this_word in {"i", "ii", "iii", "iv", "v"}:
             # In some cases roman numerals are formatted like ability words
             continue
-        if this_word in ABILITY_WORDS:
+        if this_word in ABILITY_WORDS or this_word in KEYWORD_ABILITIES:
             # Do not swap out words defined by the rules
             continue
         if "choose one" in this_word:

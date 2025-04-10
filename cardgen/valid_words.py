@@ -3,12 +3,10 @@
 
 VALID_WORDS = {
     "h",  # Rage Extractor (generic phyrexian mana)
-    "absorb",  # Lymph Sliver
     "below",  # Cryptic Spires
     "continues",  # Titania's Song
     "ferret",  # Joven's Ferrets
     "fourth",  # Lost to Legend
-    "frenzy",  # Frenzy Sliver
     "generic",  # Jegantha, the Wellspring
     "group",  # The Celestial Toymaker
     "homelands",  # Apocalypse Chime
@@ -16,6 +14,7 @@ VALID_WORDS = {
     "make",  # Gilded Drake
     "match",  # Expert-Level Safe
     "mulligan",  # Serum Powder
+    "ninety",  # Hundred-Handed One
     "over",  # Thrasta, Tempest's Roar
     "pairs",  # Niv-Mizzet Reborn
     "prevalent",  # Faceless Agent

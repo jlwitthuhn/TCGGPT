@@ -434,6 +434,9 @@ ABILITY_WORDS = {
 def _clean_flavor_ability(the_card):
     maybe_swap_words = FLAVOR_ABILITY_REGEX.findall(the_card["oracle_text"])
     for this_word in maybe_swap_words:
+        if this_word in {"i", "ii", "iii", "iv", "v"}:
+            # In some cases roman numerals are formatted like ability words
+            continue
         if this_word in ABILITY_WORDS:
             # Do not swap out words defined by the rules
             continue

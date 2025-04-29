@@ -411,6 +411,11 @@ VERBS["unlocked"] = "unlock `ed"
 def _clean_special_words(the_card):
     for word in PLURALS:
         if word in the_card["oracle_text"]:
+            # Do not clean this word if it is immediately followed by a letter
+            # This is needed to stop the keyword 'demonstrate' from being treated like 'demons' and similar
+            next_index = the_card["oracle_text"].find(word) + len(word)
+            if next_index < len(the_card["oracle_text"]) and the_card["oracle_text"][next_index].isalpha():
+                continue
             the_card["oracle_text"] = the_card["oracle_text"].replace(
                 word, PLURALS[word]
             )

@@ -7,7 +7,6 @@ import mlx.core as mx
 from dataclasses import dataclass
 
 from mlx import nn, utils
-from mlx.core import Dtype
 
 BASE_WIDTH = 72
 
@@ -15,7 +14,7 @@ BASE_WIDTH = 72
 @dataclass
 class ModelConfig:
     block_size: int = 160
-    vocab_size: int = None
+    vocab_size: int | None = None
     n_embd: int = BASE_WIDTH
     n_head: int = 4
     n_layer: int = 3
@@ -65,7 +64,7 @@ class SelfAttention(nn.Module):
         self.resid_dropout = nn.Dropout(config.dropout)
 
         # Mask for -inf values
-        self._mask = mx.tri(config.block_size, config.block_size)
+        self._mask = mx.tri(config.block_size, config.block_size, 0)
         self._mask = self._mask.reshape(1, 1, config.block_size, config.block_size)
 
     def __call__(self, x: mx.array):
@@ -170,6 +169,7 @@ class Block(nn.Module):
 
 class CardModel(nn.Module):
 
+    @staticmethod
     def load_file(path: str):
         params = utils.tree_unflatten(list(mx.load(path).items()))
         model_config = ModelConfig()
@@ -213,7 +213,7 @@ class CardModel(nn.Module):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         mx.save_safetensors(path, dict(utils.tree_flatten(params)))
 
-    def __init__(self, seed: int, config: ModelConfig):
+    def __init__(self, seed: int | None, config: ModelConfig):
         super().__init__()
         assert config.vocab_size is not None
         self.config = config

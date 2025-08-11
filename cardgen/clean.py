@@ -35,9 +35,6 @@ SPECIAL_CASES["auditore ambush"] = [
 SPECIAL_CASES["awakening of vitu-ghazi"] = [
     ("vitu-ghazi", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["axelrod gunnarson"] = [
-    ("axelrod", SELF),
-]
 SPECIAL_CASES["basri's aegis"] = [
     ("basri, devoted paladin", NAMED_CARD),
 ]
@@ -65,7 +62,6 @@ SPECIAL_CASES["dragonstorm forecaster"] = [
     ("boulderborn dragon", NAMED_CARD),
 ]
 SPECIAL_CASES["drizzt do'urden"] = [
-    ("drizzt", SELF),
     ("guenhwyvar", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["ellivere of the wild court"] = [
@@ -521,21 +517,34 @@ def clean_card(the_card, lite_clean: bool, plural_type_map: dict[str, str]):
     # Replace names first before further cleaning up strings
     the_card["oracle_text"] = the_card["oracle_text"].replace(the_card["name"], "~")
 
-    # Some cards have a name of the form "Name, Title"
-    if "," in the_card["name"]:
-        comma_index = the_card["name"].find(",")
-        short_name = the_card["name"][:comma_index]
-        the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
-    # Other cards have a name like "Name of the Thing"
-    elif " of the " in the_card["name"]:
-        of_index = the_card["name"].find(" of the ")
-        short_name = the_card["name"][:of_index]
-        the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
-    # Or "Name the Title"
-    elif " the " in the_card["name"]:
-        the_index = the_card["name"].find(" the ")
-        short_name = the_card["name"][:the_index]
-        the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
+    if (
+        "Artifact" in the_card["type_line"]
+        or "Creature" in the_card["type_line"]
+        or "Land" in the_card["type_line"]
+        or "Planeswalker" in the_card["type_line"]
+    ):
+        # Some cards have a name of the form "Name, Title"
+        if "," in the_card["name"]:
+            comma_index = the_card["name"].find(",")
+            short_name = the_card["name"][:comma_index]
+            the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
+        # Other cards have a name like "Name of the Thing"
+        elif " of the " in the_card["name"]:
+            of_index = the_card["name"].find(" of the ")
+            short_name = the_card["name"][:of_index]
+            the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
+        # Or "Name the Title"
+        elif " the " in the_card["name"]:
+            the_index = the_card["name"].find(" the ")
+            short_name = the_card["name"][:the_index]
+            the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
+        elif "Legendary Creature" in the_card["type_line"] and " " in the_card["name"]:
+            name_list = the_card["name"].split()
+            if len(name_list) == 2 and name_list[0] not in the_card["type_line"]:
+                short_name = name_list[0]
+                the_card["oracle_text"] = the_card["oracle_text"].replace(
+                    short_name, "~"
+                )
 
     # Standard cleanup
     the_card["mana_cost"] = the_card["mana_cost"].lower()

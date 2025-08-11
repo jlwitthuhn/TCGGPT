@@ -20,6 +20,9 @@ SPECIAL_CASES["ajani, strength of the pride"] = [
 SPECIAL_CASES["angel's herald"] = [
     ("empyrial archangel", NAMED_CARD),
 ]
+SPECIAL_CASES["arachnus spinner"] = [
+    ("arachnus web", NAMED_CARD),
+]
 SPECIAL_CASES["arbiter of the ideal"] = [
     ("manifestation", UNIQUE_COUNTER),
 ]
@@ -106,6 +109,9 @@ SPECIAL_CASES["gideon's resolve"] = [
 SPECIAL_CASES["goldmeadow lookout"] = [
     ("goldmeadow harrier", NAMED_PERMANENT),
 ]
+SPECIAL_CASES["grasping current"] = [
+    ("jace, ingenious mind-mage", NAMED_CARD),
+]
 SPECIAL_CASES["helm of kaldra"] = [
     ("sword of kaldra", NAMED_CARD),
     ("shield of kaldra", NAMED_CARD),
@@ -143,6 +149,9 @@ SPECIAL_CASES["koma, world-eater"] = [
 SPECIAL_CASES["kyscu drake"] = [
     ("spitting drake", NAMED_PERMANENT),
     ("viashivan dragon", NAMED_CARD),
+]
+SPECIAL_CASES["liliana's scorn"] = [
+    ("liliana, death mage", NAMED_CARD),
 ]
 SPECIAL_CASES["lita, mechanical engineer"] = [
     ("zeppelin", NAMED_PERMANENT),
@@ -379,6 +388,7 @@ VERBS["revealed"] = "reveal `ed"
 VERBS["reveals"] = "reveal `s"
 VERBS["rolls"] = "roll `s"
 VERBS["seeks"] = "seek `s"
+VERBS["spending"] = "spend `ing"
 VERBS["spliced"] = "splice `ed"
 VERBS["suspended"] = "suspend `ed"
 VERBS["tapped"] = "tap `ed"

@@ -4,7 +4,6 @@ from cardgen.card_model import CardModel
 from cardgen.clean import unclean_text
 from cardgen.tokenizer import CardTokenizer
 
-
 if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser(
         description="Run inference for a cardgen model",

@@ -4,8 +4,7 @@ import sys
 import matplotlib.pyplot as plt
 
 from cardgen.card_model import ModelConfig
-from cardgen.trainer import train_card_model
-from cardgen.trainer import TrainingConfig, TrainingOutput
+from cardgen.trainer import TrainingConfig, TrainingOutput, train_card_model
 
 
 def write_output(

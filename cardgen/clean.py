@@ -414,7 +414,10 @@ def _clean_special_words(the_card):
             # Do not clean this word if it is immediately followed by a letter
             # This is needed to stop the keyword 'demonstrate' from being treated like 'demons' and similar
             next_index = the_card["oracle_text"].find(word) + len(word)
-            if next_index < len(the_card["oracle_text"]) and the_card["oracle_text"][next_index].isalpha():
+            if (
+                next_index < len(the_card["oracle_text"])
+                and the_card["oracle_text"][next_index].isalpha()
+            ):
                 continue
             the_card["oracle_text"] = the_card["oracle_text"].replace(
                 word, PLURALS[word]
@@ -442,7 +445,7 @@ def _clean_special_words(the_card):
 
 
 FLAVOR_ABILITY_REGEX = re.compile(
-     # Prefix                Keyword                ' -- '
+    # Prefix                Keyword                ' -- '
     r"(?:^|(?:\|\s(?:\*\s)?))([a-zA-Z0-9'\s\.!\?\-]+)\s\-\-\s"
 )
 
@@ -478,6 +481,7 @@ KEYWORD_ABILITIES = {
     "forecast",
     "foretell",
 }
+
 
 def _clean_flavor_ability(the_card):
     maybe_swap_words = FLAVOR_ABILITY_REGEX.findall(the_card["oracle_text"])

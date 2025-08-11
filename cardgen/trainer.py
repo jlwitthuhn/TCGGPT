@@ -1,13 +1,12 @@
 import dataclasses
 import math
 import random
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
 
 import mlx.core as mx
 import mlx.nn as nn
 import mlx.optimizers as optimizers
-
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
 from tqdm import tqdm
 
 from cardgen.card_model import CardModel, ModelConfig

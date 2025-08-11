@@ -1,5 +1,4 @@
 import json
-
 from typing import Dict, Union
 
 from cardgen.valid_words import VALID_WORDS

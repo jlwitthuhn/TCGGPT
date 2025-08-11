@@ -41,11 +41,13 @@ def is_card_valid(maybe_card):
         and isinstance(maybe_card["set_type"], str)
     )
 
+
 ALLOWED_LAYOUTS = {
     "mutate",
     "normal",
     "saga",
 }
+
 
 def is_card_eligible(maybe_card):
     result = True

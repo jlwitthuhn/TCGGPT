@@ -1,11 +1,9 @@
 import dataclasses
 import math
 import os
-
-import mlx.core as mx
-
 from dataclasses import dataclass
 
+import mlx.core as mx
 from mlx import nn, utils
 
 BASE_WIDTH = 72
@@ -173,20 +171,20 @@ class CardModel(nn.Module):
     def load_file(path: str):
         params = utils.tree_unflatten(list(mx.load(path).items()))
         model_config = ModelConfig()
-        model_config.block_size = params["cfg_block_size"].item()
-        model_config.vocab_size = params["cfg_vocab_size"].item()
-        model_config.n_embd = params["cfg_n_embd"].item()
-        model_config.n_head = params["cfg_n_head"].item()
-        model_config.n_layer = params["cfg_n_layer"].item()
-        model_config.n_ff_inner = params["cfg_n_ff_inner"].item()
-        model_config.dropout = params["cfg_dropout"].item()
-        model_config.bias = params["cfg_bias"].item()
-        model_config.weight_tying = params["cfg_weight_tying"].item()
-        model_config.swiglu = params["cfg_swiglu"].item()
-        model_config.rope = params["cfg_rope"].item()
-        model_config.rope_base = params["cfg_rope_base"].item()
-        model_config.bf16_attn = params["cfg_bf16_attn"].item()
-        model_config.bf16_tfm_ff = params["cfg_bf16_tfm_ff"].item()
+        model_config.block_size = params.pop("cfg_block_size").item()
+        model_config.vocab_size = params.pop("cfg_vocab_size").item()
+        model_config.n_embd = params.pop("cfg_n_embd").item()
+        model_config.n_head = params.pop("cfg_n_head").item()
+        model_config.n_layer = params.pop("cfg_n_layer").item()
+        model_config.n_ff_inner = params.pop("cfg_n_ff_inner").item()
+        model_config.dropout = params.pop("cfg_dropout").item()
+        model_config.bias = params.pop("cfg_bias").item()
+        model_config.weight_tying = params.pop("cfg_weight_tying").item()
+        model_config.swiglu = params.pop("cfg_swiglu").item()
+        model_config.rope = params.pop("cfg_rope").item()
+        model_config.rope_base = params.pop("cfg_rope_base").item()
+        model_config.bf16_attn = params.pop("cfg_bf16_attn").item()
+        model_config.bf16_tfm_ff = params.pop("cfg_bf16_tfm_ff").item()
 
         model = CardModel(None, model_config)
         model.update(params)

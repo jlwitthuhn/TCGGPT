@@ -442,8 +442,8 @@ def _clean_special_words(the_card):
 
 
 FLAVOR_ABILITY_REGEX = re.compile(
-    # Prefix                Keyword                ' -- '
-    "(?:^|(?:\|\s(?:\*\s)?))([a-zA-Z0-9'\s\.!\?\-]+)\s\-\-\s"
+     # Prefix                Keyword                ' -- '
+    r"(?:^|(?:\|\s(?:\*\s)?))([a-zA-Z0-9'\s\.!\?\-]+)\s\-\-\s"
 )
 
 # Defined in comprehensive rules 207.2c
@@ -496,7 +496,7 @@ def _clean_flavor_ability(the_card):
     return the_card
 
 
-PARTNER_REGEX = re.compile("partner with ([a-zA-Z0-9,\-\s]+?)\s+[\|$]")
+PARTNER_REGEX = re.compile(r"partner with ([a-zA-Z0-9,\-\s]+?)\s+[\|$]")
 
 
 def _clean_partner(the_card):
@@ -538,7 +538,7 @@ def clean_card(the_card, lite_clean: bool):
         unidecode(the_card["oracle_text"]).lower().replace("\n", " | ")
     )
     # Remove reminder text
-    the_card["oracle_text"] = re.sub("\(.*?\)", "", the_card["oracle_text"])
+    the_card["oracle_text"] = re.sub(r"\(.*?\)", "", the_card["oracle_text"])
 
     if not lite_clean:
         the_card = _clean_partner(the_card)

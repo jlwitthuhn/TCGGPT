@@ -54,6 +54,9 @@ SPECIAL_CASES["catti-brie of mithral hall"] = [
 SPECIAL_CASES["chandra's outburst"] = [
     ("chandra, bold pyromancer", NAMED_PERMANENT),
 ]
+SPECIAL_CASES["dark supplicant"] = [
+    ("scion of darkness", NAMED_CARD),
+]
 SPECIAL_CASES["denry klin, editor in chief"] = [
     ("denry", SELF),
 ]
@@ -314,6 +317,7 @@ PLURALS["battles"] = "battle *s"
 PLURALS["deck"] = "deck *s"
 PLURALS["doors"] = "door *s"
 PLURALS["permanents"] = "permanent *s"
+PLURALS["teammates"] = "teammate *s"
 PLURALS["upkeeps"] = "upkeep *s"
 
 PREFIXES = {}
@@ -329,6 +333,8 @@ VERBS = {}
 VERBS["antes"] = "ante `s"
 VERBS["attacking"] = "attack `ing"
 VERBS["bargained"] = "bargain `ed"
+VERBS["begins"] = "begin `s"
+VERBS["begun"] = "begin `ed"
 VERBS["blocking"] = "block `ing"
 VERBS["caused"] = "cause `ed"
 VERBS["causes"] = "cause `s"
@@ -344,6 +350,7 @@ VERBS["dealing"] = "deal `ing"
 VERBS["devoured"] = "devour `ed"
 VERBS["discovered"] = "discover `ed"
 VERBS["discovers"] = "discover `s"
+VERBS["divided"] = "divide `ed"
 VERBS["drawing"] = "draw `ing"
 VERBS["draws"] = "draw `s"
 VERBS["embalmed"] = "embalm `ed"
@@ -388,6 +395,8 @@ VERBS["spending"] = "spend `ing"
 VERBS["spliced"] = "splice `ed"
 VERBS["suspended"] = "suspend `ed"
 VERBS["tapped"] = "tap `ed"
+VERBS["training"] = "train `ing"
+VERBS["trains"] = "train `s"
 VERBS["turning"] = "turn `ing"
 VERBS["unlocked"] = "unlock `ed"
 

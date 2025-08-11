@@ -5,6 +5,7 @@ VALID_WORDS = {
     "h",  # Rage Extractor (generic phyrexian mana)
     "below",  # Cryptic Spires
     "continues",  # Titania's Song
+    "custodes",  # Vexilus Praetor
     "ferret",  # Joven's Ferrets
     "fourth",  # Lost to Legend
     "generic",  # Jegantha, the Wellspring
@@ -24,8 +25,10 @@ VALID_WORDS = {
     "recently",  # Mana Maze
     "smaller",  # Snowblind
     "some",  # Illusionary Mask
+    "teammate",  # Imperial Mask
     "tenth",  # Legate Lanius, Caesar's Ace
     "walrus",  # Bronze Walrus
+    "waterbend",  # ? Yue, the Moon Spirit
     "yourself",  # Lae'zel, Vlaakith's Champion
     "zero",  # The Biblioplex
 }

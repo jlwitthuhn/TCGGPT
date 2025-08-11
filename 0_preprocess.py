@@ -82,6 +82,41 @@ def write_name(out_file, the_card):
     out_file.write(the_card["name"].lower() + "\n")
 
 
+TYPES_EXCLUDED: list[str] = ["control", "the", "will"]
+
+
+def get_plural_type_mapping(card_list: list) -> dict[str, str]:
+    potential_types: set[str] = set()
+    for this_card in card_list:
+        if "—" not in this_card["type_line"]:
+            continue
+        dash_index = this_card["type_line"].find("—")
+        before_dash = this_card["type_line"][:dash_index].lower().strip()
+        if before_dash == "planeswalker":
+            continue
+        after_dash = this_card["type_line"][dash_index + 1 :].lower().strip()
+        type_list = after_dash.split()
+        potential_types.update(type_list)
+    for to_exclude in TYPES_EXCLUDED:
+        potential_types.remove(to_exclude)
+    result: dict[str, str] = {}
+    for this_card in card_list:
+        if is_card_valid(this_card) == False or is_card_eligible(this_card) == False:
+            continue
+        to_remove: set[str] = set()
+        for this_type in potential_types:
+            if len(this_type) < 3:
+                to_remove.add(this_type)
+                continue
+            this_type_plural = this_type + "s"
+            if this_type_plural in this_card["oracle_text"].lower():
+                result[this_type_plural] = this_type + " *s"
+                to_remove.add(this_type)
+        for this_remove in to_remove:
+            potential_types.remove(this_remove)
+    return result
+
+
 def format_data(
     in_path: str, test_fraction: float, lite_clean: bool, omit_valid_words: bool
 ):
@@ -97,9 +132,13 @@ def format_data(
     random.seed(123456)
     random.shuffle(card_list)
 
+    print("Preprocessing types...")
+    plural_type_map = get_plural_type_mapping(card_list)
+
+    print("Processing...")
     for this_card in card_list:
         if is_card_valid(this_card) and is_card_eligible(this_card):
-            clean_card(this_card, lite_clean)
+            clean_card(this_card, lite_clean, plural_type_map)
             write_full(out_file_full, this_card)
             count = count + 1
             # Append to either train or test set

@@ -305,32 +305,10 @@ SPECIAL_TYPES["xenagos, the reveler"] = ("xenagos", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["zariel, archduke of avernus"] = ("zariel", UNIQUE_PLANESWALKER_TYPE)
 
 PLURALS = {}
-PLURALS["artifacts"] = "artifact *s"
-PLURALS["artificers"] = "artificer *s"
 PLURALS["battles"] = "battle *s"
-PLURALS["cards"] = "card *s"
-PLURALS["creatures"] = "creature *s"
 PLURALS["deck"] = "deck *s"
-PLURALS["demons"] = "demon *s"
-PLURALS["devils"] = "devil *s"
 PLURALS["doors"] = "door *s"
-PLURALS["enchantments"] = "enchantment *s"
-PLURALS["goats"] = "goat *s"
-PLURALS["goblins"] = "goblin *s"
-PLURALS["gorgons"] = "gorgon *s"
-PLURALS["imps"] = "imp *s"
 PLURALS["permanents"] = "permanent *s"
-PLURALS["planeswalkers"] = "planeswalker *s"
-PLURALS["rebels"] = "rebel *s"
-PLURALS["robots"] = "robot *s"
-PLURALS["rooms"] = "room *s"
-PLURALS["salamanders"] = "salamander *s"
-PLURALS["servos"] = "servo *s"
-PLURALS["snakes"] = "snake *s"
-PLURALS["shards"] = "shard *s"
-PLURALS["slivers"] = "sliver *s"
-PLURALS["thopters"] = "thopter *s"
-PLURALS["tieflings"] = "tiefling *s"
 PLURALS["upkeeps"] = "upkeep *s"
 
 PREFIXES = {}
@@ -408,7 +386,22 @@ VERBS["turning"] = "turn `ing"
 VERBS["unlocked"] = "unlock `ed"
 
 
-def _clean_special_words(the_card):
+def _clean_special_words(the_card, plural_type_map: dict[str, str]):
+
+    for word in plural_type_map:
+        if word in the_card["oracle_text"]:
+            # Do not clean this word if it is immediately followed by a letter
+            # This is needed to stop the keyword 'demonstrate' from being treated like 'demons' and similar
+            next_index = the_card["oracle_text"].find(word) + len(word)
+            if (
+                next_index < len(the_card["oracle_text"])
+                and the_card["oracle_text"][next_index].isalpha()
+            ):
+                continue
+            the_card["oracle_text"] = the_card["oracle_text"].replace(
+                word, plural_type_map[word]
+            )
+
     for word in PLURALS:
         if word in the_card["oracle_text"]:
             # Do not clean this word if it is immediately followed by a letter
@@ -510,7 +503,7 @@ def _clean_partner(the_card):
     return the_card
 
 
-def clean_card(the_card, lite_clean: bool):
+def clean_card(the_card, lite_clean: bool, plural_type_map: dict[str, str]):
     # Alchemy versions of cards start with 'A-', remove it
     if the_card["name"].startswith("A-"):
         the_card["name"] = the_card["name"][2:]
@@ -547,7 +540,7 @@ def clean_card(the_card, lite_clean: bool):
     if not lite_clean:
         the_card = _clean_partner(the_card)
         the_card = _clean_flavor_ability(the_card)
-        the_card = _clean_special_words(the_card)
+        the_card = _clean_special_words(the_card, plural_type_map)
 
     return the_card
 

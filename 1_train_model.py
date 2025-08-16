@@ -90,5 +90,5 @@ if __name__ == "__main__":
 
     result = train_card_model(label, train_config, model_config)
     write_output(series, label, model_config, train_config, result)
-    result.model.save_file(f"./model/{label}.safetensors")
-    result.tokenizer.save_file(f"./model/{label}.tokenizer")
+    result.model.save_file(f"./model/{series}/{label}.safetensors")
+    result.tokenizer.save_file(f"./model/{series}/{label}.tokenizer")

@@ -227,6 +227,9 @@ SPECIAL_CASES["smoke spirits' aid"] = [
 SPECIAL_CASES["sophia, dogged detective"] = [
     ("tiny", NAMED_PERMANENT),
 ]
+SPECIAL_CASES["sothera, the supervoid"] = [
+    ("sothera", SELF),
+]
 SPECIAL_CASES["sphinx's herald"] = [
     ("sphinx sovereign", NAMED_CARD),
 ]
@@ -287,6 +290,9 @@ SPECIAL_CASES["vraska's stoneglare"] = [
 SPECIAL_CASES["wall of kelp"] = [
     ("kelp", NAMED_PERMANENT),
 ]
+SPECIAL_CASES["weapons manufacturing"] = [
+    ("munitions", NAMED_PERMANENT),
+]
 SPECIAL_CASES["witness protection"] = [
     ("legitimate businessperson", NAMED_PERMANENT),
 ]
@@ -301,6 +307,7 @@ SPECIAL_CASES["zimone, all-questioning"] = [
 ]
 
 SPECIAL_TYPES = {}
+SPECIAL_TYPES["aminatou, the fateshifter"] = ("aminatou", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["arlinn, voice of the pack"] = ("arlinn", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["dakkon, shadow slayer"] = ("dakkon", UNIQUE_PLANESWALKER_TYPE)
 SPECIAL_TYPES["estrid, the masked"] = ("estrid", UNIQUE_PLANESWALKER_TYPE)
@@ -331,11 +338,16 @@ PREFIXES["untap"] = "un` tap"
 
 VERBS = {}
 VERBS["antes"] = "ante `s"
+VERBS["assigned"] = "assign `ed"
+VERBS["assigns"] = "assign `s"
 VERBS["attacking"] = "attack `ing"
 VERBS["bargained"] = "bargain `ed"
+VERBS["became"] = "become `ed"
+VERBS["becomes"] = "become `s"
 VERBS["begins"] = "begin `s"
 VERBS["begun"] = "begin `ed"
 VERBS["blocking"] = "block `ing"
+VERBS["came"] = "come `ed"
 VERBS["caused"] = "cause `ed"
 VERBS["causes"] = "cause `s"
 VERBS["championed"] = "champion `ed"
@@ -344,10 +356,13 @@ VERBS["changing"] = "change `ing"
 VERBS["circled"] = "circle `ed"
 VERBS["cloaks"] = "cloak `s"
 VERBS["connives"] = "connive `s"
+VERBS["controlled"] = "control `ed"
+VERBS["controls"] = "control `s"
 VERBS["crewed"] = "crew `ed"
 VERBS["crews"] = "crew `s"
 VERBS["dealing"] = "deal `ing"
 VERBS["devoured"] = "devour `ed"
+VERBS["discarded"] = "discard `ed"
 VERBS["discovered"] = "discover `ed"
 VERBS["discovers"] = "discover `s"
 VERBS["divided"] = "divide `ed"
@@ -362,10 +377,14 @@ VERBS["equipped"] = "equip `ed"
 VERBS["escaped"] = "escape `ed"
 VERBS["escapes"] = "escape `s"
 VERBS["evolves"] = "evolve `s"
+VERBS["exerted"] = "exert `ed"
 VERBS["exploited"] = "exploit `ed"
 VERBS["exploits"] = "exploit `s"
 VERBS["explores"] = "explore `s"
 VERBS["faced"] = "face `ed"
+VERBS["fought"] = "fight `ed"
+VERBS["fights"] = "fight `s"
+VERBS["flips"] = "flip `s"
 VERBS["foraging"] = "forage `ing"
 VERBS["foretelling"] = "foretell `ing"
 VERBS["foretold"] = "foretell `ed"
@@ -390,9 +409,13 @@ VERBS["renowned"] = "renown `ed"
 VERBS["revealed"] = "reveal `ed"
 VERBS["reveals"] = "reveal `s"
 VERBS["rolls"] = "roll `s"
+VERBS["sacrificed"] = "sacrifice `ed"
+VERBS["sacrifices"] = "sacrifice `s"
+VERBS["sacrificing"] = "sacrifice `ing"
 VERBS["seeks"] = "seek `s"
 VERBS["spending"] = "spend `ing"
 VERBS["spliced"] = "splice `ed"
+VERBS["starting"] = "start `ing"
 VERBS["suspended"] = "suspend `ed"
 VERBS["tapped"] = "tap `ed"
 VERBS["training"] = "train `ing"

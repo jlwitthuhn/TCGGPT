@@ -60,6 +60,7 @@ def is_card_eligible(maybe_card):
     result = result and maybe_card["border_color"] != "silver"
     result = result and maybe_card["set"] != "past"
     result = result and maybe_card["set"] != "pcel"
+    result = result and "stickers" not in maybe_card["type_line"].lower()
     if "promo_types" in maybe_card:
         result = result and "playtest" not in maybe_card["promo_types"]
     if "watermark" in maybe_card:

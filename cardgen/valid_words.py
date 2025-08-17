@@ -11,6 +11,9 @@ VALID_WORDS = {
     "generic",  # Jegantha, the Wellspring
     "group",  # The Celestial Toymaker
     "homelands",  # Apocalypse Chime
+    "illegal",  # Gilded Drake
+    "instance",  # Fatespinner
+    "llama",  # Restless Prairie
     "magic",  # Shahrazad
     "make",  # Gilded Drake
     "match",  # Expert-Level Safe
@@ -20,8 +23,8 @@ VALID_WORDS = {
     "pairs",  # Niv-Mizzet Reborn
     "prevalent",  # Faceless Agent
     "prime",  # Zimone, All-Questioning
-    "illegal",  # Gilded Drake
-    "instance",  # Fatespinner
+    "proceeding",  # Order of Succession
+    "radiation",  # Strong, the Brutish Thespian
     "recently",  # Mana Maze
     "smaller",  # Snowblind
     "some",  # Illusionary Mask

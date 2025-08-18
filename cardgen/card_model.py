@@ -81,13 +81,10 @@ class SelfAttention(nn.Module):
             q = self.rope(q)
             k = self.rope(k)
 
-        # k is transposed so dimensions are valid for (q @ k) matrix multiply
-        # First two dimensions are (batch, n_head) so we don't touch those
-        att = (q @ k.transpose([0, 1, 3, 2])) * (1.0 / math.sqrt(k.shape[-1]))
-        att = mx.where(self._mask[:, :, :T, :T] == 0, float("-inf"), att)
-        att = mx.softmax(att, axis=-1)
-        att = self.attn_dropout(att)
-        y = att @ v
+        v = self.attn_dropout(v)
+        y = mx.fast.scaled_dot_product_attention(
+            q, k, v, scale=(1.0 / math.sqrt(q.shape[-1])), mask="causal"
+        )
 
         # Un-swap T and n_head that we swapped earlier, then combine
         y = y.transpose([0, 2, 1, 3]).reshape(B, T, C)

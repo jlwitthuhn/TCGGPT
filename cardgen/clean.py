@@ -541,15 +541,17 @@ def _clean_partner(the_card):
     return the_card
 
 
-def clean_card(the_card, lite_clean: bool, plural_type_map: dict[str, str]):
+def clean_basic(the_card):
     # Alchemy versions of cards start with 'A-', remove it
     if the_card["name"].startswith("A-"):
         the_card["name"] = the_card["name"][2:]
 
     # Replace names first before further cleaning up strings
-    the_card["oracle_text"] = the_card["oracle_text"].replace(the_card["name"], "~")
+    if "oracle_text" in the_card:
+        the_card["oracle_text"] = the_card["oracle_text"].replace(the_card["name"], "~")
 
-    if (
+    # Sometimes we can automatically determine short name
+    if "oracle_text" in the_card and (
         "Artifact" in the_card["type_line"]
         or "Creature" in the_card["type_line"]
         or "Land" in the_card["type_line"]
@@ -570,6 +572,7 @@ def clean_card(the_card, lite_clean: bool, plural_type_map: dict[str, str]):
             the_index = the_card["name"].find(" the ")
             short_name = the_card["name"][:the_index]
             the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
+        # "Firstname Lastname"
         elif "Legendary Creature" in the_card["type_line"] and " " in the_card["name"]:
             name_list = the_card["name"].split()
             if len(name_list) == 2 and name_list[0] not in the_card["type_line"]:
@@ -579,19 +582,23 @@ def clean_card(the_card, lite_clean: bool, plural_type_map: dict[str, str]):
                 )
 
     # Standard cleanup
-    the_card["mana_cost"] = the_card["mana_cost"].lower()
+    if "mana_cost" in the_card:
+        the_card["mana_cost"] = the_card["mana_cost"].lower()
     the_card["type_line"] = unidecode(the_card["type_line"]).lower()
     the_card["name"] = unidecode(the_card["name"]).lower()
-    the_card["oracle_text"] = (
-        unidecode(the_card["oracle_text"]).lower().replace("\n", " | ")
-    )
-    # Remove reminder text
-    the_card["oracle_text"] = re.sub(r"\(.*?\)", "", the_card["oracle_text"])
+    if "oracle_text" in the_card:
+        # Replace newlines
+        the_card["oracle_text"] = (
+            unidecode(the_card["oracle_text"]).lower().replace("\n", " | ")
+        )
+        # Remove reminder text
+        the_card["oracle_text"] = re.sub(r"\(.*?\)", "", the_card["oracle_text"])
 
-    if not lite_clean:
-        the_card = _clean_partner(the_card)
-        the_card = _clean_flavor_ability(the_card)
-        the_card = _clean_special_words(the_card, plural_type_map)
+
+def clean_advanced(the_card, plural_type_map: dict[str, str]):
+    the_card = _clean_partner(the_card)
+    the_card = _clean_flavor_ability(the_card)
+    the_card = _clean_special_words(the_card, plural_type_map)
 
     return the_card
 

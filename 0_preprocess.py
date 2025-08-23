@@ -9,6 +9,7 @@ import sys
 
 from cardgen.clean import clean_advanced, clean_basic
 from cardgen.tokenizer import CardTokenizer
+from cardgen.trie import AlmostTrie
 
 # Cards with unique mechanics and words. Anything listed here is subjectively
 # 'too far' from a standard magic card to be useful in training.
@@ -119,6 +120,13 @@ def get_plural_type_mapping(card_list: list) -> dict[str, str]:
     return result
 
 
+def get_long_card_name_set(card_list: list) -> set[str]:
+    trie = AlmostTrie()
+    for this_card in card_list:
+        trie.add(this_card["name"])
+    return trie.to_set()
+
+
 def format_data(
     in_path: str, test_fraction: float, lite_clean: bool, omit_valid_words: bool
 ):
@@ -142,11 +150,14 @@ def format_data(
     print("Processing types...")
     plural_type_map = get_plural_type_mapping(card_list)
 
+    print("Processing names...")
+    name_set = get_long_card_name_set(card_list)
+
     print("Doing final filter and format...")
     for this_card in card_list:
         if is_card_valid(this_card) and is_card_eligible(this_card):
             if not lite_clean:
-                clean_advanced(this_card, plural_type_map)
+                clean_advanced(this_card, plural_type_map, name_set)
             write_full(out_file_full, this_card)
             count = count + 1
             # Append to either train or test set

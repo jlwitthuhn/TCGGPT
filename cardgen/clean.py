@@ -541,6 +541,12 @@ def _clean_partner(the_card):
     return the_card
 
 
+def _clean_named_cards(the_card, name_set: set[str]):
+    for this_name in name_set:
+        if this_name in the_card["oracle_text"]:
+            the_card["oracle_text"] = the_card["oracle_text"].replace(this_name, NAMED_CARD)
+
+
 def clean_basic(the_card):
     # Alchemy versions of cards start with 'A-', remove it
     if the_card["name"].startswith("A-"):
@@ -595,10 +601,11 @@ def clean_basic(the_card):
         the_card["oracle_text"] = re.sub(r"\(.*?\)", "", the_card["oracle_text"])
 
 
-def clean_advanced(the_card, plural_type_map: dict[str, str]):
+def clean_advanced(the_card, plural_type_map: dict[str, str], name_set: set[str]):
     the_card = _clean_partner(the_card)
     the_card = _clean_flavor_ability(the_card)
     the_card = _clean_special_words(the_card, plural_type_map)
+    the_card = _clean_named_cards(the_card, name_set)
 
     return the_card
 

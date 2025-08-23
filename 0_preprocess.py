@@ -182,6 +182,10 @@ def format_data(
     os.makedirs("./data/meta", exist_ok=True)
     tokenizer.write_stats("./data/meta/token_frequency.txt", omit_valid_words)
     print("Wrote data/meta/token_frequency.txt")
+    with open("./data/meta/filtered_names.txt", "w") as filtered_log:
+        for this_word in name_set:
+            filtered_log.write(f"{this_word}\n")
+    print("Wrote data/meta/filtered_names.txt")
 
 
 if __name__ == "__main__":

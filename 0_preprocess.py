@@ -142,7 +142,15 @@ def format_data(
     random.seed(123456)
     random.shuffle(card_list)
 
-    print("Performing basic reformatting...")
+    print("Filtering to eligible cards...")
+    card_list = [
+        the_card
+        for the_card in card_list
+        if is_card_valid(the_card) and is_card_eligible(the_card)
+    ]
+    print(f"Remaining: {len(card_list)} cards")
+
+    print("Performing basic clean...")
     for this_card in card_list:
         if is_card_valid(this_card) and is_card_eligible(this_card):
             clean_basic(this_card)
@@ -153,20 +161,19 @@ def format_data(
     print("Processing names...")
     name_set = get_long_card_name_set(card_list)
 
-    print("Doing final filter and format...")
+    print("Doing final clean...")
     for this_card in card_list:
-        if is_card_valid(this_card) and is_card_eligible(this_card):
-            if not lite_clean:
-                clean_advanced(this_card, plural_type_map, name_set)
-            write_full(out_file_full, this_card)
-            count = count + 1
-            # Append to either train or test set
-            len_test = len(cards_test)
-            len_all = len(cards_train) + len_test
-            if len_test / (len_all + 1) < test_fraction:
-                cards_test.append(this_card)
-            else:
-                cards_train.append(this_card)
+        if not lite_clean:
+            clean_advanced(this_card, plural_type_map, name_set)
+        write_full(out_file_full, this_card)
+        count = count + 1
+        # Append to either train or test set
+        len_test = len(cards_test)
+        len_all = len(cards_train) + len_test
+        if len_test / (len_all + 1) < test_fraction:
+            cards_test.append(this_card)
+        else:
+            cards_train.append(this_card)
     out_file_full.close()
     print("Wrote out " + str(count) + " valid cards")
     out_file_train = open("./data/train.txt", "w")

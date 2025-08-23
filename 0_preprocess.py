@@ -4,8 +4,8 @@
 
 import argparse
 import json
+import os
 import random
-import sys
 
 from cardgen.clean import clean_advanced, clean_basic
 from cardgen.tokenizer import CardTokenizer
@@ -178,8 +178,10 @@ def format_data(
         write_full(out_file_test, this_card)
     print(f"Test set: {len(cards_test)}")
     tokenizer = CardTokenizer("./data/full.txt")
-    tokenizer.write_stats("./data/token_frequency.txt", omit_valid_words)
-    print("Wrote token_frequency.txt")
+    print(f"Vocab size: {tokenizer.get_vocab_size()}")
+    os.makedirs("./data/meta", exist_ok=True)
+    tokenizer.write_stats("./data/meta/token_frequency.txt", omit_valid_words)
+    print("Wrote data/meta/token_frequency.txt")
 
 
 if __name__ == "__main__":

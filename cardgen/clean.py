@@ -544,7 +544,9 @@ def _clean_partner(the_card):
 def _clean_named_cards(the_card, name_set: set[str]):
     for this_name in name_set:
         if this_name in the_card["oracle_text"]:
-            the_card["oracle_text"] = the_card["oracle_text"].replace(this_name, NAMED_CARD)
+            the_card["oracle_text"] = the_card["oracle_text"].replace(
+                this_name, NAMED_CARD
+            )
 
 
 def clean_basic(the_card):

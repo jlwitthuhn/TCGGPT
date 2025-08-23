@@ -10,40 +10,14 @@ UNIQUE_COUNTER = "$unique_counter$"
 UNIQUE_PLANESWALKER_TYPE = "$unique_planeswalker_type$"
 
 SPECIAL_CASES = {}
-SPECIAL_CASES["agency outfitter"] = [
-    ("magnifying glass", NAMED_CARD),
-    ("thinking cap", NAMED_CARD),
-]
 SPECIAL_CASES["ajani, strength of the pride"] = [
     ("~'s pridemate", NAMED_PERMANENT),
-]
-SPECIAL_CASES["angel's herald"] = [
-    ("empyrial archangel", NAMED_CARD),
-]
-SPECIAL_CASES["arachnus spinner"] = [
-    ("arachnus web", NAMED_CARD),
 ]
 SPECIAL_CASES["arbiter of the ideal"] = [
     ("manifestation", UNIQUE_COUNTER),
 ]
-SPECIAL_CASES["ashiok's forerunner"] = [
-    ("ashiok, sculptor of fears", NAMED_CARD),
-]
-SPECIAL_CASES["auditore ambush"] = [
-    ("ezio, blade of vengeance", NAMED_CARD),
-]
 SPECIAL_CASES["awakening of vitu-ghazi"] = [
     ("vitu-ghazi", NAMED_PERMANENT),
-]
-SPECIAL_CASES["basri's aegis"] = [
-    ("basri, devoted paladin", NAMED_CARD),
-]
-SPECIAL_CASES["behemoth's herald"] = [
-    ("godsire", NAMED_CARD),
-]
-SPECIAL_CASES["bogbrew witch"] = [
-    ("festering newt", NAMED_CARD),
-    ("bubbling cauldron", NAMED_CARD),
 ]
 SPECIAL_CASES["boris devilboon"] = [
     ("minor demon", NAMED_PERMANENT),
@@ -54,15 +28,8 @@ SPECIAL_CASES["catti-brie of mithral hall"] = [
 SPECIAL_CASES["chandra's outburst"] = [
     ("chandra, bold pyromancer", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["dark supplicant"] = [
-    ("scion of darkness", NAMED_CARD),
-]
 SPECIAL_CASES["denry klin, editor in chief"] = [
     ("denry", SELF),
-]
-SPECIAL_CASES["dragonstorm forecaster"] = [
-    ("dragonstorm globe", NAMED_CARD),
-    ("boulderborn dragon", NAMED_CARD),
 ]
 SPECIAL_CASES["drizzt do'urden"] = [
     ("guenhwyvar", NAMED_PERMANENT),
@@ -76,25 +43,8 @@ SPECIAL_CASES["estrid, the masked"] = [
 SPECIAL_CASES["farid, enterprising salvager"] = [
     ("scrap", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["festering newt"] = [
-    ("bogbrew witch", NAMED_CARD),
-]
-SPECIAL_CASES["freyalise, skyshroud partisan"] = [
-    ("regal force", NAMED_CARD),
-]
-SPECIAL_CASES["garruk's warsteed"] = [
-    ("garruk, savage herald", NAMED_CARD),
-]
 SPECIAL_CASES["garth one-eye"] = [
-    ("disenchant", NAMED_CARD),
-    ("braingeyser", NAMED_CARD),
     ("terror", NAMED_CARD),
-    ("shivan dragon", NAMED_CARD),
-    ("regrowth", NAMED_CARD),
-    ("black lotus", NAMED_CARD),
-]
-SPECIAL_CASES["gate to the afterlife"] = [
-    ("god-pharaoh's gift", NAMED_CARD),
 ]
 SPECIAL_CASES["general kudro of drannith"] = [
     ("general kudro", SELF),
@@ -102,31 +52,17 @@ SPECIAL_CASES["general kudro of drannith"] = [
 SPECIAL_CASES["giant caterpillar"] = [
     ("butterfly", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["gideon's resolve"] = [
-    ("gideon, martial paragon", NAMED_CARD),
-]
 SPECIAL_CASES["goldmeadow lookout"] = [
     ("goldmeadow harrier", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["grasping current"] = [
-    ("jace, ingenious mind-mage", NAMED_CARD),
-]
 SPECIAL_CASES["helm of kaldra"] = [
-    ("sword of kaldra", NAMED_CARD),
-    ("shield of kaldra", NAMED_CARD),
     ("kaldra", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["inquisitor eisenhorn"] = [
     ("cherubael", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["jace's ruse"] = [
-    ("jace, arcane strategist", NAMED_CARD),
-]
 SPECIAL_CASES["jedit ojanen of efrava"] = [
     ("jedit ojanen", SELF),
-]
-SPECIAL_CASES["kassandra, eagle bearer"] = [
-    ("the spear of leonidas", NAMED_CARD),
 ]
 SPECIAL_CASES["kaya the inexorable"] = [
     ("ghostform", UNIQUE_COUNTER),
@@ -147,10 +83,6 @@ SPECIAL_CASES["koma, world-eater"] = [
 ]
 SPECIAL_CASES["kyscu drake"] = [
     ("spitting drake", NAMED_PERMANENT),
-    ("viashivan dragon", NAMED_CARD),
-]
-SPECIAL_CASES["liliana's scorn"] = [
-    ("liliana, death mage", NAMED_CARD),
 ]
 SPECIAL_CASES["lita, mechanical engineer"] = [
     ("zeppelin", NAMED_PERMANENT),
@@ -161,9 +93,6 @@ SPECIAL_CASES["llanowar mentor"] = [
 SPECIAL_CASES["mangara of corondor"] = [
     ("mangara", SELF),
 ]
-SPECIAL_CASES["marauding maulhorn"] = [
-    ("advocate of the beast", NAMED_CARD),
-]
 SPECIAL_CASES["murmuration"] = [
     ("storm crow", NAMED_PERMANENT),
 ]
@@ -173,50 +102,17 @@ SPECIAL_CASES["moira brown, guide author"] = [
 SPECIAL_CASES["nazahn, revered bladesmith"] = [
     ("hammer of ~", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["nissa's encouragement"] = [
-    ("brambleweft behemoth", NAMED_CARD),
-    ("nissa, genesis mage", NAMED_CARD),
-]
-SPECIAL_CASES["oko's hospitality"] = [
-    ("oko, the trickster", NAMED_CARD),
-]
 SPECIAL_CASES["overlord of the hauntwoods"] = [
     ("everywhere", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["phantasmal sphere"] = [
     ("orb", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["ral's dispersal"] = [
-    ("ral, caller of storms", NAMED_CARD),
-]
-SPECIAL_CASES["raven clan war-axe"] = [
-    ("eivor, battle-ready", NAMED_CARD),
-]
-SPECIAL_CASES["renowned weaponsmith"] = [
-    ("heart-piercer bow", NAMED_CARD),
-    ("vial of dragonfire", NAMED_CARD),
-]
 SPECIAL_CASES["replicating ring"] = [
     ("replicated ring", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["rowan's stalwarts"] = [
-    ("rowan, fearless sparkmage", NAMED_CARD),
-]
 SPECIAL_CASES["sharae of numbing depths"] = [
     ("sharae", SELF),
-]
-SPECIAL_CASES["shaun & rebecca, agents"] = [
-    ("the animus", NAMED_CARD),
-]
-SPECIAL_CASES["shield of kaldra"] = [
-    ("sword of kaldra", NAMED_CARD),
-    ("helm of kaldra", NAMED_CARD),
-]
-SPECIAL_CASES["shoreline scout"] = [
-    ("tropical island", NAMED_CARD),
-]
-SPECIAL_CASES["skophos maze-warden"] = [
-    ("labyrinth of skophos", NAMED_CARD),
 ]
 SPECIAL_CASES["sliversmith"] = [
     ("metallic sliver", NAMED_PERMANENT),
@@ -230,29 +126,17 @@ SPECIAL_CASES["sophia, dogged detective"] = [
 SPECIAL_CASES["sothera, the supervoid"] = [
     ("sothera", SELF),
 ]
-SPECIAL_CASES["sphinx's herald"] = [
-    ("sphinx sovereign", NAMED_CARD),
-]
 SPECIAL_CASES["splintering wind"] = [
     ("splinter", NAMED_PERMANENT),
 ]
 SPECIAL_CASES["summoning station"] = [
     ("pincher", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["teferi's wavecaster"] = [
-    ("teferi, timeless voyager", NAMED_CARD),
-]
 SPECIAL_CASES["tetravus"] = [
     ("tetravite", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["teyo, aegis adept"] = [
-    ("lumbering lightshield", NAMED_CARD),
-]
 SPECIAL_CASES["tezzeret the schemer"] = [
     ("etherium cell", NAMED_PERMANENT),
-]
-SPECIAL_CASES["tezzeret's betrayal"] = [
-    ("tezzeret, master of metal", NAMED_CARD),
 ]
 SPECIAL_CASES["the first doctor"] = [
     ("tardis", NAMED_CARD),
@@ -272,9 +156,6 @@ SPECIAL_CASES["tomb of urami"] = [
 SPECIAL_CASES["tooth and claw"] = [
     ("carnivore", NAMED_PERMANENT),
 ]
-SPECIAL_CASES["toralf's disciple"] = [
-    ("lightning bolt", NAMED_CARD),
-]
 SPECIAL_CASES["tuktuk the explorer"] = [
     ("tuktuk the returned", NAMED_PERMANENT),
 ]
@@ -283,9 +164,6 @@ SPECIAL_CASES["twitching doll"] = [
 ]
 SPECIAL_CASES["verix bladewing"] = [
     ("karox bladewing", NAMED_PERMANENT),
-]
-SPECIAL_CASES["vraska's stoneglare"] = [
-    ("vraska, regal gorgon", NAMED_CARD),
 ]
 SPECIAL_CASES["wall of kelp"] = [
     ("kelp", NAMED_PERMANENT),
@@ -298,9 +176,6 @@ SPECIAL_CASES["witness protection"] = [
 ]
 SPECIAL_CASES["xathrid gorgon"] = [
     ("petrification", UNIQUE_COUNTER),
-]
-SPECIAL_CASES["yanling's harbinger"] = [
-    ("mu yanling, celestial wind", NAMED_CARD),
 ]
 SPECIAL_CASES["zimone, all-questioning"] = [
     ("primo, the indivisible", NAMED_PERMANENT),
@@ -542,6 +417,9 @@ def _clean_partner(the_card):
 
 
 def _clean_named_cards(the_card, name_set: set[str]):
+    # In reverse order of length so we always replace the longer strings first
+    name_list: list[str] = list(name_set)
+    name_list.sort(key=len, reverse=True)
     for this_name in name_set:
         if this_name in the_card["oracle_text"]:
             the_card["oracle_text"] = the_card["oracle_text"].replace(

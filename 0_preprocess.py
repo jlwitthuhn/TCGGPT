@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import random
+import time
 
 from cardgen.clean import clean_advanced, clean_basic
 from cardgen.tokenizer import CardTokenizer
@@ -223,4 +224,8 @@ if __name__ == "__main__":
     )
     args = arg_parser.parse_args()
 
+    start_time = time.time()
     format_data(args.json_path, args.test, args.lite_clean, args.omit_valid_words)
+    end_time = time.time()
+    duration = end_time - start_time
+    print(f"Finished after {duration:.2f} seconds")

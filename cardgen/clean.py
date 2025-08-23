@@ -297,6 +297,22 @@ VERBS["training"] = "train `ing"
 VERBS["trains"] = "train `s"
 VERBS["turning"] = "turn `ing"
 VERBS["unlocked"] = "unlock `ed"
+# These are verbs too don't worry about it
+VERBS["landcycling"] = "land `cycling"
+VERBS["forestcycling"] = "forest `cycling"
+VERBS["islandcycling"] = "island `cycling"
+VERBS["mountaincycling"] = "mountain `cycling"
+VERBS["plainscycling"] = "plains `cycling"
+VERBS["swampcycling"] = "swamp `cycling"
+VERBS["landwalk"] = "land `walk"
+VERBS["forestwalk"] = "forest `walk"
+VERBS["islandwalk"] = "island `walk"
+VERBS["mountainwalk"] = "mountain `walk"
+VERBS["plainswalk"] = "plains `walk"
+VERBS["swampwalk"] = "swamp `walk"
+
+VERBS_LIST = list(VERBS)
+VERBS_LIST.sort(key=len, reverse=True)
 
 
 def _clean_special_words(the_card, plural_type_map: dict[str, str]):
@@ -335,7 +351,7 @@ def _clean_special_words(the_card, plural_type_map: dict[str, str]):
                 word, PREFIXES[word]
             )
 
-    for word in VERBS:
+    for word in VERBS_LIST:
         if word in the_card["oracle_text"]:
             the_card["oracle_text"] = the_card["oracle_text"].replace(word, VERBS[word])
 

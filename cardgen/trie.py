@@ -1,32 +1,31 @@
-# Like a trie but it doesn't track if intermediate-length strings are included
-
-
-class AlmostTrie:
-    children: dict[str, "AlmostTrie"]
+class Trie:
+    children: dict[str, "Trie"]
+    terminal: bool
 
     def __init__(self):
         self.children = {}
+        self.terminal = False
 
     def add(self, the_string: str) -> None:
         if len(the_string) == 0:
+            self.terminal = True
             return
         the_char = the_string[0]
         if the_char not in self.children:
-            self.children[the_char] = AlmostTrie()
+            self.children[the_char] = Trie()
         self.children[the_char].add(the_string[1:])
 
     def check(self, the_string: str) -> bool:
         if len(the_string) == 0:
-            return True
+            return self.terminal
         the_char = the_string[0]
         if the_char not in self.children:
             return False
         return self.children[the_char].check(the_string[1:])
 
     def accumulate_set(self, prefix: str, output_set: set[str]):
-        if len(self.children) == 0:
+        if self.terminal:
             output_set.add(prefix)
-            return
         for this_char, this_child in self.children.items():
             this_child.accumulate_set(prefix + this_char, output_set)
 

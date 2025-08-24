@@ -2,22 +2,27 @@ import argparse
 import random
 
 
-def print_random_card_from_file(path: str, count: int):
+def print_random_card_from_file(path: str, count: int, text: str):
     try:
         with open(path, "r") as file:
             lines = file.readlines()
             if len(lines) == 0:
                 print("The file is empty.")
                 return
-            for _ in range(count):
+            cards_generated = 0
+            while True:
                 this_card = random.choice(lines).strip()
-                this_card = this_card.replace("<NewCard> ", "--------\n")
-                this_card = this_card.replace("<Type> ", "<Type>\n")
-                this_card = this_card.replace("<ManaCost> ", "\n<ManaCost>\n")
-                this_card = this_card.replace("<Stats> ", "\n<Stats>\n")
-                this_card = this_card.replace("<Text> ", "\n<Text>\n")
-                this_card = this_card.replace("| ", "\n")
-                print(this_card)
+                if text is None or text in this_card:
+                    this_card = this_card.replace("<NewCard> ", "--------\n")
+                    this_card = this_card.replace("<Type> ", "<Type>\n")
+                    this_card = this_card.replace("<ManaCost> ", "\n<ManaCost>\n")
+                    this_card = this_card.replace("<Stats> ", "\n<Stats>\n")
+                    this_card = this_card.replace("<Text> ", "\n<Text>\n")
+                    this_card = this_card.replace("| ", "\n")
+                    print(this_card)
+                    cards_generated += 1
+                    if cards_generated >= count:
+                        break
     except FileNotFoundError:
         print(f"File '{path}' not found.")
     except Exception as e:
@@ -36,8 +41,11 @@ def main():
         type=int,
         help="Number of random cards to read",
     )
+    arg_parser.add_argument(
+        "--text", type=str, help="Only find cards containing this value in their text"
+    )
     args = arg_parser.parse_args()
-    print_random_card_from_file(args.path, args.count)
+    print_random_card_from_file(args.path, args.count, args.text)
 
 
 if __name__ == "__main__":

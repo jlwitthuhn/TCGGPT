@@ -61,10 +61,10 @@ def clean_basic(the_card: dict):
         )
         # Remove reminder text
         the_card["oracle_text"] = re.sub(r"\(.*?\)", "", the_card["oracle_text"])
-
-
-def clean_partner(the_card: dict):
-    maybe_swap_words = _PARTNER_REGEX.findall(the_card["oracle_text"])
-    for this_word in maybe_swap_words:
-        the_card["oracle_text"] = the_card["oracle_text"].replace(this_word, NAMED_CARD)
+        # Replace partner name with generic token
+        maybe_swap_words = _PARTNER_REGEX.findall(the_card["oracle_text"])
+        for this_word in maybe_swap_words:
+            the_card["oracle_text"] = the_card["oracle_text"].replace(
+                this_word, NAMED_CARD
+            )
     return the_card

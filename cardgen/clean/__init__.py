@@ -1,6 +1,6 @@
 import re
 
-from .simple import clean_basic, clean_partner
+from .simple import clean_basic
 from .strings import (
     FLAVOR_ABILITY_WORD,
     NAMED_CARD,
@@ -444,7 +444,6 @@ def _clean_named_cards(the_card, name_set: set[str]):
 
 
 def clean_advanced(the_card, plural_type_map: dict[str, str], name_set: set[str]):
-    the_card = clean_partner(the_card)
     the_card = _clean_flavor_ability(the_card)
     the_card = _clean_special_words(the_card, plural_type_map)
     the_card = _clean_named_cards(the_card, name_set)

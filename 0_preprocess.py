@@ -128,7 +128,7 @@ NAME_FILTER_EXCLUDE = {
     "mountain",
     "sacrifice",
     "vigilance",
-    "white knight", # Used for creating white knight tokens
+    "white knight",  # Used for creating white knight tokens
 }
 
 

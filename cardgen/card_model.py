@@ -277,6 +277,9 @@ class CardModel(nn.Module):
     def generate(
         self, idx, *, max_new_tokens=150, end_token=None, temperature=1.0, topk=50
     ):
+        if temperature == 0.0:
+            topk = 1
+            temperature = 1.0
         if isinstance(idx, list):
             idx = mx.array(idx)
         for _ in range(max_new_tokens):

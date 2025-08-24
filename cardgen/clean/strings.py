@@ -1,0 +1,6 @@
+SELF = "~"
+FLAVOR_ABILITY_WORD = "$flavor_ability_word$"
+NAMED_CARD = "$named_card$"
+NAMED_PERMANENT = "$named_permanent$"
+UNIQUE_COUNTER = "$unique_counter$"
+UNIQUE_PLANESWALKER_TYPE = "$unique_planeswalker_type$"

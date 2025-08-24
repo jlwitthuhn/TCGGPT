@@ -123,11 +123,21 @@ def get_plural_type_mapping(card_list: list) -> dict[str, str]:
 
 NAME_FILTER_LENGTH_MIN: int = 8
 
+NAME_FILTER_EXCLUDE = {
+    "harmonize",
+    "mountain",
+    "sacrifice",
+    "vigilance",
+}
+
 
 def get_long_card_name_set(card_list: list) -> set[str]:
     trie = Trie()
     for this_card in card_list:
-        if len(this_card["name"]) >= NAME_FILTER_LENGTH_MIN:
+        if (
+            this_card["name"] not in NAME_FILTER_EXCLUDE
+            and len(this_card["name"]) >= NAME_FILTER_LENGTH_MIN
+        ):
             trie.add(this_card["name"])
     return trie.to_set()
 

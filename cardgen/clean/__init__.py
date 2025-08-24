@@ -1,5 +1,6 @@
 import re
 
+from .dynamic import clean_named_cards
 from .simple import clean_basic
 from .strings import (
     FLAVOR_ABILITY_WORD,
@@ -432,21 +433,10 @@ def _clean_flavor_ability(the_card):
     return the_card
 
 
-def _clean_named_cards(the_card, name_set: set[str]):
-    # In reverse order of length so we always replace the longer strings first
-    name_list: list[str] = list(name_set)
-    name_list.sort(key=len, reverse=True)
-    for this_name in name_set:
-        if this_name in the_card["oracle_text"]:
-            the_card["oracle_text"] = the_card["oracle_text"].replace(
-                this_name, NAMED_CARD
-            )
-
-
 def clean_advanced(the_card, plural_type_map: dict[str, str], name_set: set[str]):
     the_card = _clean_flavor_ability(the_card)
     the_card = _clean_special_words(the_card, plural_type_map)
-    the_card = _clean_named_cards(the_card, name_set)
+    the_card = clean_named_cards(the_card, name_set)
 
     return the_card
 

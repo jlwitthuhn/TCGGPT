@@ -121,28 +121,41 @@ def get_plural_type_mapping(card_list: list) -> dict[str, str]:
     return result
 
 
+def get_type_set(card_list: list) -> set[str]:
+    result = set()
+    for this_card in card_list:
+        if "type_line" in this_card:
+            full_type = this_card["type_line"]
+            dash_index = full_type.find("--")
+            before_dash_type: str = full_type[:dash_index]
+            after_dash_types: list[str] = full_type[dash_index + 3 :].split(" ")
+            result.add(before_dash_type)
+            for this_type in after_dash_types:
+                result.add(this_type)
+    return result
+
+
 NAME_FILTER_LENGTH_MIN: int = 8
 
 NAME_FILTER_EXCLUDE = {
-    "assembly-worker",  # Creature type
+    "fabricate",  # Keyword Ability (702)
     "harmonize",  # Keyword Ability (702)
     "join forces",  # Ability Word (207)
-    "lhurgoyf",  # Creature Type
     "lifelink",  # Keyword Ability (702)
-    "mountain",  # Basic land type
     "regenerate",  # Keyword Action (701)
     "sacrifice",  # Keyword Action (701)
-    "shapeshifter", # Creature type
-    "vigilance",
+    "start your engines!",  # Keyword Ability (702)
+    "vigilance",  # Keyword Ability (702)
     "white knight",  # Used for creating white knight tokens
 }
 
 
-def get_long_card_name_set(card_list: list) -> set[str]:
+def get_long_card_name_set(card_list: list, exclude_set: set[str]) -> set[str]:
     trie = Trie()
     for this_card in card_list:
         if (
-            this_card["name"] not in NAME_FILTER_EXCLUDE
+            this_card["name"] not in exclude_set
+            and this_card["name"] not in NAME_FILTER_EXCLUDE
             and len(this_card["name"]) >= NAME_FILTER_LENGTH_MIN
         ):
             trie.add(this_card["name"])
@@ -179,9 +192,10 @@ def format_data(
 
     print("Processing types...")
     plural_type_map = get_plural_type_mapping(card_list)
+    type_set = get_type_set(card_list)
 
     print("Processing names...")
-    name_set = get_long_card_name_set(card_list)
+    name_set = get_long_card_name_set(card_list, type_set)
 
     print("Doing final clean...")
     for this_card in card_list:

@@ -124,9 +124,15 @@ def get_plural_type_mapping(card_list: list) -> dict[str, str]:
 NAME_FILTER_LENGTH_MIN: int = 8
 
 NAME_FILTER_EXCLUDE = {
-    "harmonize",
-    "mountain",
-    "sacrifice",
+    "assembly-worker",  # Creature type
+    "harmonize",  # Keyword Ability (702)
+    "join forces",  # Ability Word (207)
+    "lhurgoyf",  # Creature Type
+    "lifelink",  # Keyword Ability (702)
+    "mountain",  # Basic land type
+    "regenerate",  # Keyword Action (701)
+    "sacrifice",  # Keyword Action (701)
+    "shapeshifter", # Creature type
     "vigilance",
     "white knight",  # Used for creating white knight tokens
 }

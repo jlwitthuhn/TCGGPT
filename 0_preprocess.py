@@ -9,7 +9,7 @@ import random
 import time
 
 from cardgen.clean import clean_advanced, clean_basic
-from cardgen.clean.mtg_keywords import KEYWORD_ACTIONS
+from cardgen.clean.mtg_keywords import KEYWORD_ABILITIES, KEYWORD_ACTIONS
 from cardgen.tokenizer import CardTokenizer
 from cardgen.trie import Trie
 
@@ -139,12 +139,7 @@ def get_type_set(card_list: list) -> set[str]:
 NAME_FILTER_LENGTH_MIN: int = 8
 
 NAME_FILTER_EXCLUDE = {
-    "fabricate",  # Keyword Ability (702)
-    "harmonize",  # Keyword Ability (702)
     "join forces",  # Ability Word (207)
-    "lifelink",  # Keyword Ability (702)
-    "start your engines!",  # Keyword Ability (702)
-    "vigilance",  # Keyword Ability (702)
     "white knight",  # Used for creating white knight tokens
 }
 
@@ -154,6 +149,7 @@ def get_long_card_name_set(card_list: list, exclude_set: set[str]) -> set[str]:
     for this_card in card_list:
         if (
             this_card["name"] not in exclude_set
+            and this_card["name"] not in KEYWORD_ABILITIES
             and this_card["name"] not in KEYWORD_ACTIONS
             and this_card["name"] not in NAME_FILTER_EXCLUDE
             and len(this_card["name"]) >= NAME_FILTER_LENGTH_MIN

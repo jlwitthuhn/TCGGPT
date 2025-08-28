@@ -139,8 +139,15 @@ def get_type_set(card_list: list) -> set[str]:
 NAME_FILTER_LENGTH_MIN: int = 8
 
 NAME_FILTER_EXCLUDE = {
+    "blessing",  # Part of "the city's blessing"
+    "black dragon",  # Token color+type
+    "blue dragon",  # Token color+type
     "join forces",  # Ability Word (207)
-    "white knight",  # Used for creating white knight tokens
+    "goblin wizard",  # Token types
+    "greed dragon",  # Token color+type
+    "red dragon",  # Token color+type
+    "start your engines",  # "start your engines" is a card and "start your engines!" is a keyword
+    "white knight",  # Token color+type
 }
 
 

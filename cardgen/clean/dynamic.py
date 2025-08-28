@@ -7,7 +7,7 @@ def clean_named_cards(the_card, name_set: set[str]):
     # In reverse order of length so we always replace the longer strings first
     name_list: list[str] = list(name_set)
     name_list.sort(key=len, reverse=True)
-    for this_name in name_set:
+    for this_name in name_list:
         if this_name in the_card["oracle_text"]:
             the_card["oracle_text"] = the_card["oracle_text"].replace(
                 this_name, NAMED_CARD
@@ -15,7 +15,9 @@ def clean_named_cards(the_card, name_set: set[str]):
 
 
 def clean_plural_types(the_card, plural_type_map: dict[str, str]):
-    for word in plural_type_map:
+    words_list = list(plural_type_map.keys())
+    words_list.sort(key=len, reverse=True)
+    for word in words_list:
         if word in the_card["oracle_text"]:
             # Do not clean this word if it is immediately followed by a letter
             # This is needed to stop the keyword 'demonstrate' from being treated like 'demons' and similar

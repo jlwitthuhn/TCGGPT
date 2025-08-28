@@ -93,8 +93,14 @@ _SPECIAL_CASES["moira brown, guide author"] = [
 _SPECIAL_CASES["nazahn, revered bladesmith"] = [
     ("hammer of ~", NAMED_PERMANENT),
 ]
+_SPECIAL_CASES["nesting dragon"] = [
+    ("dragon egg", NAMED_PERMANENT),
+]
 _SPECIAL_CASES["overlord of the hauntwoods"] = [
     ("everywhere", NAMED_PERMANENT),
+]
+_SPECIAL_CASES["palani's hatcher"] = [
+    ("dinosaur egg", NAMED_PERMANENT),
 ]
 _SPECIAL_CASES["phantasmal sphere"] = [
     ("orb", NAMED_PERMANENT),
@@ -122,6 +128,9 @@ _SPECIAL_CASES["splintering wind"] = [
 ]
 _SPECIAL_CASES["summoning station"] = [
     ("pincher", NAMED_PERMANENT),
+]
+_SPECIAL_CASES["svella, ice shaper"] = [
+    ("icy manalith", NAMED_PERMANENT),
 ]
 _SPECIAL_CASES["tetravus"] = [
     ("tetravite", NAMED_PERMANENT),

@@ -1,6 +1,6 @@
 # Cleaning algorithms that depend on data dynamically gathered from the dataset
 
-from .strings import NAMED_CARD
+from .strings import NAMED_CARD, UNIQUE_PLANESWALKER_TYPE
 
 
 def clean_named_cards(the_card, name_set: set[str]):
@@ -12,6 +12,15 @@ def clean_named_cards(the_card, name_set: set[str]):
             the_card["oracle_text"] = the_card["oracle_text"].replace(
                 this_name, NAMED_CARD
             )
+
+
+def clean_planeswalker_type(the_card, rare_planeswalker_set: set[str]):
+    PW_LINE: str = "legendary planeswalker -- "
+    if the_card["type_line"].startswith(PW_LINE):
+        type_end = the_card["type_line"][len(PW_LINE) :]
+        if type_end in rare_planeswalker_set:
+            the_card["type_line"] = PW_LINE + UNIQUE_PLANESWALKER_TYPE
+    return the_card
 
 
 def clean_plural_types(the_card, plural_type_map: dict[str, str]):

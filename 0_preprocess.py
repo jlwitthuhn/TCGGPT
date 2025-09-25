@@ -165,6 +165,27 @@ def get_long_card_name_set(card_list: list, exclude_set: set[str]) -> set[str]:
     return trie.to_set()
 
 
+def get_rare_planeswalker_set(card_list: list) -> set[str]:
+    counts = {}
+
+    def add_count(key: str):
+        if key in counts:
+            counts[key] = counts[key] + 1
+        else:
+            counts[key] = 1
+
+    for this_card in card_list:
+        PW_LINE: str = "legendary planeswalker -- "
+        if this_card["type_line"].startswith(PW_LINE):
+            end_index = len(PW_LINE)
+            add_count(this_card["type_line"][end_index:])
+    result = set()
+    for type, count in counts.items():
+        if count <= 2:
+            result.add(type)
+    return result
+
+
 def format_data(
     in_path: str, test_fraction: float, lite_clean: bool, omit_valid_words: bool
 ):
@@ -200,10 +221,13 @@ def format_data(
     print("Processing names...")
     name_set = get_long_card_name_set(card_list, type_set)
 
+    print("Processing planeswalkers...")
+    rare_planeswalker_set = get_rare_planeswalker_set(card_list)
+
     print("Doing final clean...")
     for this_card in card_list:
         if not lite_clean:
-            clean_advanced(this_card, plural_type_map, name_set)
+            clean_advanced(this_card, plural_type_map, name_set, rare_planeswalker_set)
         write_full(out_file_full, this_card)
         count = count + 1
         # Append to either train or test set

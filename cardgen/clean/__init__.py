@@ -1,10 +1,9 @@
 import re
 
-from .dynamic import clean_named_cards, clean_plural_types
+from .dynamic import clean_named_cards, clean_planeswalker_type, clean_plural_types
 from .simple import clean_basic
 from .special_text import clean_special_text
-from .special_type import clean_special_type
-from .strings import FLAVOR_ABILITY_WORD, UNIQUE_PLANESWALKER_TYPE
+from .strings import FLAVOR_ABILITY_WORD
 
 PLURALS = {}
 PLURALS["artifacts"] = "artifact *s"
@@ -169,7 +168,6 @@ def _clean_special_words(the_card, plural_type_map: dict[str, str]):
             the_card["oracle_text"] = the_card["oracle_text"].replace(word, VERBS[word])
 
     clean_special_text(the_card)
-    clean_special_type(the_card)
 
     return the_card
 
@@ -230,9 +228,10 @@ def _clean_flavor_ability(the_card):
     return the_card
 
 
-def clean_advanced(the_card, plural_type_map: dict[str, str], name_set: set[str]):
+def clean_advanced(the_card, plural_type_map: dict[str, str], name_set: set[str], rare_planeswalker_set: set[str]):
     the_card = _clean_flavor_ability(the_card)
     the_card = _clean_special_words(the_card, plural_type_map)
+    the_card = clean_planeswalker_type(the_card, rare_planeswalker_set)
     the_card = clean_named_cards(the_card, name_set)
 
     return the_card

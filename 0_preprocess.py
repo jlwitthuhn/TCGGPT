@@ -54,6 +54,7 @@ ALLOWED_LAYOUTS = {
 
 def is_card_eligible(maybe_card):
     result = True
+    result = result and "paper" in maybe_card["games"]
     result = result and maybe_card["layout"] in ALLOWED_LAYOUTS
     result = result and maybe_card["oversized"] != True
     result = result and maybe_card["set_type"] != "alchemy"

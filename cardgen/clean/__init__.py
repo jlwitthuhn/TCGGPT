@@ -1,5 +1,7 @@
 import re
 
+from cardgen.trie import Trie
+
 from .dynamic import clean_named_cards, clean_planeswalker_type, clean_plural_types
 from .simple import clean_basic
 from .special_text import clean_special_text
@@ -231,13 +233,13 @@ def _clean_flavor_ability(the_card):
 def clean_advanced(
     the_card,
     plural_type_map: dict[str, str],
-    name_set: set[str],
+    name_trie: Trie,
     rare_planeswalker_set: set[str],
 ):
     the_card = _clean_flavor_ability(the_card)
     the_card = _clean_special_words(the_card, plural_type_map)
     the_card = clean_planeswalker_type(the_card, rare_planeswalker_set)
-    the_card = clean_named_cards(the_card, name_set)
+    the_card = clean_named_cards(the_card, name_trie)
 
     return the_card
 

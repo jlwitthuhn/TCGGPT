@@ -151,7 +151,7 @@ NAME_FILTER_EXCLUDE = {
 }
 
 
-def get_long_card_name_set(card_list: list, exclude_set: set[str]) -> set[str]:
+def get_long_card_name_trie(card_list: list, exclude_set: set[str]) -> Trie:
     trie = Trie()
     for this_card in card_list:
         if (
@@ -162,7 +162,7 @@ def get_long_card_name_set(card_list: list, exclude_set: set[str]) -> set[str]:
             and len(this_card["name"]) >= NAME_FILTER_LENGTH_MIN
         ):
             trie.add(this_card["name"])
-    return trie.to_set()
+    return trie
 
 
 def get_rare_planeswalker_set(card_list: list) -> set[str]:
@@ -219,7 +219,7 @@ def format_data(
     type_set = get_type_set(card_list)
 
     print("Processing names...")
-    name_set = get_long_card_name_set(card_list, type_set)
+    name_trie = get_long_card_name_trie(card_list, type_set)
 
     print("Processing planeswalkers...")
     rare_planeswalker_set = get_rare_planeswalker_set(card_list)
@@ -227,7 +227,7 @@ def format_data(
     print("Doing final clean...")
     for this_card in card_list:
         if not lite_clean:
-            clean_advanced(this_card, plural_type_map, name_set, rare_planeswalker_set)
+            clean_advanced(this_card, plural_type_map, name_trie, rare_planeswalker_set)
         write_full(out_file_full, this_card)
         count = count + 1
         # Append to either train or test set

@@ -33,3 +33,39 @@ class Trie:
         result = set()
         self.accumulate_set("", result)
         return result
+
+    def replace_longest_match(self, full_string: str, replacement: str) -> (str, bool):
+        end_index: int = len(full_string)
+        best_index: int = 0
+        best_length: int = 0
+        for i in range(end_index):
+            match_length = self._find_match_beginning(full_string, replacement, i)
+            if match_length > best_length:
+                best_index = i
+                best_length = match_length
+        if best_length > 0:
+            return (
+                full_string[:best_index]
+                + replacement
+                + full_string[best_index + best_length :],
+                True,
+            )
+        else:
+            return full_string, False
+
+    # Returns the length of a match, 0 for no match
+    def _find_match_beginning(
+        self, full_string: str, replacement: str, index: int
+    ) -> int:
+        end_index: int = len(full_string)
+        match_length: int = 0
+        node: Trie = self
+        for i in range(index, end_index):
+            letter = full_string[i]
+            if letter in node.children:
+                node = node.children[letter]
+                if node.terminal:
+                    match_length = (i - index) + 1
+            else:
+                break
+        return match_length

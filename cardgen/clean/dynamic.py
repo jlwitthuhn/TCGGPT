@@ -1,17 +1,19 @@
 # Cleaning algorithms that depend on data dynamically gathered from the dataset
 
+from cardgen.trie import Trie
+
 from .strings import NAMED_CARD, UNIQUE_PLANESWALKER_TYPE
 
 
-def clean_named_cards(the_card, name_set: set[str]):
-    # In reverse order of length so we always replace the longer strings first
-    name_list: list[str] = list(name_set)
-    name_list.sort(key=len, reverse=True)
-    for this_name in name_list:
-        if this_name in the_card["oracle_text"]:
-            the_card["oracle_text"] = the_card["oracle_text"].replace(
-                this_name, NAMED_CARD
-            )
+def clean_named_cards(the_card, name_trie: Trie):
+    current_text = the_card["oracle_text"]
+    text_changed = True
+    while text_changed:
+        current_text, text_changed = name_trie.replace_longest_match(
+            current_text, NAMED_CARD
+        )
+    the_card["oracle_text"] = current_text
+    return the_card
 
 
 def clean_planeswalker_type(the_card, rare_planeswalker_set: set[str]):

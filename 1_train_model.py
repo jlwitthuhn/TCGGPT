@@ -60,7 +60,7 @@ if __name__ == "__main__":
     model_config.rope = True
     model_config.rope_base = 10000
     model_config.bf16_attn = True
-    model_config.bf16_tfm_ff = False
+    model_config.bf16_tfm_ff = True
 
     train_config = TrainingConfig()
     train_config.num_epochs = 100000

@@ -217,36 +217,34 @@ class CardModel(nn.Module):
             mx.random.seed(seed)
 
         # Define layers
-        self.transformer = {
-            "wte": nn.Embedding(config.vocab_size, config.n_embd),  # Token Embedding
-            "drop": nn.Dropout(config.dropout),  # Embedding dropout layer
-            "h": [Block(config) for _ in range(config.n_layer)],  # Transformer blocks
-            "ln_f": nn.RMSNorm(config.n_embd),
-        }
+        self.tfm_wte = nn.Embedding(config.vocab_size, config.n_embd)  # Token Embedding
+        self.tfm_drop = nn.Dropout(config.dropout)  # Embedding dropout
+        self.tfm_blocks = [Block(config) for _ in range(config.n_layer)]
+        self.tfm_ln_f = nn.RMSNorm(config.n_embd)  # Post-attention normalization
         if config.rope == False:
             # Learnable position embedding
-            self.transformer["wpe"] = nn.Embedding(config.block_size, config.n_embd)
+            self.tfm_wpe = nn.Embedding(config.block_size, config.n_embd)
 
         self.lm_head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
 
         if config.weight_tying:
-            self.transformer["wte"].weight = self.lm_head.weight
+            self.tfm_wte.weight = self.lm_head.weight
 
     def __call__(self, tokens_in: mx.array):
         B, T = tokens_in.shape
         assert T <= self.config.block_size
 
-        x = self.transformer["wte"](tokens_in)
+        x = self.tfm_wte(tokens_in)
 
         if self.config.rope == False:
             pos = mx.arange(0, T, 1, dtype=tokens_in.dtype)
-            pos_embd = self.transformer["wpe"](pos)
+            pos_embd = self.tfm_wpe(pos)
             x = x + pos_embd
 
-        x = self.transformer["drop"](x)
-        for block in self.transformer["h"]:
+        x = self.tfm_drop(x)
+        for block in self.tfm_blocks:
             x = block(x)
-        x = self.transformer["ln_f"](x)
+        x = self.tfm_ln_f(x)
         x = self.lm_head(x)
 
         return x
@@ -259,12 +257,12 @@ class CardModel(nn.Module):
         if self.config.rope == False:
             count_embedding += sum(
                 p.size
-                for _, p in utils.tree_flatten(self.transformer["wpe"].parameters())
+                for _, p in utils.tree_flatten(self.tfm_wpe.parameters())
             )
         if self.config.weight_tying == False:
             count_embedding += sum(
                 p.size
-                for _, p in utils.tree_flatten(self.transformer["wte"].parameters())
+                for _, p in utils.tree_flatten(self.tfm_wte.parameters())
             )
         return count_all - count_embedding
 

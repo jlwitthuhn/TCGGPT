@@ -22,6 +22,10 @@ ABILITY_WORDS = {
     "sweep",
     "tempting offer",
     "threshold",
+    "undergrowth",
+    "valiant",
+    "void",
+    "will of the council",
 }
 
 # Section 701

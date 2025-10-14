@@ -1,6 +1,29 @@
 # This is a complete list matching the MTG comprehensive rules as of
 # 2025-09-19
 
+# Section 207.2c
+ABILITY_WORDS = {
+    "battalion",
+    "bloodrush",
+    "channel",
+    "chroma",
+    "domain",
+    "fateful hour",
+    "grandeur",
+    "hellbent",
+    "heroic",
+    "imprint",
+    "join forces",
+    "kinship",
+    "landfall",
+    "metalcraft",
+    "morbid",
+    "radiance",
+    "sweep",
+    "tempting offer",
+    "threshold",
+}
+
 # Section 701
 KEYWORD_ACTIONS = {
     "activate",

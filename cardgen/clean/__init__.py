@@ -3,8 +3,7 @@ import re
 from cardgen.trie import Trie
 
 from .dynamic import clean_named_cards, clean_planeswalker_type, clean_plural_types
-from .mtg_keywords import KEYWORD_ABILITIES
-from .simple import clean_basic
+from .mtg_keywords import ABILITY_WORDS, KEYWORD_ABILITIES
 from .special_text import clean_special_text
 from .strings import FLAVOR_ABILITY_WORD
 
@@ -179,30 +178,6 @@ FLAVOR_ABILITY_REGEX = re.compile(
     # Prefix                Keyword                ' -- '
     r"(?:^|(?:\|\s(?:\*\s)?))([a-zA-Z0-9'\s\.!\?\-]+)\s\-\-\s"
 )
-
-# Defined in comprehensive rules 207.2c
-# Last updated 2024-08-02
-ABILITY_WORDS = {
-    "battalion",
-    "bloodrush",
-    "channel",
-    "chroma",
-    "domain",
-    "fateful hour",
-    "grandeur",
-    "hellbent",
-    "heroic",
-    "imprint",
-    "join forces",
-    "kinship",
-    "landfall",
-    "metalcraft",
-    "morbid",
-    "radiance",
-    "sweep",
-    "tempting offer",
-    "threshold",
-}
 
 
 def _clean_flavor_ability(the_card):

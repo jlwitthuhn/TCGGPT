@@ -1,3 +1,6 @@
+# This is a complete list matching the MTG comprehensive rules as of
+# 2025-09-19
+
 # Section 701
 KEYWORD_ACTIONS = {
     "activate",
@@ -63,6 +66,7 @@ KEYWORD_ACTIONS = {
     "forage",
     "manifest dread",
     "endure",
+    "harness",
 }
 
 # Section 702
@@ -247,4 +251,7 @@ KEYWORD_ABILITIES = {
     "tiered",
     "station",
     "warp",
+    "∞",
+    "mayhem",
+    "web-slinging",
 }

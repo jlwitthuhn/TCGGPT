@@ -231,9 +231,7 @@ def train_card_model(
         )
 
         loss, grads = loss_and_grad_fn(model, x, y)
-        optimizer_embed.update(
-            model.tfm_wte, grads.pop("tfm_wte")
-        )
+        optimizer_embed.update(model.tfm_wte, grads.pop("tfm_wte"))
         optimizer.update(model, grads)
 
         mx.eval(model.parameters(), optimizer.state, loss)

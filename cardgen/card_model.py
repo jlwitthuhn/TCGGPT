@@ -256,13 +256,11 @@ class CardModel(nn.Module):
         count_embedding = 0
         if self.config.rope == False:
             count_embedding += sum(
-                p.size
-                for _, p in utils.tree_flatten(self.tfm_wpe.parameters())
+                p.size for _, p in utils.tree_flatten(self.tfm_wpe.parameters())
             )
         if self.config.weight_tying == False:
             count_embedding += sum(
-                p.size
-                for _, p in utils.tree_flatten(self.tfm_wte.parameters())
+                p.size for _, p in utils.tree_flatten(self.tfm_wte.parameters())
             )
         return count_all - count_embedding
 

@@ -143,6 +143,7 @@ NAME_FILTER_EXCLUDE = {
     "blessing",  # Part of "the city's blessing"
     "black dragon",  # Token color+type
     "blue dragon",  # Token color+type
+    "cast out", # Use in the phrase "cast outlaw"
     "join forces",  # Ability Word (207)
     "goblin wizard",  # Token types
     "greed dragon",  # Token color+type

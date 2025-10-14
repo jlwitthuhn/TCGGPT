@@ -55,10 +55,15 @@ def clean_basic(the_card: dict):
     the_card["type_line"] = unidecode(the_card["type_line"]).lower()
     the_card["name"] = unidecode(the_card["name"]).lower()
     if "oracle_text" in the_card:
+        if "∞" in the_card["oracle_text"]:
+            # Sneak the infinity symbol past unidecode
+            the_card["oracle_text"] = the_card["oracle_text"].replace("∞", "~~inf~~")
         # Replace newlines
         the_card["oracle_text"] = (
             unidecode(the_card["oracle_text"]).lower().replace("\n", " | ")
         )
+        if "~~inf~~" in the_card["oracle_text"]:
+            the_card["oracle_text"] = the_card["oracle_text"].replace("~~inf~~", "∞")
         # Remove reminder text
         the_card["oracle_text"] = re.sub(r"\(.*?\)", "", the_card["oracle_text"])
         # Replace partner name with generic token

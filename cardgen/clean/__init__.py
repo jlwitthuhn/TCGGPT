@@ -4,6 +4,7 @@ from cardgen.trie import Trie
 
 from .dynamic import clean_named_cards, clean_planeswalker_type, clean_plural_types
 from .mtg_keywords import ABILITY_WORDS, KEYWORD_ABILITIES
+from .simple import clean_basic
 from .special_text import clean_special_text
 from .strings import FLAVOR_ABILITY_WORD
 

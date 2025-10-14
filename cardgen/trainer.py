@@ -215,6 +215,9 @@ def train_card_model(
     optimizer_embed = optimizers.AdamW(
         learning_rate=learn_rate, weight_decay=train_config.weight_decay_embed
     )
+    optimizer_head = optimizers.AdamW(
+        learning_rate=learn_rate, weight_decay=train_config.weight_decay_embed
+    )
     optimizer = optimizers.AdamW(
         learning_rate=learn_rate, weight_decay=train_config.weight_decay
     )
@@ -232,6 +235,7 @@ def train_card_model(
 
         loss, grads = loss_and_grad_fn(model, x, y)
         optimizer_embed.update(model.tfm_wte, grads.pop("tfm_wte"))
+        optimizer_head.update(model.lm_head, grads.pop("lm_head"))
         optimizer.update(model, grads)
 
         mx.eval(model.parameters(), optimizer.state, loss)

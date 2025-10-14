@@ -81,7 +81,7 @@ if __name__ == "__main__":
         print("Using full training...")
         label = "model_full"
         model_config.dropout = 0.25
-        train_config.num_epochs = 90000
+        train_config.num_epochs = 85000
     else:
         print("Using fast training...")
         label = "model"

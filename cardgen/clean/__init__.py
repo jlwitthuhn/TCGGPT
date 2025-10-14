@@ -3,6 +3,7 @@ import re
 from cardgen.trie import Trie
 
 from .dynamic import clean_named_cards, clean_planeswalker_type, clean_plural_types
+from .mtg_keywords import KEYWORD_ABILITIES
 from .simple import clean_basic
 from .special_text import clean_special_text
 from .strings import FLAVOR_ABILITY_WORD
@@ -201,15 +202,6 @@ ABILITY_WORDS = {
     "sweep",
     "tempting offer",
     "threshold",
-}
-
-# Defined in comprehensive rules section 702
-# This list is incomplete as only very few of these words need to be treated specially
-KEYWORD_ABILITIES = {
-    "boast",
-    "exhaust",
-    "forecast",
-    "foretell",
 }
 
 

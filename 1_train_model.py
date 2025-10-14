@@ -86,7 +86,7 @@ if __name__ == "__main__":
         print("Using fast training...")
         label = "model"
         model_config.dropout = 0.15
-        train_config.num_epochs = 20000
+        train_config.num_epochs = 25000
 
     result = train_card_model(label, train_config, model_config)
     write_output(series, label, model_config, train_config, result)

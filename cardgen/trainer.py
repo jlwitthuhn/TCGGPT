@@ -26,6 +26,7 @@ class TrainingConfig:
     eval_interval: int = 500
     eval_batch_count: int = 10
     eval_batch_size: int = 256
+    use_muon: bool = False
 
     def as_str(self, prefix: str = "") -> str:
         result = ""
@@ -218,9 +219,14 @@ def train_card_model(
     optimizer_head = optimizers.AdamW(
         learning_rate=learn_rate, weight_decay=train_config.weight_decay_embed
     )
-    optimizer = optimizers.AdamW(
-        learning_rate=learn_rate, weight_decay=train_config.weight_decay
-    )
+    if train_config.use_muon:
+        optimizer = optimizers.Muon(
+            learning_rate=learn_rate, weight_decay=train_config.weight_decay
+        )
+    else:
+        optimizer = optimizers.AdamW(
+            learning_rate=learn_rate, weight_decay=train_config.weight_decay
+        )
 
     time_begin = datetime.now()
     progress_bar = tqdm(range(train_config.num_epochs), desc=label)

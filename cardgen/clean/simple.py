@@ -40,6 +40,16 @@ def clean_basic(the_card: dict):
             the_index = the_card["name"].find(" the ")
             short_name = the_card["name"][:the_index]
             the_card["oracle_text"] = the_card["oracle_text"].replace(short_name, "~")
+        # "Name of Thing"
+        elif (
+            "Legendary Creature" in the_card["type_line"] and " of " in the_card["name"]
+        ):
+            name_list = the_card["name"].split()
+            if len(name_list) == 3 and name_list[0] not in the_card["type_line"]:
+                short_name = name_list[0]
+                the_card["oracle_text"] = the_card["oracle_text"].replace(
+                    short_name, "~"
+                )
         # "Firstname Lastname"
         elif "Legendary Creature" in the_card["type_line"] and " " in the_card["name"]:
             name_list = the_card["name"].split()

@@ -156,6 +156,9 @@ _SPECIAL_CASES["tomb of urami"] = [
 _SPECIAL_CASES["tooth and claw"] = [
     ("carnivore", NAMED_PERMANENT),
 ]
+_SPECIAL_CASES["triskelavus"] = [
+    ("triskelavite", NAMED_PERMANENT),
+]
 _SPECIAL_CASES["tuktuk the explorer"] = [
     ("tuktuk the returned", NAMED_PERMANENT),
 ]

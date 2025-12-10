@@ -20,6 +20,7 @@ FORBIDDEN_NAMES = {
     "Falling Star",
     "Fiery Gambit",
     "Goblin Game",
+    "Truth or Consequences",  # I just don't want to deal with cleaning this one
 }
 
 

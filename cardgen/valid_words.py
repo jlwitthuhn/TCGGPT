@@ -22,6 +22,7 @@ VALID_WORDS = {
     "over",  # Thrasta, Tempest's Roar
     "pairs",  # Niv-Mizzet Reborn
     "prevalent",  # Faceless Agent
+    "previous",  # Liesa, Shroud of Dusk
     "prime",  # Zimone, All-Questioning
     "proceeding",  # Order of Succession
     "radiation",  # Strong, the Brutish Thespian

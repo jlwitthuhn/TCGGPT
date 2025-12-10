@@ -193,7 +193,7 @@ def _clean_flavor_ability(the_card):
         if "choose one" in this_word:
             continue
         the_card["oracle_text"] = the_card["oracle_text"].replace(
-            this_word, FLAVOR_ABILITY_WORD
+            this_word + " ", FLAVOR_ABILITY_WORD + " "
         )
     return the_card
 

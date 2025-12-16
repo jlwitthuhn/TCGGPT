@@ -20,6 +20,7 @@ FORBIDDEN_NAMES = {
     "Falling Star",
     "Fiery Gambit",
     "Goblin Game",
+    "Steamflogger Boss",
     "Truth or Consequences",  # I just don't want to deal with cleaning this one
 }
 
@@ -67,6 +68,7 @@ def is_card_eligible(maybe_card):
     result = result and maybe_card["set"] != "pcel"
     result = result and "stickers" not in maybe_card["type_line"].lower()
     if "promo_types" in maybe_card:
+        result = result and "alchemy" not in maybe_card["promo_types"]
         result = result and "playtest" not in maybe_card["promo_types"]
     if "watermark" in maybe_card:
         result = result and maybe_card["watermark"] != "conspiracy"

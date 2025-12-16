@@ -1,6 +1,16 @@
-from .strings import NAMED_CARD, NAMED_PERMANENT, SELF, UNIQUE_COUNTER
+from .strings import (
+    NAMED_CARD,
+    NAMED_PERMANENT,
+    SELF,
+    UNIQUE_COUNTER,
+    UNIQUE_PLANESWALKER_TYPE,
+)
 
 _SPECIAL_CASES = {}
+# Remove this if a third basri is added
+_SPECIAL_CASES["adherent of hope"] = [
+    ("basri", UNIQUE_PLANESWALKER_TYPE),
+]
 _SPECIAL_CASES["ajani, strength of the pride"] = [
     ("~'s pridemate", NAMED_PERMANENT),
 ]
@@ -9,6 +19,9 @@ _SPECIAL_CASES["arbiter of the ideal"] = [
 ]
 _SPECIAL_CASES["awakening of vitu-ghazi"] = [
     ("vitu-ghazi", NAMED_PERMANENT),
+]
+_SPECIAL_CASES["behemoth's herald"] = [
+    ("godsire", NAMED_CARD),
 ]
 _SPECIAL_CASES["boris devilboon"] = [
     ("minor demon", NAMED_PERMANENT),

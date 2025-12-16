@@ -19,6 +19,7 @@ VALID_WORDS = {
     "match",  # Expert-Level Safe
     "mulligan",  # Serum Powder
     "ninety",  # Hundred-Handed One
+    "now",  # Portal Maniuplator
     "over",  # Thrasta, Tempest's Roar
     "pairs",  # Niv-Mizzet Reborn
     "prevalent",  # Faceless Agent
@@ -29,6 +30,7 @@ VALID_WORDS = {
     "recently",  # Mana Maze
     "smaller",  # Snowblind
     "some",  # Illusionary Mask
+    "subtract",  # The Deck of Many Things
     "teammate",  # Imperial Mask
     "tenth",  # Legate Lanius, Caesar's Ace
     "walrus",  # Bronze Walrus

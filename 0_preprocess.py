@@ -13,24 +13,12 @@ from cardgen.clean.mtg_keywords import KEYWORD_ABILITIES, KEYWORD_ACTIONS
 from cardgen.tokenizer import CardTokenizer
 from cardgen.trie import Trie
 
-# Cards with unique mechanics and words. Anything listed here is subjectively
-# 'too far' from a standard magic card to be useful in training.
-FORBIDDEN_NAMES = {
-    "Chaos Orb",
-    "Falling Star",
-    "Fiery Gambit",
-    "Goblin Game",
-    "Steamflogger Boss",
-    "Truth or Consequences",  # I just don't want to deal with cleaning this one
-}
-
 
 def is_card_valid(maybe_card):
     return (
         "id" in maybe_card
         and isinstance(maybe_card["id"], str)
         and "name" in maybe_card
-        and maybe_card["name"] not in FORBIDDEN_NAMES
         and isinstance(maybe_card["name"], str)
         and "layout" in maybe_card
         and isinstance(maybe_card["layout"], str)
@@ -53,11 +41,23 @@ ALLOWED_LAYOUTS = {
     "saga",
 }
 
+# Cards with unique mechanics and words. Anything listed here is subjectively
+# 'too far' from a standard magic card to be useful in training.
+FORBIDDEN_NAMES = {
+    "Chaos Orb",
+    "Falling Star",
+    "Fiery Gambit",
+    "Goblin Game",
+    "Steamflogger Boss",
+    "Truth or Consequences",  # I just don't want to deal with cleaning this one
+}
+
 
 def is_card_eligible(maybe_card):
     result = True
     result = result and "paper" in maybe_card["games"]
     result = result and maybe_card["layout"] in ALLOWED_LAYOUTS
+    result = result and maybe_card["name"] not in FORBIDDEN_NAMES
     result = result and maybe_card["oversized"] != True
     result = result and maybe_card["set_type"] != "alchemy"
     result = result and maybe_card["set_type"] != "funny"

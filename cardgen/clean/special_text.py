@@ -11,6 +11,9 @@ _SPECIAL_CASES = {}
 _SPECIAL_CASES["adherent of hope"] = [
     ("basri", UNIQUE_PLANESWALKER_TYPE),
 ]
+_SPECIAL_CASES["aisha of sparks and smoke"] = [
+    ("aisha", SELF),
+]
 _SPECIAL_CASES["ajani, strength of the pride"] = [
     ("~'s pridemate", NAMED_PERMANENT),
 ]
@@ -97,6 +100,9 @@ _SPECIAL_CASES["llanowar mentor"] = [
 _SPECIAL_CASES["mangara of corondor"] = [
     ("mangara", SELF),
 ]
+_SPECIAL_CASES["mishra, eminent one"] = [
+    ("~'s warform", NAMED_PERMANENT),
+]
 _SPECIAL_CASES["murmuration"] = [
     ("storm crow", NAMED_PERMANENT),
 ]
@@ -150,6 +156,9 @@ _SPECIAL_CASES["tetravus"] = [
 ]
 _SPECIAL_CASES["tezzeret the schemer"] = [
     ("etherium cell", NAMED_PERMANENT),
+]
+_SPECIAL_CASES["the eleventh hour"] = [
+    ("prisoner zero", NAMED_PERMANENT),
 ]
 _SPECIAL_CASES["the first doctor"] = [
     ("tardis", NAMED_CARD),

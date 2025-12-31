@@ -22,6 +22,7 @@ VALID_WORDS = {
     "now",  # Portal Maniuplator
     "over",  # Thrasta, Tempest's Roar
     "pairs",  # Niv-Mizzet Reborn
+    "phelddagrif",  # Questing Phelddagrif
     "prevalent",  # Faceless Agent
     "previous",  # Liesa, Shroud of Dusk
     "prime",  # Zimone, All-Questioning

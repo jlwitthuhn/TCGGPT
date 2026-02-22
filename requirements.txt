@@ -1,4 +1,4 @@
-matplotlib == 3.10.7
-mlx == 0.30.0
-tqdm == 4.67.1
+matplotlib == 3.10.8
+mlx == 0.30.6
+tqdm == 4.67.3
 unidecode == 1.4.0

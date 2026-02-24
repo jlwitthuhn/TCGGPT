@@ -6,6 +6,7 @@ VALID_WORDS = {
     "below",  # Cryptic Spires
     "continues",  # Titania's Song
     "custodes",  # Vexilus Praetor
+    "craft",  # Market Gnome
     "ferret",  # Joven's Ferrets
     "fourth",  # Lost to Legend
     "generic",  # Jegantha, the Wellspring
@@ -13,10 +14,12 @@ VALID_WORDS = {
     "homelands",  # Apocalypse Chime
     "illegal",  # Gilded Drake
     "instance",  # Fatespinner
+    "label",  # Raging River
     "llama",  # Restless Prairie
     "magic",  # Shahrazad
     "make",  # Gilded Drake
     "match",  # Expert-Level Safe
+    "minimum",  # Yorion, Sky Nomad
     "mulligan",  # Serum Powder
     "ninety",  # Hundred-Handed One
     "now",  # Portal Maniuplator
@@ -31,6 +34,7 @@ VALID_WORDS = {
     "recently",  # Mana Maze
     "smaller",  # Snowblind
     "some",  # Illusionary Mask
+    "stakes",  # Game of Chaos
     "subtract",  # The Deck of Many Things
     "teammate",  # Imperial Mask
     "tenth",  # Legate Lanius, Caesar's Ace
